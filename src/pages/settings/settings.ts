@@ -1,23 +1,20 @@
 import { Component } from '@angular/core';
-import { NavController, Platform } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
+import { NavController, Platform, AlertController } from 'ionic-angular';
 import { LoginStorage } from '../../providers/login-storage';
-import { SettingsPage } from '../settings/settings';
 
 /*
-  Generated class for the Login page.
+  Generated class for the Settings page.
 
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html',
+  selector: 'page-settings',
+  templateUrl: 'settings.html',
   providers: [ LoginStorage ]
 })
-export class LoginPage {
+export class SettingsPage {
 
-  settingsPage = SettingsPage;
   public username:string;
   public password:string;
   public readyToLogin:boolean;
@@ -57,6 +54,7 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
-    console.log('Hello LoginPage Page');
+    console.log('Hello SettingsPage Page');
   }
+
 }
