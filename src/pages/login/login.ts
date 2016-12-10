@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
-import { SecureStorage } from 'ionic-native';
 import { AlertController } from 'ionic-angular';
+import { LoginStorage } from '../../providers/login-storage';
 
 /*
   Generated class for the Login page.
@@ -11,66 +11,50 @@ import { AlertController } from 'ionic-angular';
 */
 @Component({
   selector: 'page-login',
-  templateUrl: 'login.html'
+  templateUrl: 'login.html',
+  providers: [ LoginStorage ]
 })
 export class LoginPage {
 
   public username:string;
   public password:string;
   public readyToLogin:boolean;
-  private secureStorage:SecureStorage;
+  private loginStorage:LoginStorage;
 
-  constructor(public navCtrl: NavController, platform:Platform, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, platform:Platform, public alertCtrl: AlertController, loginStorage: LoginStorage) {
     platform.ready().then(() => {
-      this.readyToLogin = false;
-	  this.secureStorage = new SecureStorage();
-	  this.secureStorage.create('pairing_app').then(
-	    () => {
-		  console.log('Storage is ready');
-		  
-		  this.secureStorage.get('loginDetails')
-		  .then(
-		    data => {
-			  console.log('data was'+data);
-			  let {u,p} = JSON.parse(data);
-			  this.username = u;
-			  this.password = p;
-			  this.login(true);
-			},
-			error => console.log(error)
-          );
-          this.readyToLogin = true;
-       },
-	   error => console.log(error)
-     );
-   });
+      this.loginStorage = loginStorage;
+      this.loginStorage.isReady(() => {
+        this.readyToLogin = true;
+        this.getSavedUser();
+      });
+    });
   }
   
   showAlert(title: string, subTitle: string) {
     let alert = this.alertCtrl.create({
-	  title: title,
-	  subTitle: subTitle,
-	  buttons: ['OK']
-	});
-	alert.present();
+	    title: title,
+	    subTitle: subTitle,
+	    buttons: ['OK']
+	  });
+	  alert.present();
   }
   
-  login(firstLogin: boolean = false) {
-    this.secureStorage.set('loginDetails', JSON.stringify({u:this.username, p:this.password}))
-	.then(
-	data => {
-	  console.log(this.readyToLogin);
-	  if(!firstLogin) {
-	    this.showAlert('Login successful!', 'Login details have been successfully saved');
-	  }
-	  console.log('login details stored');
-	},
-	error => console.log(error)
-	);
+  getSavedUser() {
+    this.loginStorage.getUser((username:string, password:string) => {
+      this.username = username;
+      this.password = password;
+    });
+      
+  }
+  
+  login() {
+    this.loginStorage.setUser(this.username, this.password, () => { 
+      this.showAlert('Login successful!', 'Login details have been successfully saved') 
+    });
   }
 
   ionViewDidLoad() {
     console.log('Hello LoginPage Page');
   }
-
 }
