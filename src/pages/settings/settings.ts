@@ -49,12 +49,11 @@ export class SettingsPage {
   
   login() {
     this.loginStorage.setUser(this.username, this.password, () => { 
-      this.showAlert('Login successful!', 'Login details have been successfully saved') 
+      this.showAlert('Save successful!', 'Login details have been successfully saved') 
     });
   }
 
   ionViewDidLoad() {
     console.log('Hello SettingsPage Page');
   }
-
 }
