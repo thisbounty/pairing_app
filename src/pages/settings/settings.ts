@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, Platform, AlertController } from 'ionic-angular';
+import { NavController, Platform, AlertController, LoadingController } from 'ionic-angular';
 import { LoginStorage } from '../../providers/login-storage';
+import { Api } from '../../providers/api';
 
 /*
   Generated class for the Settings page.
@@ -11,7 +12,7 @@ import { LoginStorage } from '../../providers/login-storage';
 @Component({
   selector: 'page-settings',
   templateUrl: 'settings.html',
-  providers: [ LoginStorage ]
+  providers: [ LoginStorage, Api ]
 })
 export class SettingsPage {
 
@@ -19,9 +20,11 @@ export class SettingsPage {
   public password:string;
   public readyToLogin:boolean;
   private loginStorage:LoginStorage;
+  private api:Api;
 
-  constructor(public navCtrl: NavController, platform:Platform, public alertCtrl: AlertController, loginStorage: LoginStorage) {
+  constructor(public navCtrl: NavController, platform:Platform, public alertCtrl: AlertController, public loadingCtrl: LoadingController, loginStorage: LoginStorage, api: Api) {
     platform.ready().then(() => {
+      this.api = api;
       this.loginStorage = loginStorage;
       this.loginStorage.isReady(() => {
         this.readyToLogin = true;
@@ -44,12 +47,23 @@ export class SettingsPage {
       this.username = username;
       this.password = password;
     });
-      
   }
   
-  login() {
-    this.loginStorage.setUser(this.username, this.password, () => { 
-      this.showAlert('Save successful!', 'Login details have been successfully saved') 
+  save() {
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    loading.present();
+    this.api.fetch(this.username, this.password, (success:boolean) => {
+      loading.dismiss();
+      if(success) {
+        this.loginStorage.setUser(this.username, this.password, () => {
+          this.showAlert('Save successful!', 'Login details have been successfully saved') 
+        });
+      }
+      else {
+        this.showAlert('Login failed', 'Invalid credentials or server error');
+      }
     });
   }
 
