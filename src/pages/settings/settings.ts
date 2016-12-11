@@ -50,6 +50,11 @@ export class SettingsPage {
   }
   
   save() {
+  console.log(this.username);
+    if(this.username == '' || this.password == '') {
+      this.showAlert('Empty fields', 'Fill all login inputs');
+      return;
+    }
     let loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
