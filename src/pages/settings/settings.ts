@@ -50,8 +50,7 @@ export class SettingsPage {
   }
   
   save() {
-  console.log(this.username);
-    if(this.username == '' || this.password == '') {
+    if(this.username == null || this.username == "" || this.password == null || this.password == "") {
       this.showAlert('Empty fields', 'Fill all login inputs');
       return;
     }

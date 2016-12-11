@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { LocalNotifications } from 'ionic-native';
 
 /*
   Generated class for the Api provider.
@@ -21,10 +22,13 @@ export class Api {
     this.http.get(Api.fetchUrl + "?userid=" + username +"&password=" + password + "&baseid=" + baseId + "&lastsync=" + lastsync + "")
     .subscribe(data => {
       callback(true);
-      console.log(data.json().data);
+      LocalNotifications.schedule({
+        title: 'Pairing App',
+        text: data.json().trades_to_add[0].title
+      });
     }, error => {
       callback(false);
-      console.log(JSON.stringify(error.json()));
+      console.log("request failed");
     });
   }
 }
