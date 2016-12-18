@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, Platform, AlertController, LoadingController, ModalController } from 'ionic-angular';
-import { LoginStorage } from '../../providers/login-storage';
+import { SettingsStorage } from '../../providers/settings-storage';
 import { Api } from '../../providers/api';
 import { SetAirportPage } from './settingsModals/set-airport';
 
@@ -13,21 +13,21 @@ import { SetAirportPage } from './settingsModals/set-airport';
 @Component({
   selector: 'page-settings',
   templateUrl: 'settings.html',
-  providers: [ LoginStorage, Api ]
+  providers: [ SettingsStorage, Api ]
 })
 export class SettingsPage {
 
   public username:string;
   public password:string;
   public readyToLogin:boolean;
-  private loginStorage:LoginStorage;
+  private settingsStorage:SettingsStorage;
   private api:Api;
 
-  constructor(public navCtrl: NavController, platform:Platform, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public modalCtrl: ModalController, loginStorage: LoginStorage, api: Api) {
+  constructor(public navCtrl: NavController, platform:Platform, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public modalCtrl: ModalController, settingsStorage: SettingsStorage, api: Api) {
     platform.ready().then(() => {
       this.api = api;
-      this.loginStorage = loginStorage;
-      this.loginStorage.isReady(() => {
+      this.settingsStorage = settingsStorage;
+      this.settingsStorage.isReady(() => {
         this.readyToLogin = true;
         this.getSavedUser();
       });
@@ -44,7 +44,7 @@ export class SettingsPage {
   }
   
   getSavedUser() {
-    this.loginStorage.getUser((username:string, password:string) => {
+    this.settingsStorage.getUser((username:string, password:string) => {
       this.username = username;
       this.password = password;
     });
@@ -62,7 +62,7 @@ export class SettingsPage {
     this.api.fetch(this.username, this.password, (success:boolean) => {
       loading.dismiss();
       if(success) {
-        this.loginStorage.setUser(this.username, this.password, () => {
+        this.settingsStorage.setUser(this.username, this.password, () => {
           this.showAlert('Save successful!', 'Login details have been successfully saved') 
         });
       }

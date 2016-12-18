@@ -4,23 +4,23 @@ import 'rxjs/add/operator/map';
 import { Platform } from 'ionic-angular';
 
 /*
-  Generated class for the LoginStorage provider.
+  Generated class for the SettingsStorage provider.
 
   See https://angular.io/docs/ts/latest/guide/dependency-injection.html
   for more info on providers and Angular 2 DI.
 */
 @Injectable()
-export class LoginStorage {
+export class SettingsStorage {
 
   private secureStorage:SecureStorage;
   public static storeName:string = 'pairing_app';
-  public static itemName:string = 'loginDetails';
+  public static loginItem:string = 'loginDetails';
   private ready:boolean;
 
   constructor(platform:Platform) {
     platform.ready().then(() => {
       this.secureStorage = new SecureStorage();
-      this.secureStorage.create(LoginStorage.storeName).then(
+      this.secureStorage.create(SettingsStorage.storeName).then(
         () => {
           console.log('Storage is ready');
         },
@@ -39,7 +39,7 @@ export class LoginStorage {
   }
   
   setUser(username:string, password:string, callback:Function = () => {}) {
-    this.secureStorage.set(LoginStorage.itemName, JSON.stringify({u:username, p:password}))
+    this.secureStorage.set(SettingsStorage.loginItem, JSON.stringify({u:username, p:password}))
     .then(
       data => {
         callback();
@@ -49,7 +49,7 @@ export class LoginStorage {
   }
   
   getUser(callback:Function) {
-    this.secureStorage.get(LoginStorage.itemName)
+    this.secureStorage.get(SettingsStorage.loginItem)
     .then(
       data => {
         let {u, p} = JSON.parse(data);
