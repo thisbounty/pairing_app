@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, Platform, AlertController, LoadingController } from 'ionic-angular';
+import { NavController, Platform, AlertController, LoadingController, ModalController } from 'ionic-angular';
 import { LoginStorage } from '../../providers/login-storage';
 import { Api } from '../../providers/api';
+import { SetAirportPage } from './settingsModals/set-airport';
 
 /*
   Generated class for the Settings page.
@@ -22,7 +23,7 @@ export class SettingsPage {
   private loginStorage:LoginStorage;
   private api:Api;
 
-  constructor(public navCtrl: NavController, platform:Platform, public alertCtrl: AlertController, public loadingCtrl: LoadingController, loginStorage: LoginStorage, api: Api) {
+  constructor(public navCtrl: NavController, platform:Platform, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public modalCtrl: ModalController, loginStorage: LoginStorage, api: Api) {
     platform.ready().then(() => {
       this.api = api;
       this.loginStorage = loginStorage;
@@ -69,6 +70,11 @@ export class SettingsPage {
         this.showAlert('Login failed', 'Invalid credentials or server error');
       }
     });
+  }
+  
+  setAirport() {
+    let setAirport = this.modalCtrl.create(SetAirportPage);
+    setAirport.present();
   }
 
   ionViewDidLoad() {
