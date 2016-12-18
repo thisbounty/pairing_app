@@ -15,6 +15,7 @@ export class SettingsStorage {
   private secureStorage:SecureStorage;
   public static storeName:string = 'pairing_app';
   public static loginItem:string = 'loginDetails';
+  public static airportItem:string = 'airport';
   private ready:boolean;
 
   constructor(platform:Platform) {
@@ -54,6 +55,27 @@ export class SettingsStorage {
       data => {
         let {u, p} = JSON.parse(data);
         callback(u,p);
+      },
+      error => console.log(error)
+    );
+  }
+
+  saveAirport(airportName:string, iata:string) {
+    this.secureStorage.set(SettingsStorage.airportItem, JSON.stringify({a:airportName, i:iata}))
+    .then(
+      data => {
+        console.log('airport saved');
+      },
+      error => console.log(error)
+    );
+  }
+
+  getAirport(callback:Function) : any {
+    this.secureStorage.get(SettingsStorage.airportItem)
+    .then(
+      data => {
+        let {a, i} = JSON.parse(data);
+        callback(a, i);
       },
       error => console.log(error)
     );

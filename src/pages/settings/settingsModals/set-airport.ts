@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { ViewController } from 'ionic-angular';
+import { ViewController, Platform } from 'ionic-angular';
+import { SettingsStorage } from '../../../providers/settings-storage';
 
 /*
   Generated class for the SetAirportByName page.
@@ -8,16 +9,23 @@ import { ViewController } from 'ionic-angular';
   Ionic pages and navigation.
 */
 @Component({
-  templateUrl: 'set-airport.html'
+  templateUrl: 'set-airport.html',
+  providers: [ SettingsStorage ]
 })
 export class SetAirportPage {
 
+  private settingsStorage:SettingsStorage;
   public airportName:string = '';
-  public test:boolean = true;
+  public selectedAirport:string = '';
   airlines: any;
 
-  constructor(private viewCtrl: ViewController) {
-    //this.initializeItems();
+  constructor(private viewCtrl: ViewController, platform:Platform, settingsStorage: SettingsStorage) {
+    platform.ready().then(() => {
+      this.settingsStorage = settingsStorage;
+      this.settingsStorage.isReady(() => {
+        this.getSavedAirport();
+      });
+    });
   }
 
   initializeItems() {
@@ -42,5 +50,15 @@ export class SetAirportPage {
     else {
       this.airlines = [];
     }
+  }
+  saveAirport(airline) {
+    this.settingsStorage.saveAirport(airline.name, airline.iata);
+  }
+  
+  getSavedAirport() {
+    this.settingsStorage.getAirport((airportName:string, iata:string) => {
+      this.airportName = airportName;
+      this.getAirports();
+    });
   }
 }

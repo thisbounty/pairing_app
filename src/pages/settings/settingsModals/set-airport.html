@@ -15,9 +15,9 @@
 
 <ion-content>
 
-  <ion-searchbar (ionInput)="getAirports()" [(ngModel)]="airportName"></ion-searchbar>
+  <ion-searchbar (ionInput)="getAirports()" [(ngModel)]="airportName" placeholder="{{ selectedAirport }}"></ion-searchbar>
   <ion-list [virtualScroll]="airlines">
-    <ion-item *virtualItem="let airline">
+    <ion-item *virtualItem="let airline" (click)="saveAirport(airline)">
       {{ airline.name }} | {{ airline.iata }}
     </ion-item>
   </ion-list>
