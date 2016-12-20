@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
 import { SecureStorage } from 'ionic-native';
 import 'rxjs/add/operator/map';
 import { Platform } from 'ionic-angular';
@@ -12,14 +13,22 @@ import { Platform } from 'ionic-angular';
 @Injectable()
 export class SettingsStorage {
 
+  public static airlines:any;
   private secureStorage:SecureStorage;
   public static storeName:string = 'pairing_app';
   public static loginItem:string = 'loginDetails';
   public static airportItem:string = 'airport';
   private ready:boolean;
 
-  constructor(platform:Platform) {
+  constructor(platform:Platform, http: Http) {
     platform.ready().then(() => {
+      http.get("assets/json/airpoirts_min.json")
+        .subscribe(data => {
+          SettingsStorage.airlines = data.json();
+          console.log("request successful (airport load)");
+        }, error => {
+          console.log("request failed (airport load)");
+      });
       this.secureStorage = new SecureStorage();
       this.secureStorage.create(SettingsStorage.storeName).then(
         () => {
