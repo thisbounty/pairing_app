@@ -12,8 +12,7 @@ import { SetAirportPage } from './settingsModals/set-airport';
 */
 @Component({
   selector: 'page-settings',
-  templateUrl: 'settings.html',
-  providers: [ SettingsStorage, Api ]
+  templateUrl: 'settings.html'
 })
 export class SettingsPage {
 

@@ -9,8 +9,7 @@ import { SettingsStorage } from '../../../providers/settings-storage';
   Ionic pages and navigation.
 */
 @Component({
-  templateUrl: 'set-airport.html',
-  providers: [ SettingsStorage ]
+  templateUrl: 'set-airport.html'
 })
 export class SetAirportPage {
 

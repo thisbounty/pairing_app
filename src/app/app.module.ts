@@ -4,6 +4,9 @@ import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
 import { SettingsPage } from '../pages/settings/settings';
 import { SetAirportPage } from '../pages/settings/settingsModals/set-airport';
+//Providers
+import { SettingsStorage } from '../providers/settings-storage';
+import { Api } from '../providers/api';
 
 @NgModule({
   declarations: [
@@ -22,6 +25,6 @@ import { SetAirportPage } from '../pages/settings/settingsModals/set-airport';
   SettingsPage,
   SetAirportPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, SettingsStorage, Api]
 })
 export class AppModule {}
