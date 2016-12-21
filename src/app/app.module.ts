@@ -1,7 +1,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { LoginPage } from '../pages/login/login';
+import { MainPage } from '../pages/main/main';
 import { SettingsPage } from '../pages/settings/settings';
 import { SetAirportPage } from '../pages/settings/settingsModals/set-airport';
 //Providers
@@ -11,7 +11,7 @@ import { Api } from '../providers/api';
 @NgModule({
   declarations: [
     MyApp,
-	LoginPage,
+	MainPage,
   SettingsPage,
   SetAirportPage
   ],
@@ -21,7 +21,7 @@ import { Api } from '../providers/api';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-	LoginPage,
+	MainPage,
   SettingsPage,
   SetAirportPage
   ],
