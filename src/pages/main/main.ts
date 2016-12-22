@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
 import { SettingsPage } from '../settings/settings';
+import { SetOperatesPage } from './basicSettingsModals/set-operates/set-operates';
 
 /*
   Generated class for the Main page.
@@ -16,7 +17,12 @@ export class MainPage {
 
   settingsPage = SettingsPage;
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
+  }
+
+  showOperatesSettings() {
+    let setOperates = this.modalCtrl.create(SetOperatesPage);
+    setOperates.present();
   }
   
   ionViewDidLoad() {
