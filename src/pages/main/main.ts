@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
 import { SettingsPage } from '../settings/settings';
 import { SetOperatesPage } from './basicSettingsModals/set-operates/set-operates';
+import { ExcludePositionsPage } from './basicSettingsModals/exclude-positions/exclude-positions';
 
 /*
   Generated class for the Main page.
@@ -23,6 +24,11 @@ export class MainPage {
   showOperatesSettings() {
     let setOperates = this.modalCtrl.create(SetOperatesPage);
     setOperates.present();
+  }
+
+  showExcludePositionsSettings() {
+    let excludePositions = this.modalCtrl.create(ExcludePositionsPage);
+    excludePositions.present();
   }
   
   ionViewDidLoad() {
