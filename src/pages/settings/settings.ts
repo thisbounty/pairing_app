@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, Platform, AlertController, LoadingController, ModalController } from 'ionic-angular';
 import { SettingsStorage } from '../../providers/settings-storage';
 import { Api } from '../../providers/api';
-import { SetAirportPage } from './settingsModals/set-airport';
+import { SetAirportPage } from './settingsModals/set-airport/set-airport';
+import { SetLoginDetailsPage } from './settingsModals/set-login-details/set-login-details';
 
 /*
   Generated class for the Settings page.
@@ -22,58 +23,17 @@ export class SettingsPage {
   private settingsStorage:SettingsStorage;
   private api:Api;
 
-  constructor(public navCtrl: NavController, platform:Platform, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public modalCtrl: ModalController, settingsStorage: SettingsStorage, api: Api) {
-    platform.ready().then(() => {
-      this.api = api;
-      this.settingsStorage = settingsStorage;
-      this.settingsStorage.isReady(() => {
-        this.readyToLogin = true;
-        this.getSavedUser();
-      });
-    });
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
   }
   
-  showAlert(title: string, subTitle: string) {
-    let alert = this.alertCtrl.create({
-	    title: title,
-	    subTitle: subTitle,
-	    buttons: ['OK']
-	  });
-	  alert.present();
+  showSetLoginDetails() {
+    let setLoginDetails = this.modalCtrl.create(SetLoginDetailsPage);
+    setLoginDetails.present();
   }
   
-  getSavedUser() {
-    this.settingsStorage.getUser((username:string, password:string) => {
-      this.username = username;
-      this.password = password;
-    });
-  }
-  
-  save() {
-    if(this.username == null || this.username == "" || this.password == null || this.password == "") {
-      this.showAlert('Empty fields', 'Fill all login inputs');
-      return;
-    }
-    let loading = this.loadingCtrl.create({
-      content: 'Please wait...'
-    });
-    loading.present();
-    this.api.fetch(this.username, this.password, (success:boolean) => {
-      loading.dismiss();
-      if(success) {
-        this.settingsStorage.setUser(this.username, this.password, () => {
-          this.showAlert('Save successful!', 'Login details have been successfully saved') 
-        });
-      }
-      else {
-        this.showAlert('Login failed', 'Invalid credentials or server error');
-      }
-    });
-  }
-  
-  setAirport() {
-    let setAirport = this.modalCtrl.create(SetAirportPage);
-    setAirport.present();
+  setSetAirports() {
+    let setAirports = this.modalCtrl.create(SetAirportPage);
+    setAirports.present();
   }
 
   ionViewDidLoad() {

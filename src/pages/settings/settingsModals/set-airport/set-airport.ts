@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ViewController, Platform } from 'ionic-angular';
-import { SettingsStorage } from '../../../providers/settings-storage';
+import { SettingsStorage } from '../../../../providers/settings-storage';
 
 /*
   Generated class for the SetAirportByName page.

@@ -14,20 +14,17 @@
 
 
 <ion-content>
-<ion-list inset>
+<ion-list>
 
-  <ion-item>
-    <ion-label>Username</ion-label>
-    <ion-input type="text" [(ngModel)]="username"></ion-input>
-  </ion-item>
+    <button ion-item (click)="showSetLoginDetails()">
+      Set login details
+      <p>Lorem ipsum</p>
+    </button>
 
-  <ion-item>
-    <ion-label>Password</ion-label>
-    <ion-input type="password" [(ngModel)]="password"></ion-input>
-  </ion-item>
+    <button ion-item no-lines (click)="setSetAirports()">
+      Set Airports
+      <p>Lorem ipsum</p>
+    </button>
 
-</ion-list>
-
-<button ion-button full (click)="save()" *ngIf="readyToLogin">Save</button>
-<button ion-button full (click)="setAirport()">Set Airport</button>
+  </ion-list>
 </ion-content>

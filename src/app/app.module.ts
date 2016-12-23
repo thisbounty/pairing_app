@@ -7,7 +7,8 @@ import { SetOperatesPage } from '../pages/main/basicSettingsModals/set-operates/
 import { ExcludePositionsPage } from '../pages/main/basicSettingsModals/exclude-positions/exclude-positions';
 //Settings page elements
 import { SettingsPage } from '../pages/settings/settings';
-import { SetAirportPage } from '../pages/settings/settingsModals/set-airport';
+import { SetAirportPage } from '../pages/settings/settingsModals/set-airport/set-airport';
+import { SetLoginDetailsPage } from '../pages/settings/settingsModals/set-login-details/set-login-details';
 //Providers
 import { SettingsStorage } from '../providers/settings-storage';
 import { Api } from '../providers/api';
@@ -18,6 +19,7 @@ import { Api } from '../providers/api';
 	MainPage,
   SettingsPage,
   SetAirportPage,
+  SetLoginDetailsPage,
   SetOperatesPage,
   ExcludePositionsPage
   ],
@@ -30,6 +32,7 @@ import { Api } from '../providers/api';
 	MainPage,
   SettingsPage,
   SetAirportPage,
+  SetLoginDetailsPage,
   SetOperatesPage,
   ExcludePositionsPage
   ],
