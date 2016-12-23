@@ -3,6 +3,7 @@ import { NavController, ModalController } from 'ionic-angular';
 import { SettingsPage } from '../settings/settings';
 import { SetOperatesPage } from './basicSettingsModals/set-operates/set-operates';
 import { ExcludePositionsPage } from './basicSettingsModals/exclude-positions/exclude-positions';
+import { SettingsStorage } from '../../providers/settings-storage';
 
 /*
   Generated class for the Main page.
@@ -12,13 +13,14 @@ import { ExcludePositionsPage } from './basicSettingsModals/exclude-positions/ex
 */
 @Component({
   selector: 'page-main',
-  templateUrl: 'main.html'
+  templateUrl: 'main.html',
+  providers: [ SettingsStorage ]
 })
 export class MainPage {
 
   settingsPage = SettingsPage;
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, settingsStroage: SettingsStorage) {
   }
 
   showOperatesSettings() {

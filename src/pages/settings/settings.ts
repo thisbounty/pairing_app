@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, Platform, AlertController, LoadingController, ModalController } from 'ionic-angular';
-import { SettingsStorage } from '../../providers/settings-storage';
-import { Api } from '../../providers/api';
-import { SetAirportPage } from './settingsModals/set-airport/set-airport';
+import { NavController, ModalController } from 'ionic-angular';
 import { SetLoginDetailsPage } from './settingsModals/set-login-details/set-login-details';
+import { SetAirportPage } from './settingsModals/set-airport/set-airport';
 
 /*
   Generated class for the Settings page.
@@ -16,12 +14,6 @@ import { SetLoginDetailsPage } from './settingsModals/set-login-details/set-logi
   templateUrl: 'settings.html'
 })
 export class SettingsPage {
-
-  public username:string;
-  public password:string;
-  public readyToLogin:boolean;
-  private settingsStorage:SettingsStorage;
-  private api:Api;
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
   }

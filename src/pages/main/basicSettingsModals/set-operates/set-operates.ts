@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewController, Platform } from 'ionic-angular';
+import { ViewController } from 'ionic-angular';
 
 /*
   Generated class for the SetOperates page.
