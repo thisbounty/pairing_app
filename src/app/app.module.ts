@@ -14,6 +14,7 @@ import { NumberOfCalendarDaysPage } from '../pages/settings/settingsModals/numbe
 import { DutyPeriodNumberPage } from '../pages/settings/settingsModals/duty-period-number/duty-period-number';
 import { PairingCreditPage } from '../pages/settings/settingsModals/pairing-credit/pairing-credit';
 import { DutyPeriodTimePage } from '../pages/settings/settingsModals/duty-period-time/duty-period-time';
+import { ExcludeEquipmentPage } from '../pages/settings/settingsModals/exclude-equipment/exclude-equipment';
 //Providers
 import { SettingsStorage } from '../providers/settings-storage';
 import { Api } from '../providers/api';
@@ -30,6 +31,7 @@ import { Api } from '../providers/api';
   DutyPeriodNumberPage,
   DutyPeriodTimePage,
   PairingCreditPage,
+  ExcludeEquipmentPage,
   SetOperatesPage,
   ExcludePositionsPage
   ],
@@ -48,6 +50,7 @@ import { Api } from '../providers/api';
   DutyPeriodNumberPage,
   DutyPeriodTimePage,
   PairingCreditPage,
+  ExcludeEquipmentPage,
   SetOperatesPage,
   ExcludePositionsPage
   ],

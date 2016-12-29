@@ -7,6 +7,7 @@ import { NumberOfCalendarDaysPage } from './settingsModals/number-of-calendar-da
 import { DutyPeriodNumberPage } from './settingsModals/duty-period-number/duty-period-number';
 import { DutyPeriodTimePage } from './settingsModals/duty-period-time/duty-period-time';
 import { PairingCreditPage } from './settingsModals/pairing-credit/pairing-credit';
+import { ExcludeEquipmentPage } from './settingsModals/exclude-equipment/exclude-equipment';
 
 /*
   Generated class for the Settings page.
@@ -126,6 +127,11 @@ export class SettingsPage {
       }
     });
     alert.present();
+  }
+
+  showExcludeEquipment() {
+    let excludeEquipment = this.modalCtrl.create(ExcludeEquipmentPage)
+    excludeEquipment.present();
   }
 
   ionViewDidLoad() {
