@@ -32,7 +32,7 @@ export class MainPage {
     let excludePositions = this.modalCtrl.create(ExcludePositionsPage);
     excludePositions.present();
   }
-  
+
   ionViewDidLoad() {
     console.log('Hello MainPage Page');
   }

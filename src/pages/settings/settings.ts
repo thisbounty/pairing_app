@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
 import { SetLoginDetailsPage } from './settingsModals/set-login-details/set-login-details';
 import { SetAirportPage } from './settingsModals/set-airport/set-airport';
+import { ReportDatePage } from './settingsModals/report-date/report-date';
 
 /*
   Generated class for the Settings page.
@@ -17,15 +18,20 @@ export class SettingsPage {
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
   }
-  
+
   showSetLoginDetails() {
     let setLoginDetails = this.modalCtrl.create(SetLoginDetailsPage);
     setLoginDetails.present();
   }
-  
-  setSetAirports() {
+
+  showSetAirports() {
     let setAirports = this.modalCtrl.create(SetAirportPage);
     setAirports.present();
+  }
+
+  showReportDate() {
+      let reportDate = this.modalCtrl.create(ReportDatePage)
+      reportDate.present();
   }
 
   ionViewDidLoad() {
