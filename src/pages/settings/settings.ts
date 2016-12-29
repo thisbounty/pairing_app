@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController, ModalController, AlertController } from 'ionic-angular';
 import { SetLoginDetailsPage } from './settingsModals/set-login-details/set-login-details';
 import { SetAirportPage } from './settingsModals/set-airport/set-airport';
 import { ReportDatePage } from './settingsModals/report-date/report-date';
@@ -20,7 +20,7 @@ import { PairingCreditPage } from './settingsModals/pairing-credit/pairing-credi
 })
 export class SettingsPage {
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController) {
   }
 
   showSetLoginDetails() {
@@ -56,6 +56,38 @@ export class SettingsPage {
   showPairingCredit() {
     let pairingCredit = this.modalCtrl.create(PairingCreditPage)
     pairingCredit.present();
+  }
+
+  showTripType() {
+    let alert = this.alertCtrl.create();
+    alert.setTitle('Trip type');
+
+    alert.addInput({
+      type: 'radio',
+      label: 'Drop',
+      value: 'drop'
+    });
+
+    alert.addInput({
+      type: 'radio',
+      label: 'Trade',
+      value: 'trade'
+    });
+
+    alert.addInput({
+      type: 'radio',
+      label: 'Drop and Trade',
+      value: 'both'
+    });
+
+    alert.addButton('Cancel');
+    alert.addButton({
+      text: 'OK',
+      handler: data => {
+        console.log(data);
+      }
+    });
+    alert.present();
   }
 
   ionViewDidLoad() {
