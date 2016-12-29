@@ -13,8 +13,17 @@ import { ViewController } from 'ionic-angular';
 })
 export class PairingCreditPage {
 
-  constructor(private viewCtrl: ViewController) {
+  private range:string;
 
+  constructor(private viewCtrl: ViewController) {
+    this.pairingCreditRange();
+  }
+
+  pairingCreditRange() {
+    this.range = "5";
+    for(let i = 6; i < 35; i++) {
+      this.range += "," + i;
+    }
   }
 
   dismiss(data) {
