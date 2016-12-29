@@ -13,7 +13,7 @@ import { ViewController } from 'ionic-angular';
 })
 export class DutyPeriodTimePage {
 
-  private range:string;
+  public range:string;
 
   constructor(private viewCtrl: ViewController) {
     this.dutyPeriodTimeRange();
