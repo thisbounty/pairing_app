@@ -5,6 +5,7 @@ import { SetAirportPage } from './settingsModals/set-airport/set-airport';
 import { ReportDatePage } from './settingsModals/report-date/report-date';
 import { NumberOfCalendarDaysPage } from './settingsModals/number-of-calendar-days/number-of-calendar-days';
 import { DutyPeriodNumberPage } from './settingsModals/duty-period-number/duty-period-number';
+import { PairingCreditPage } from './settingsModals/pairing-credit/pairing-credit';
 
 /*
   Generated class for the Settings page.
@@ -44,6 +45,11 @@ export class SettingsPage {
   showDutyPeriodNumber() {
     let dutyPeriodNumber = this.modalCtrl.create(DutyPeriodNumberPage)
     dutyPeriodNumber.present();
+  }
+
+  showPairingCredit() {
+    let pairingCredit = this.modalCtrl.create(PairingCreditPage)
+    pairingCredit.present();
   }
 
   ionViewDidLoad() {

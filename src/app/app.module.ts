@@ -12,6 +12,7 @@ import { SetLoginDetailsPage } from '../pages/settings/settingsModals/set-login-
 import { ReportDatePage } from '../pages/settings/settingsModals/report-date/report-date';
 import { NumberOfCalendarDaysPage } from '../pages/settings/settingsModals/number-of-calendar-days/number-of-calendar-days';
 import { DutyPeriodNumberPage } from '../pages/settings/settingsModals/duty-period-number/duty-period-number';
+import { PairingCreditPage } from '../pages/settings/settingsModals/pairing-credit/pairing-credit';
 //Providers
 import { SettingsStorage } from '../providers/settings-storage';
 import { Api } from '../providers/api';
@@ -26,6 +27,7 @@ import { Api } from '../providers/api';
   ReportDatePage,
   NumberOfCalendarDaysPage,
   DutyPeriodNumberPage,
+  PairingCreditPage,
   SetOperatesPage,
   ExcludePositionsPage
   ],
@@ -42,6 +44,7 @@ import { Api } from '../providers/api';
   ReportDatePage,
   NumberOfCalendarDaysPage,
   DutyPeriodNumberPage,
+  PairingCreditPage,
   SetOperatesPage,
   ExcludePositionsPage
   ],
