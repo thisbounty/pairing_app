@@ -5,6 +5,7 @@ import { SetAirportPage } from './settingsModals/set-airport/set-airport';
 import { ReportDatePage } from './settingsModals/report-date/report-date';
 import { NumberOfCalendarDaysPage } from './settingsModals/number-of-calendar-days/number-of-calendar-days';
 import { DutyPeriodNumberPage } from './settingsModals/duty-period-number/duty-period-number';
+import { DutyPeriodTimePage } from './settingsModals/duty-period-time/duty-period-time';
 import { PairingCreditPage } from './settingsModals/pairing-credit/pairing-credit';
 
 /*
@@ -45,6 +46,11 @@ export class SettingsPage {
   showDutyPeriodNumber() {
     let dutyPeriodNumber = this.modalCtrl.create(DutyPeriodNumberPage)
     dutyPeriodNumber.present();
+  }
+
+  showDutyPeriodTime() {
+    let dutyPeriodTime = this.modalCtrl.create(DutyPeriodTimePage)
+    dutyPeriodTime.present();
   }
 
   showPairingCredit() {
