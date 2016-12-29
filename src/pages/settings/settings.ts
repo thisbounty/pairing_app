@@ -90,6 +90,44 @@ export class SettingsPage {
     alert.present();
   }
 
+  showDeadhead() {
+    let alert = this.alertCtrl.create();
+    alert.setTitle('Deadhead');
+
+    alert.addInput({
+      type: 'radio',
+      label: 'Not required',
+      value: 'not_required'
+    });
+
+    alert.addInput({
+      type: 'radio',
+      label: 'Exists on First Leg',
+      value: 'exists_on_first_leg'
+    });
+
+    alert.addInput({
+      type: 'radio',
+      label: 'Exists on Last Leg',
+      value: 'exists_on_last_leg'
+    });
+
+    alert.addInput({
+      type: 'radio',
+      label: 'Exists on Any Leg',
+      value: 'exists_on_any_leg'
+    });
+
+    alert.addButton('Cancel');
+    alert.addButton({
+      text: 'OK',
+      handler: data => {
+        console.log(data);
+      }
+    });
+    alert.present();
+  }
+
   ionViewDidLoad() {
     console.log('Hello SettingsPage Page');
   }
