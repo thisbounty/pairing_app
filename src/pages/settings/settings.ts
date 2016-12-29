@@ -4,6 +4,7 @@ import { SetLoginDetailsPage } from './settingsModals/set-login-details/set-logi
 import { SetAirportPage } from './settingsModals/set-airport/set-airport';
 import { ReportDatePage } from './settingsModals/report-date/report-date';
 import { NumberOfCalendarDaysPage } from './settingsModals/number-of-calendar-days/number-of-calendar-days';
+import { DutyPeriodNumberPage } from './settingsModals/duty-period-number/duty-period-number';
 
 /*
   Generated class for the Settings page.
@@ -38,6 +39,11 @@ export class SettingsPage {
   showNumberOfCalendarDays() {
     let numberOfCalendarDays = this.modalCtrl.create(NumberOfCalendarDaysPage)
     numberOfCalendarDays.present();
+  }
+
+  showDutyPeriodNumber() {
+    let dutyPeriodNumber = this.modalCtrl.create(DutyPeriodNumberPage)
+    dutyPeriodNumber.present();
   }
 
   ionViewDidLoad() {
