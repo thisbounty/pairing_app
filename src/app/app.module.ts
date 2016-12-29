@@ -10,6 +10,7 @@ import { SettingsPage } from '../pages/settings/settings';
 import { SetAirportPage } from '../pages/settings/settingsModals/set-airport/set-airport';
 import { SetLoginDetailsPage } from '../pages/settings/settingsModals/set-login-details/set-login-details';
 import { ReportDatePage } from '../pages/settings/settingsModals/report-date/report-date';
+import { NumberOfCalendarDaysPage } from '../pages/settings/settingsModals/number-of-calendar-days/number-of-calendar-days';
 //Providers
 import { SettingsStorage } from '../providers/settings-storage';
 import { Api } from '../providers/api';
@@ -22,6 +23,7 @@ import { Api } from '../providers/api';
   SetAirportPage,
   SetLoginDetailsPage,
   ReportDatePage,
+  NumberOfCalendarDaysPage,
   SetOperatesPage,
   ExcludePositionsPage
   ],
@@ -36,6 +38,7 @@ import { Api } from '../providers/api';
   SetAirportPage,
   SetLoginDetailsPage,
   ReportDatePage,
+  NumberOfCalendarDaysPage,
   SetOperatesPage,
   ExcludePositionsPage
   ],

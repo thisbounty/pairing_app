@@ -3,6 +3,7 @@ import { NavController, ModalController } from 'ionic-angular';
 import { SetLoginDetailsPage } from './settingsModals/set-login-details/set-login-details';
 import { SetAirportPage } from './settingsModals/set-airport/set-airport';
 import { ReportDatePage } from './settingsModals/report-date/report-date';
+import { NumberOfCalendarDaysPage } from './settingsModals/number-of-calendar-days/number-of-calendar-days';
 
 /*
   Generated class for the Settings page.
@@ -32,6 +33,11 @@ export class SettingsPage {
   showReportDate() {
       let reportDate = this.modalCtrl.create(ReportDatePage)
       reportDate.present();
+  }
+
+  showNumberOfCalendarDays() {
+    let numberOfCalendarDays = this.modalCtrl.create(NumberOfCalendarDaysPage)
+    numberOfCalendarDays.present();
   }
 
   ionViewDidLoad() {
