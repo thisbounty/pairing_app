@@ -39,6 +39,22 @@ export class SettingsPage {
     setAirports.present();
   }
 
+  showBaseSettings() {
+    let alert = this.alertCtrl.create({
+      title: 'Set base',
+      inputs: [ { type: 'radio', label: 'PHX', value: 'phx' },
+                { type: 'radio', label: 'PHL', value: 'phl' },
+                { type: 'radio', label: 'DCA', value: 'dca' },
+                { type: 'radio', label: 'CLT', value: 'clt' } ],
+      buttons: [ { text: 'Cancel', role: 'cancel' },
+                 { text: 'Okay',
+                   handler: data => {
+                     console.log('Set base checkbox data:', data); //array
+                 }} ]
+    })
+    alert.present();
+  }
+
   showReportDate() {
       let reportDate = this.modalCtrl.create(ReportDatePage)
       reportDate.present();
