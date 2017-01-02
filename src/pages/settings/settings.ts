@@ -9,6 +9,7 @@ import { DutyPeriodTimePage } from './settingsModals/duty-period-time/duty-perio
 import { PairingCreditPage } from './settingsModals/pairing-credit/pairing-credit';
 import { FlightPage } from './settingsModals/flight/flight';
 import { ReportBetweenPage } from './settingsModals/report-between/report-between';
+import { ReleaseBetweenPage } from './settingsModals/release-between/release-between';
 import { ExcludeEquipmentPage } from './settingsModals/exclude-equipment/exclude-equipment';
 
 /*
@@ -136,14 +137,19 @@ export class SettingsPage {
     flightSettings.present();
   }
 
-  showExcludeEquipment() {
-    let excludeEquipment = this.modalCtrl.create(ExcludeEquipmentPage)
-    excludeEquipment.present();
-  }
-
   showReportBetween() {
     let reportBetween = this.modalCtrl.create(ReportBetweenPage);
     reportBetween.present();
+  }
+
+  showReleaseBetween() {
+    let releaseBetween = this.modalCtrl.create(ReleaseBetweenPage);
+    releaseBetween.present();
+  }
+
+  showExcludeEquipment() {
+    let excludeEquipment = this.modalCtrl.create(ExcludeEquipmentPage)
+    excludeEquipment.present();
   }
 
   ionViewDidLoad() {
