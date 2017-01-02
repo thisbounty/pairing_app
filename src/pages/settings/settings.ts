@@ -10,6 +10,7 @@ import { PairingCreditPage } from './settingsModals/pairing-credit/pairing-credi
 import { FlightPage } from './settingsModals/flight/flight';
 import { ReportBetweenPage } from './settingsModals/report-between/report-between';
 import { ReleaseBetweenPage } from './settingsModals/release-between/release-between';
+import { LegsPerDutyPage } from './settingsModals/legs-per-duty/legs-per-duty';
 import { ExcludeEquipmentPage } from './settingsModals/exclude-equipment/exclude-equipment';
 
 /*
@@ -145,6 +146,11 @@ export class SettingsPage {
   showReleaseBetween() {
     let releaseBetween = this.modalCtrl.create(ReleaseBetweenPage);
     releaseBetween.present();
+  }
+
+  showLegsPerDuty() {
+    let legsPerDuty = this.modalCtrl.create(LegsPerDutyPage);
+    legsPerDuty.present();
   }
 
   showExcludeEquipment() {

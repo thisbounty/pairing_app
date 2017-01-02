@@ -17,6 +17,7 @@ import { DutyPeriodTimePage } from '../pages/settings/settingsModals/duty-period
 import { FlightPage } from '../pages/settings/settingsModals/flight/flight';
 import { ReportBetweenPage } from '../pages/settings/settingsModals/report-between/report-between';
 import { ReleaseBetweenPage } from '../pages/settings/settingsModals/release-between/release-between';
+import { LegsPerDutyPage } from '../pages/settings/settingsModals/legs-per-duty/legs-per-duty';
 import { ExcludeEquipmentPage } from '../pages/settings/settingsModals/exclude-equipment/exclude-equipment';
 //Providers
 import { SettingsStorage } from '../providers/settings-storage';
@@ -37,6 +38,7 @@ import { Api } from '../providers/api';
   FlightPage,
   ReportBetweenPage,
   ReleaseBetweenPage,
+  LegsPerDutyPage,
   ExcludeEquipmentPage,
   SetOperatesPage,
   ExcludePositionsPage
@@ -59,6 +61,7 @@ import { Api } from '../providers/api';
   FlightPage,
   ReportBetweenPage,
   ReleaseBetweenPage,
+  LegsPerDutyPage,
   ExcludeEquipmentPage,
   SetOperatesPage,
   ExcludePositionsPage
