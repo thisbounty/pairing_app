@@ -1,0 +1,38 @@
+<!--
+  Generated template for the Flight page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Flight</ion-title>
+    <button (click)="dismiss($event)" ion-button icon-only menuToggle right>
+      <ion-icon name="close"></ion-icon>
+    </button>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-item no-lines>
+    <ion-label>Flight Number</ion-label>
+    <ion-input type="text"></ion-input>
+  </ion-item>
+
+  <button ion-button full (click)="showDaysOfTheWeekSetttings()">Set day(s) of the week</button>
+
+  <!-- todo:
+  // Date(s) (DDMMYYYY separated by commas).
+  // maybe https://github.com/rajeshwarpatlolla/ionic2-datepicker
+  -->
+
+  <ion-item>
+    <ion-label>Pairing must include this flight parameters</ion-label>
+    <ion-checkbox></ion-checkbox>
+  </ion-item>
+
+</ion-content>

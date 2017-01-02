@@ -8,6 +8,7 @@ import { DutyPeriodNumberPage } from './settingsModals/duty-period-number/duty-p
 import { DutyPeriodTimePage } from './settingsModals/duty-period-time/duty-period-time';
 import { PairingCreditPage } from './settingsModals/pairing-credit/pairing-credit';
 import { ExcludeEquipmentPage } from './settingsModals/exclude-equipment/exclude-equipment';
+import { FlightPage } from './settingsModals/flight/flight';
 
 /*
   Generated class for the Settings page.
@@ -127,6 +128,11 @@ export class SettingsPage {
       }
     });
     alert.present();
+  }
+
+  showFlightSettings() {
+    let flightSettings = this.modalCtrl.create(FlightPage)
+    flightSettings.present();
   }
 
   showExcludeEquipment() {
