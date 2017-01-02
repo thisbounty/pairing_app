@@ -21,8 +21,8 @@ export class LayoverPage {
   }
 
   layoverRange() {
-    this.range = "0";
-    for(let i = 1; i < 24; i++) {
+    this.range = "4";
+    for(let i = 5; i < 60; i++) {
       this.range += "," + i;
     }
   }
