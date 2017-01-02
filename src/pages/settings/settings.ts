@@ -81,72 +81,33 @@ export class SettingsPage {
   }
 
   showTripType() {
-    let alert = this.alertCtrl.create();
-    alert.setTitle('Trip type');
-
-    alert.addInput({
-      type: 'radio',
-      label: 'Drop',
-      value: 'drop'
-    });
-
-    alert.addInput({
-      type: 'radio',
-      label: 'Trade',
-      value: 'trade'
-    });
-
-    alert.addInput({
-      type: 'radio',
-      label: 'Drop and Trade',
-      value: 'both'
-    });
-
-    alert.addButton('Cancel');
-    alert.addButton({
-      text: 'OK',
-      handler: data => {
-        console.log(data);
-      }
-    });
+    let alert = this.alertCtrl.create({
+      title: 'Trip type',
+      inputs: [ { type: 'radio', label: 'Drop', value: 'drop' },
+                { type: 'radio', label: 'Trade', value: 'trade' },
+                { type: 'radio', label: 'Drop and Trade', value: 'both' } ],
+      buttons: [ { text: 'Cancel', role: 'cancel' },
+                 { text: 'Okay',
+                   handler: data => {
+                     console.log('Trip type checkbox data:', data); //array
+                 }} ]
+    })
     alert.present();
   }
 
   showDeadhead() {
-    let alert = this.alertCtrl.create();
-    alert.setTitle('Deadhead');
-
-    alert.addInput({
-      type: 'radio',
-      label: 'Not required',
-      value: 'not_required'
-    });
-
-    alert.addInput({
-      type: 'radio',
-      label: 'Exists on First Leg',
-      value: 'exists_on_first_leg'
-    });
-
-    alert.addInput({
-      type: 'radio',
-      label: 'Exists on Last Leg',
-      value: 'exists_on_last_leg'
-    });
-
-    alert.addInput({
-      type: 'radio',
-      label: 'Exists on Any Leg',
-      value: 'exists_on_any_leg'
-    });
-
-    alert.addButton('Cancel');
-    alert.addButton({
-      text: 'OK',
-      handler: data => {
-        console.log(data);
-      }
-    });
+    let alert = this.alertCtrl.create({
+      title: 'Set deadhead',
+      inputs: [ { type: 'radio', label: 'Not required', value: 'not_required' },
+                { type: 'radio', label: 'Exists on First Leg', value: 'exists_on_first_leg' },
+                { type: 'radio', label: 'Exists on Last Leg', value: 'exists_on_last_leg' },
+                { type: 'radio', label: 'Exists on Any Leg', value: 'exists_on_any_leg' } ],
+      buttons: [ { text: 'Cancel', role: 'cancel' },
+                 { text: 'Okay',
+                   handler: data => {
+                     console.log('Trip type checkbox data:', data); //array
+                 }} ]
+    })
     alert.present();
   }
 
