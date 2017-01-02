@@ -7,8 +7,9 @@ import { NumberOfCalendarDaysPage } from './settingsModals/number-of-calendar-da
 import { DutyPeriodNumberPage } from './settingsModals/duty-period-number/duty-period-number';
 import { DutyPeriodTimePage } from './settingsModals/duty-period-time/duty-period-time';
 import { PairingCreditPage } from './settingsModals/pairing-credit/pairing-credit';
-import { ExcludeEquipmentPage } from './settingsModals/exclude-equipment/exclude-equipment';
 import { FlightPage } from './settingsModals/flight/flight';
+import { ReportBetweenPage } from './settingsModals/report-between/report-between';
+import { ExcludeEquipmentPage } from './settingsModals/exclude-equipment/exclude-equipment';
 
 /*
   Generated class for the Settings page.
@@ -138,6 +139,11 @@ export class SettingsPage {
   showExcludeEquipment() {
     let excludeEquipment = this.modalCtrl.create(ExcludeEquipmentPage)
     excludeEquipment.present();
+  }
+
+  showReportBetween() {
+    let reportBetween = this.modalCtrl.create(ReportBetweenPage);
+    reportBetween.present();
   }
 
   ionViewDidLoad() {
