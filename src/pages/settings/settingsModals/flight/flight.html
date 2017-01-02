@@ -16,23 +16,36 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
 
-  <ion-item no-lines>
-    <ion-label>Flight Number</ion-label>
-    <ion-input type="text"></ion-input>
-  </ion-item>
+  <ion-list>
+    <ion-item>
+      <ion-label>Pairing must include this flight parameters</ion-label>
+      <ion-toggle></ion-toggle>
+    </ion-item>
 
-  <button ion-button full (click)="showDaysOfTheWeekSetttings()">Set day(s) of the week</button>
+    <ion-item>
+      <ion-label>Flight Number</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
 
-  <!-- todo:
-  // Date(s) (DDMMYYYY separated by commas).
-  // maybe https://github.com/rajeshwarpatlolla/ionic2-datepicker
-  -->
+    <!-- todo:
+    // Date(s) (DDMMYYYY separated by commas).
+    // maybe https://github.com/rajeshwarpatlolla/ionic2-datepicker
+    -->
 
-  <ion-item>
-    <ion-label>Pairing must include this flight parameters</ion-label>
-    <ion-checkbox></ion-checkbox>
-  </ion-item>
+    <ion-item>
+      <ion-label>Day(s) of the week</ion-label>
+      <ion-select okText="Okay" cancelText="Dismiss" multiple="true" placeholder="Not chosen">
+        <ion-option value="monday">Monday</ion-option>
+        <ion-option value="tuesday">Tuesday</ion-option>
+        <ion-option value="wednesday">Wednesday</ion-option>
+        <ion-option value="thursday">Thursday</ion-option>
+        <ion-option value="friday">Friday</ion-option>
+        <ion-option value="saturday">Saturday</ion-option>
+        <ion-option value="sunday">Sunday</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
 
 </ion-content>
