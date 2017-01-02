@@ -7,6 +7,7 @@ import { NumberOfCalendarDaysPage } from './settingsModals/number-of-calendar-da
 import { DutyPeriodNumberPage } from './settingsModals/duty-period-number/duty-period-number';
 import { DutyPeriodTimePage } from './settingsModals/duty-period-time/duty-period-time';
 import { PairingCreditPage } from './settingsModals/pairing-credit/pairing-credit';
+import { LayoverPage } from './settingsModals/layover/layover';
 import { FlightPage } from './settingsModals/flight/flight';
 import { ReportBetweenPage } from './settingsModals/report-between/report-between';
 import { ReleaseBetweenPage } from './settingsModals/release-between/release-between';
@@ -131,6 +132,11 @@ export class SettingsPage {
       }
     });
     alert.present();
+  }
+
+  showLayoverSettings() {
+    let layoverSettings = this.modalCtrl.create(LayoverPage);
+    layoverSettings.present();
   }
 
   showFlightSettings() {

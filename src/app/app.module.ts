@@ -14,6 +14,7 @@ import { NumberOfCalendarDaysPage } from '../pages/settings/settingsModals/numbe
 import { DutyPeriodNumberPage } from '../pages/settings/settingsModals/duty-period-number/duty-period-number';
 import { PairingCreditPage } from '../pages/settings/settingsModals/pairing-credit/pairing-credit';
 import { DutyPeriodTimePage } from '../pages/settings/settingsModals/duty-period-time/duty-period-time';
+import { LayoverPage } from '../pages/settings/settingsModals/layover/layover';
 import { FlightPage } from '../pages/settings/settingsModals/flight/flight';
 import { ReportBetweenPage } from '../pages/settings/settingsModals/report-between/report-between';
 import { ReleaseBetweenPage } from '../pages/settings/settingsModals/release-between/release-between';
@@ -35,6 +36,7 @@ import { Api } from '../providers/api';
   DutyPeriodNumberPage,
   DutyPeriodTimePage,
   PairingCreditPage,
+  LayoverPage,
   FlightPage,
   ReportBetweenPage,
   ReleaseBetweenPage,
@@ -58,6 +60,7 @@ import { Api } from '../providers/api';
   DutyPeriodNumberPage,
   DutyPeriodTimePage,
   PairingCreditPage,
+  LayoverPage,
   FlightPage,
   ReportBetweenPage,
   ReleaseBetweenPage,
