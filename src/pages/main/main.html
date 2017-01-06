@@ -8,13 +8,17 @@
 
   <ion-navbar>
     <ion-title>Pairing App</ion-title>
-    <button [navPush]="settingsPage" ion-button icon-only menuToggle right>
-      <ion-icon name="settings"></ion-icon>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
     </button>
+    <ion-buttons end>
+      <button [navPush]="settingsPage" ion-button icon-only>
+        <ion-icon name="settings"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
-
 
 <ion-content>
 <ion-list>
