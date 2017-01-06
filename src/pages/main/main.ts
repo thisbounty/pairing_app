@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
-import { SettingsPage } from '../settings/settings';
-import { SetOperatesPage } from './basicSettingsModals/set-operates/set-operates';
-import { ExcludePositionsPage } from './basicSettingsModals/exclude-positions/exclude-positions';
+import { FilteringPage } from '../filtering/filtering';
 
 /*
   Generated class for the Main page.
@@ -16,9 +14,9 @@ import { ExcludePositionsPage } from './basicSettingsModals/exclude-positions/ex
 })
 export class MainPage {
 
-  settingsPage = SettingsPage;
+  filteringPage = FilteringPage;
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController) {
   }
 
   ionViewDidLoad() {

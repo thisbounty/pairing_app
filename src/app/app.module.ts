@@ -6,7 +6,7 @@ import { MainPage } from '../pages/main/main';
 import { SetOperatesPage } from '../modals/settings-modals/set-operates/set-operates';
 import { ExcludePositionsPage } from '../modals/settings-modals/exclude-positions/exclude-positions';
 //Settings page elements
-import { SettingsPage } from '../pages/settings/settings';
+import { FilteringPage } from '../pages/filtering/filtering';
 import { SetAirportPage } from '../modals/settings-modals/set-airport/set-airport';
 import { SetLoginDetailsPage } from '../modals/settings-modals/set-login-details/set-login-details';
 import { ReportDatePage } from '../modals/settings-modals/report-date/report-date';
@@ -29,7 +29,7 @@ import { Api } from '../providers/api';
   declarations: [
     MyApp,
 	MainPage,
-  SettingsPage,
+  FilteringPage,
   SetAirportPage,
   SetLoginDetailsPage,
   ReportDatePage,
@@ -54,7 +54,7 @@ import { Api } from '../providers/api';
   entryComponents: [
     MyApp,
 	MainPage,
-  SettingsPage,
+  FilteringPage,
   SetAirportPage,
   SetLoginDetailsPage,
   ReportDatePage,

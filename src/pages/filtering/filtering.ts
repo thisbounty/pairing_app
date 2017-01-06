@@ -23,10 +23,10 @@ import { ExcludeEquipmentPage } from '../../modals/settings-modals/exclude-equip
   Ionic pages and navigation.
 */
 @Component({
-  selector: 'page-settings',
-  templateUrl: 'settings.html'
+  selector: 'page-filtering',
+  templateUrl: 'filtering.html'
 })
-export class SettingsPage {
+export class FilteringPage {
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController) {
   }
