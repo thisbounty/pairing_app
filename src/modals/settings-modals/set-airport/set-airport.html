@@ -1,0 +1,27 @@
+<!--
+  Generated template for the SetAirportByName page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Set airport</ion-title>
+    <ion-buttons end>
+        <button (click)="dismiss($event)" ion-button icon-only>
+          <ion-icon name="close"></ion-icon>
+        </button>
+      </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-searchbar (ionInput)="getAirports()" [(ngModel)]="airportName" placeholder="{{ selectedAirport }}"></ion-searchbar>
+  <ion-list [virtualScroll]="airlines">
+    <ion-item *virtualItem="let airline" (click)="saveAirport(airline)">
+      {{ airline.name }} | {{ airline.iata }}
+    </ion-item>
+  </ion-list>
+
+</ion-content>

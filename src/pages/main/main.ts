@@ -21,16 +21,6 @@ export class MainPage {
   constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
   }
 
-  showOperatesSettings() {
-    let setOperates = this.modalCtrl.create(SetOperatesPage);
-    setOperates.present();
-  }
-
-  showExcludePositionsSettings() {
-    let excludePositions = this.modalCtrl.create(ExcludePositionsPage);
-    excludePositions.present();
-  }
-
   ionViewDidLoad() {
     console.log('Hello MainPage Page');
   }

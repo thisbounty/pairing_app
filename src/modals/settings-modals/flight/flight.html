@@ -1,0 +1,57 @@
+<!--
+  Generated template for the Flight page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Flight</ion-title>
+    <ion-buttons end>
+        <button (click)="dismiss($event)" ion-button icon-only>
+          <ion-icon name="close"></ion-icon>
+        </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Pairing must include this flight parameters</ion-label>
+      <ion-toggle></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Flight Number</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Dates</ion-label>
+      <button (click)="showSetDates()" ion-button outline item-right>
+        Set dates
+        <!-- let's open new modal after lick
+        -->
+      </button>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Day(s) of the week</ion-label>
+      <ion-select okText="Okay" cancelText="Dismiss" multiple="true" placeholder="Not chosen">
+        <ion-option value="monday">Monday</ion-option>
+        <ion-option value="tuesday">Tuesday</ion-option>
+        <ion-option value="wednesday">Wednesday</ion-option>
+        <ion-option value="thursday">Thursday</ion-option>
+        <ion-option value="friday">Friday</ion-option>
+        <ion-option value="saturday">Saturday</ion-option>
+        <ion-option value="sunday">Sunday</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

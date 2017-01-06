@@ -1,0 +1,74 @@
+<!--
+  Generated template for the Layover page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Layover</ion-title>
+    <ion-buttons end>
+        <button (click)="dismiss($event)" ion-button icon-only>
+          <ion-icon name="close"></ion-icon>
+        </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Condition</ion-label>
+      <ion-select okText="Okay" cancelText="Dismiss" placeholder="Not chosen">
+        <ion-option value="at_least_one_must_be">(At Least One) Must Be</ion-option>
+        <ion-option value="at_least_one_must_not_be">(At Least One) Must NOT Be</ion-option>
+        <ion-option value="all_must_be">(ALL) Must Be</ion-option>
+        <ion-option value="all_must_not_be">(ALL) Must Not Be</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Dates</ion-label>
+      <button (click)="showSetDates()" ion-button outline item-right>
+        Set dates
+        <!-- let's open new modal after lick
+        -->
+      </button>
+    </ion-item>
+    <!-- todo:
+    // Date(s) (DDMMYYYY separated by commas).
+    // maybe https://github.com/rajeshwarpatlolla/ionic2-datepicker
+    -->
+    <ion-item no-lines>
+      <ion-label>Day(s) of the week</ion-label>
+      <ion-select okText="Okay" cancelText="Dismiss" multiple="true" placeholder="Not chosen">
+        <ion-option value="monday">Monday</ion-option>
+        <ion-option value="tuesday">Tuesday</ion-option>
+        <ion-option value="wednesday">Wednesday</ion-option>
+        <ion-option value="thursday">Thursday</ion-option>
+        <ion-option value="friday">Friday</ion-option>
+        <ion-option value="saturday">Saturday</ion-option>
+        <ion-option value="sunday">Sunday</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item-divider color="light">
+      Layover settings
+    </ion-item-divider>
+    <ion-item>
+      <ion-label>Enforce Layover Min/Max</ion-label>
+      <ion-toggle [(ngModel)]="enable_layover"></ion-toggle>
+    </ion-item>
+    <ion-item *ngIf="enable_layover">
+        <ion-label>Min</ion-label>
+        <ion-datetime displayFormat="HH:mm" hourValues="{{ range }}"></ion-datetime>
+    </ion-item>
+    <ion-item *ngIf="enable_layover">
+        <ion-label>Max</ion-label>
+        <ion-datetime displayFormat="HH:mm" hourValues="{{ range }}"></ion-datetime>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

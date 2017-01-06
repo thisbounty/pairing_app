@@ -1,0 +1,53 @@
+<!--
+  Generated template for the LegsPerDuty page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Legs per duty</ion-title>
+    <ion-buttons end>
+        <button (click)="dismiss($event)" ion-button icon-only>
+          <ion-icon name="close"></ion-icon>
+        </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Legs per duty</ion-label>
+      <ion-select okText="Okay" cancelText="Dismiss" placeholder="Min">
+        <ion-option value="1">1</ion-option>
+        <ion-option value="2">2</ion-option>
+        <ion-option value="3">3</ion-option>
+        <ion-option value="4">4</ion-option>
+        <ion-option value="5">5</ion-option>
+        <ion-option value="6">6</ion-option>
+      </ion-select>
+      <ion-select okText="Okay" cancelText="Dismiss" placeholder="Max">
+        <ion-option value="1">1</ion-option>
+        <ion-option value="2">2</ion-option>
+        <ion-option value="3">3</ion-option>
+        <ion-option value="4">4</ion-option>
+        <ion-option value="5">5</ion-option>
+        <ion-option value="6">6</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Duty Period</ion-label>
+      <ion-select>
+        <ion-option value="any_duty_period">Any Duty Period</ion-option>
+        <ion-option value="first_duty_period">First Duty Period</ion-option>
+        <ion-option value="last_duty_period">Last Duty Period</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

@@ -3,23 +3,23 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 //Main page elements
 import { MainPage } from '../pages/main/main';
-import { SetOperatesPage } from '../pages/main/basicSettingsModals/set-operates/set-operates';
-import { ExcludePositionsPage } from '../pages/main/basicSettingsModals/exclude-positions/exclude-positions';
+import { SetOperatesPage } from '../modals/settings-modals/set-operates/set-operates';
+import { ExcludePositionsPage } from '../modals/settings-modals/exclude-positions/exclude-positions';
 //Settings page elements
 import { SettingsPage } from '../pages/settings/settings';
-import { SetAirportPage } from '../pages/settings/settingsModals/set-airport/set-airport';
-import { SetLoginDetailsPage } from '../pages/settings/settingsModals/set-login-details/set-login-details';
-import { ReportDatePage } from '../pages/settings/settingsModals/report-date/report-date';
-import { NumberOfCalendarDaysPage } from '../pages/settings/settingsModals/number-of-calendar-days/number-of-calendar-days';
-import { DutyPeriodNumberPage } from '../pages/settings/settingsModals/duty-period-number/duty-period-number';
-import { PairingCreditPage } from '../pages/settings/settingsModals/pairing-credit/pairing-credit';
-import { DutyPeriodTimePage } from '../pages/settings/settingsModals/duty-period-time/duty-period-time';
-import { LayoverPage } from '../pages/settings/settingsModals/layover/layover';
-import { FlightPage } from '../pages/settings/settingsModals/flight/flight';
-import { ReportBetweenPage } from '../pages/settings/settingsModals/report-between/report-between';
-import { ReleaseBetweenPage } from '../pages/settings/settingsModals/release-between/release-between';
-import { LegsPerDutyPage } from '../pages/settings/settingsModals/legs-per-duty/legs-per-duty';
-import { ExcludeEquipmentPage } from '../pages/settings/settingsModals/exclude-equipment/exclude-equipment';
+import { SetAirportPage } from '../modals/settings-modals/set-airport/set-airport';
+import { SetLoginDetailsPage } from '../modals/settings-modals/set-login-details/set-login-details';
+import { ReportDatePage } from '../modals/settings-modals/report-date/report-date';
+import { NumberOfCalendarDaysPage } from '../modals/settings-modals/number-of-calendar-days/number-of-calendar-days';
+import { DutyPeriodNumberPage } from '../modals/settings-modals/duty-period-number/duty-period-number';
+import { PairingCreditPage } from '../modals/settings-modals/pairing-credit/pairing-credit';
+import { DutyPeriodTimePage } from '../modals/settings-modals/duty-period-time/duty-period-time';
+import { LayoverPage } from '../modals/settings-modals/layover/layover';
+import { FlightPage } from '../modals/settings-modals/flight/flight';
+import { ReportBetweenPage } from '../modals/settings-modals/report-between/report-between';
+import { ReleaseBetweenPage } from '../modals/settings-modals/release-between/release-between';
+import { LegsPerDutyPage } from '../modals/settings-modals/legs-per-duty/legs-per-duty';
+import { ExcludeEquipmentPage } from '../modals/settings-modals/exclude-equipment/exclude-equipment';
 import { SetDatesPage } from '../modals/settings-modals/set-dates/set-dates';
 //Providers
 import { SettingsStorage } from '../providers/settings-storage';

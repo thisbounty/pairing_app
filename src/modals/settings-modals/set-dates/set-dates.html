@@ -8,12 +8,14 @@
 
   <ion-navbar>
     <ion-title>Set dates</ion-title>
-    <button (click)="datePicker.open()" ion-button icon-only menuToggle right>
-      <ion-icon name="add"></ion-icon>
-    </button>
-    <button (click)="dismiss($event)" ion-button icon-only menuToggle right>
-      <ion-icon name="close"></ion-icon>
-    </button>
+    <ion-buttons end>
+      <button (click)="datePicker.open()" ion-button icon-only>
+        <ion-icon name="add"></ion-icon>
+      </button>
+      <button (click)="dismiss($event)" ion-button icon-only>
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
