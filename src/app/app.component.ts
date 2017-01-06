@@ -3,6 +3,7 @@ import { Platform, App } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 import { MainPage } from '../pages/main/main';
 import { FilteringPage } from '../pages/filtering/filtering';
+import { SettingsPage } from '../pages/settings/settings';
 import { SettingsStorage } from '../providers/settings-storage';
 
 
@@ -18,6 +19,7 @@ export class MyApp {
 
   constructor(platform: Platform, settingsStorage: SettingsStorage, app: App) {
     this.pages = [
+      { title: 'Settings', component: SettingsPage },
       { title: 'Filtering', component: FilteringPage },
     ];
 

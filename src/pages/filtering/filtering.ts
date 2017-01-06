@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, ModalController, AlertController } from 'ionic-angular';
-import { SetLoginDetailsPage } from '../../modals/settings-modals/set-login-details/set-login-details';
 import { SetAirportPage } from '../../modals/settings-modals/set-airport/set-airport';
 import { SetOperatesPage } from '../../modals/settings-modals/set-operates/set-operates';
 import { ExcludePositionsPage } from '../../modals/settings-modals/exclude-positions/exclude-positions';
@@ -29,11 +28,6 @@ import { ExcludeEquipmentPage } from '../../modals/settings-modals/exclude-equip
 export class FilteringPage {
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController) {
-  }
-
-  showSetLoginDetails() {
-    let setLoginDetails = this.modalCtrl.create(SetLoginDetailsPage);
-    setLoginDetails.present();
   }
 
   showSetAirports() {
