@@ -20,6 +20,7 @@ import { ReportBetweenPage } from '../pages/settings/settingsModals/report-betwe
 import { ReleaseBetweenPage } from '../pages/settings/settingsModals/release-between/release-between';
 import { LegsPerDutyPage } from '../pages/settings/settingsModals/legs-per-duty/legs-per-duty';
 import { ExcludeEquipmentPage } from '../pages/settings/settingsModals/exclude-equipment/exclude-equipment';
+import { SetDatesPage } from '../modals/settings-modals/set-dates/set-dates';
 //Providers
 import { SettingsStorage } from '../providers/settings-storage';
 import { Api } from '../providers/api';
@@ -42,6 +43,7 @@ import { Api } from '../providers/api';
   ReleaseBetweenPage,
   LegsPerDutyPage,
   ExcludeEquipmentPage,
+  SetDatesPage,
   SetOperatesPage,
   ExcludePositionsPage
   ],
@@ -66,6 +68,7 @@ import { Api } from '../providers/api';
   ReleaseBetweenPage,
   LegsPerDutyPage,
   ExcludeEquipmentPage,
+  SetDatesPage,
   SetOperatesPage,
   ExcludePositionsPage
   ],

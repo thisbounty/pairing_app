@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { ViewController } from 'ionic-angular';
+import { ViewController, AlertController, ModalController } from 'ionic-angular';
+import { SetDatesPage } from '../../../../modals/settings-modals/set-dates/set-dates';
 
 /*
   Generated class for the Layover page.
@@ -15,9 +16,19 @@ export class LayoverPage {
 
   public enable_layover:boolean;
   public range:string;
+  public relationship:any;
 
-  constructor(private viewCtrl: ViewController) {
+  constructor(private viewCtrl: ViewController, private alertCtrl: AlertController, private modalCtrl: ModalController) {
     this.layoverRange();
+  }
+
+  test() {
+    console.log(this.relationship);
+  }
+
+  showSetDates() {
+    let setDates = this.modalCtrl.create(SetDatesPage);
+    setDates.present();
   }
 
   layoverRange() {

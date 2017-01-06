@@ -29,10 +29,14 @@
       <ion-input type="text"></ion-input>
     </ion-item>
 
-    <!-- todo:
-    // Date(s) (DDMMYYYY separated by commas).
-    // maybe https://github.com/rajeshwarpatlolla/ionic2-datepicker
-    -->
+    <ion-item>
+      <ion-label>Dates</ion-label>
+      <button (click)="showSetDates()" ion-button outline item-right>
+        Set dates
+        <!-- let's open new modal after lick
+        -->
+      </button>
+    </ion-item>
 
     <ion-item>
       <ion-label>Day(s) of the week</ion-label>

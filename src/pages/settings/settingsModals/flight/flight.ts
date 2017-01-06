@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { ViewController, AlertController } from 'ionic-angular';
+import { ViewController, AlertController, ModalController } from 'ionic-angular';
+import { SetDatesPage } from '../../../../modals/settings-modals/set-dates/set-dates';
 
 /*
   Generated class for the Flight page.
@@ -13,8 +14,13 @@ import { ViewController, AlertController } from 'ionic-angular';
 })
 export class FlightPage {
 
-  constructor(private viewCtrl: ViewController, private alertCtrl: AlertController) {
+  constructor(private viewCtrl: ViewController, private alertCtrl: AlertController, private modalCtrl: ModalController) {
 
+  }
+
+  showSetDates() {
+    let setDates = this.modalCtrl.create(SetDatesPage);
+    setDates.present();
   }
 
   showDaysOfTheWeekSetttings() {

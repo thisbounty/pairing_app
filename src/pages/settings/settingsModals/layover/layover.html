@@ -28,6 +28,14 @@
         <ion-option value="all_must_not_be">(ALL) Must Not Be</ion-option>
       </ion-select>
     </ion-item>
+    <ion-item>
+      <ion-label>Dates</ion-label>
+      <button (click)="showSetDates()" ion-button outline item-right>
+        Set dates
+        <!-- let's open new modal after lick
+        -->
+      </button>
+    </ion-item>
     <!-- todo:
     // Date(s) (DDMMYYYY separated by commas).
     // maybe https://github.com/rajeshwarpatlolla/ionic2-datepicker
