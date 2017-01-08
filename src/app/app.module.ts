@@ -9,6 +9,7 @@ import { ExcludePositionsPage } from '../modals/settings-modals/exclude-position
 import { SettingsPage } from '../pages/settings/settings';
 //Filtering page elements
 import { FilteringPage } from '../pages/filtering/filtering';
+import { FiltersPage } from '../modals/settings-modals/filters/filters';
 import { SetAirportPage } from '../modals/settings-modals/set-airport/set-airport';
 import { SetLoginDetailsPage } from '../modals/settings-modals/set-login-details/set-login-details';
 import { ReportDatePage } from '../modals/settings-modals/report-date/report-date';
@@ -33,6 +34,7 @@ import { Api } from '../providers/api';
 	MainPage,
   SettingsPage,
   FilteringPage,
+  FiltersPage,
   SetAirportPage,
   SetLoginDetailsPage,
   ReportDatePage,
@@ -59,6 +61,7 @@ import { Api } from '../providers/api';
 	MainPage,
   SettingsPage,
   FilteringPage,
+  FiltersPage,
   SetAirportPage,
   SetLoginDetailsPage,
   ReportDatePage,

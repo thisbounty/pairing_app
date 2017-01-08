@@ -17,6 +17,7 @@ export class SettingsStorage {
   private secureStorage:SecureStorage;
   public static storeName:string = 'pairing_app';
   public static loginItem:string = 'loginDetails';
+  public static filteringItem:string = 'filters';
   public static airportItem:string = 'airport';
   private ready:boolean;
 
@@ -39,7 +40,7 @@ export class SettingsStorage {
       this.ready = true;
     });
   }
-  
+
   isReady(callback:Function) {
     if(this.ready) {
       callback();
@@ -47,7 +48,7 @@ export class SettingsStorage {
       console.log("Storage is not initialized");
     }
   }
-  
+
   setUser(username:string, password:string, callback:Function = () => {}) {
     this.secureStorage.set(SettingsStorage.loginItem, JSON.stringify({u:username, p:password}))
     .then(
@@ -57,7 +58,7 @@ export class SettingsStorage {
       error => console.log(error)
     );
   }
-  
+
   getUser(callback:Function) {
     this.secureStorage.get(SettingsStorage.loginItem)
     .then(
@@ -85,6 +86,28 @@ export class SettingsStorage {
       data => {
         let {a, i} = JSON.parse(data);
         callback(a, i);
+      },
+      error => console.log(error)
+    );
+  }
+
+  saveFilters(filters:Array<{name: string, data: any}>) {
+    this.secureStorage.set(SettingsStorage.filteringItem, JSON.stringify(filters))
+    .then(
+      data => {
+        console.log('filters saved');
+      },
+      error => console.log(error)
+    );
+  }
+
+  getFilters(callback:Function) {
+    this.secureStorage.get(SettingsStorage.filteringItem)
+    .then(
+      data => {
+        let filters = JSON.parse(data);
+        console.log(filters);
+        callback(filters);
       },
       error => console.log(error)
     );
