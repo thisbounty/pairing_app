@@ -70,27 +70,6 @@ export class SettingsStorage {
     );
   }
 
-  saveAirport(airportName:string, iata:string) {
-    this.secureStorage.set(SettingsStorage.airportItem, JSON.stringify({a:airportName, i:iata}))
-    .then(
-      data => {
-        console.log('airport saved');
-      },
-      error => console.log(error)
-    );
-  }
-
-  getAirport(callback:Function) : any {
-    this.secureStorage.get(SettingsStorage.airportItem)
-    .then(
-      data => {
-        let {a, i} = JSON.parse(data);
-        callback(a, i);
-      },
-      error => console.log(error)
-    );
-  }
-
   saveFilters(filters:Array<{name: string, data: any}>) {
     this.secureStorage.set(SettingsStorage.filteringItem, JSON.stringify(filters))
     .then(
