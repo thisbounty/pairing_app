@@ -27,7 +27,7 @@ export class SetOperatesPage {
     this.viewCtrl.dismiss();
   }
 
-  dismiss(data) {
-    this.viewCtrl.dismiss(data);
+  dismiss() {
+    this.viewCtrl.dismiss();
   }
 }

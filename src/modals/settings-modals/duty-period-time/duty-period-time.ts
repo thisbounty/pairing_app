@@ -32,4 +32,8 @@ export class DutyPeriodTimePage {
     this.events.publish('filter:created', "Duty period time filter", { period_time_min: this.period_time_min, period_time_max: this.period_time_max});
     this.viewCtrl.dismiss();
   }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
 }

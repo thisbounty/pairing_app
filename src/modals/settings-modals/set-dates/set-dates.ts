@@ -41,7 +41,7 @@ export class SetDatesPage {
     this.dates.unshift(JSON.parse(('{ "text": "' + this.date + '", "value": "' + DateUtils.parseDate(this.date) + '" }')));
   }
 
-  dismiss(data) {
-    this.viewCtrl.dismiss(data);
+  dismiss() {
+    this.viewCtrl.dismiss();
   }
 }
