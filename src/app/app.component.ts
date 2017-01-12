@@ -5,11 +5,12 @@ import { MainPage } from '../pages/main/main';
 import { FilteringPage } from '../pages/filtering/filtering';
 import { SettingsPage } from '../pages/settings/settings';
 import { SettingsStorage } from '../providers/settings-storage';
+import { DateUtils } from '../providers/date-utils';
 
 
 @Component({
   templateUrl: 'app.html',
-  providers: [ SettingsStorage ]
+  providers: [ SettingsStorage, DateUtils ]
 })
 export class MyApp {
   rootPage = MainPage;
