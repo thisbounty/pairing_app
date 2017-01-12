@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ViewController, ActionSheetController  } from 'ionic-angular';
+import { DateUtils } from '../../../providers/date-utils';
 
 /*
   Generated class for the SetDates page.
@@ -13,7 +14,7 @@ import { ViewController, ActionSheetController  } from 'ionic-angular';
 })
 export class SetDatesPage {
 
-  public dates:any = []; // {text: xxx, value: yyy}
+  public dates:Array<{ text: string, value: string }> = [];
   public date:any;
 
   constructor(public viewCtrl: ViewController, private actionSheetCtrl: ActionSheetController) {
@@ -37,18 +38,7 @@ export class SetDatesPage {
   }
 
   dateChanged(event: Event) {
-    this.dates.unshift(JSON.parse(('{ "text": "' + this.date + '", "value": "' + this.parseDate(event) + '" }')));
-  }
-
-  //format date to DDMMYYYY
-  parseDate(event: Event) {
-    let date:string = "";
-    date += event["day"].text;
-    if(event["month"].value > 0 && event["month"].value < 10)
-      date += "0";
-    date += event["month"].value;
-    date += event["year"].value;
-    return date;
+    this.dates.unshift(JSON.parse(('{ "text": "' + this.date + '", "value": "' + DateUtils.parseDate(this.date) + '" }')));
   }
 
   dismiss(data) {
