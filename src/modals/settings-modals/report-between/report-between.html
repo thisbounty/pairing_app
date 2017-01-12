@@ -9,8 +9,8 @@
   <ion-navbar>
     <ion-title>Report Between</ion-title>
     <ion-buttons end>
-        <button (click)="dismiss($event)" ion-button icon-only>
-          <ion-icon name="close"></ion-icon>
+        <button (click)="save()" ion-button icon-only>
+          <ion-icon name="checkmark"></ion-icon>
         </button>
     </ion-buttons>
   </ion-navbar>
@@ -26,11 +26,11 @@
     </ion-list-header>
     <ion-item>
       <ion-label>Min</ion-label>
-      <ion-datetime displayFormat="HH:mm" hourValues="{{ range }}"></ion-datetime>
+      <ion-datetime displayFormat="HH:mm" hourValues="{{ range }}" [(ngModel)]="report_between_min"></ion-datetime>
     </ion-item>
     <ion-item no-lines>
       <ion-label>Max</ion-label>
-      <ion-datetime displayFormat="HH:mm" hourValues="{{ range }}"></ion-datetime>
+      <ion-datetime displayFormat="HH:mm" hourValues="{{ range }}" [(ngModel)]="report_between_max"></ion-datetime>
     </ion-item>
   </ion-list>
 
