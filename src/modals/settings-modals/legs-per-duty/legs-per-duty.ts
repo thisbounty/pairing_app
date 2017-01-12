@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewController } from 'ionic-angular';
+import { ViewController, Events } from 'ionic-angular';
 
 /*
   Generated class for the LegsPerDuty page.
@@ -13,10 +13,15 @@ import { ViewController } from 'ionic-angular';
 })
 export class LegsPerDutyPage {
 
-  constructor(private viewCtrl: ViewController) {
+  legs_per_duty_min:string;
+  legs_per_duty_max:string;
+  duty_period:string;
+
+  constructor(private viewCtrl: ViewController, public events: Events) {
   }
 
-  dismiss(data) {
-    this.viewCtrl.dismiss(data);
+  save() {
+    this.events.publish('filter:created', "Legs per duty filter", { legs_per_duty_min: this.legs_per_duty_min, legs_per_duty_max: this.legs_per_duty_max, duty_period: this.duty_period });
+    this.viewCtrl.dismiss();
   }
 }
