@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewController } from 'ionic-angular';
+import { ViewController, Events } from 'ionic-angular';
 
 /*
   Generated class for the ReportBetween page.
@@ -14,8 +14,10 @@ import { ViewController } from 'ionic-angular';
 export class ReportBetweenPage {
 
   public range:string;
+  report_between_min:string;
+  report_between_max:string;
 
-  constructor(private viewCtrl: ViewController) {
+  constructor(private viewCtrl: ViewController, public events: Events) {
     this.reportBetweenTimeRange();
   }
 
@@ -26,7 +28,8 @@ export class ReportBetweenPage {
     }
   }
 
-  dismiss(data) {
-    this.viewCtrl.dismiss(data);
+  save() {
+    this.events.publish('filter:created', "Report between filter", { report_between_min: this.report_between_min, report_between_max: this.report_between_max});
+    this.viewCtrl.dismiss();
   }
 }
