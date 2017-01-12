@@ -16,21 +16,22 @@ export class SetAirportPage {
   private settingsStorage:SettingsStorage;
   public airportName:string = '';
   public iata:string = '';
-  public selectedAirport:string = 'd';
   airlines: any;
 
   constructor(private viewCtrl: ViewController, platform:Platform, settingsStorage: SettingsStorage, public events: Events) {
     platform.ready().then(() => {
       this.settingsStorage = settingsStorage;
-      this.settingsStorage.isReady(() => {
-        this.getSavedAirport();
-      });
     });
   }
 
   save(){
     this.events.publish('filter:created', "Airport filter", { airportName: this.airportName, iata: this.iata });
     this.viewCtrl.dismiss();
+  }
+
+  selectAirport(airline) {
+    this.airportName = airline.name;
+    this.iata = airline.iata;
   }
 
   initializeItems() {
@@ -55,16 +56,5 @@ export class SetAirportPage {
     else {
       this.airlines = [];
     }
-  }
-  saveAirport(airline) {
-    this.settingsStorage.saveAirport(airline.name, airline.iata);
-  }
-
-  getSavedAirport() {
-    this.settingsStorage.getAirport((airportName:string, iata:string) => {
-      this.airportName = airportName;
-      this.iata = iata;
-      this.getAirports();
-    });
   }
 }
