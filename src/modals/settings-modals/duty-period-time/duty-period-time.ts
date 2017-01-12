@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewController } from 'ionic-angular';
+import { ViewController, Events } from 'ionic-angular';
 
 /*
   Generated class for the DutyPeriodTime page.
@@ -14,8 +14,10 @@ import { ViewController } from 'ionic-angular';
 export class DutyPeriodTimePage {
 
   public range:string;
+  period_time_min:string;
+  period_time_max:string;
 
-  constructor(private viewCtrl: ViewController) {
+  constructor(private viewCtrl: ViewController, public events: Events) {
     this.dutyPeriodTimeRange();
   }
 
@@ -26,7 +28,8 @@ export class DutyPeriodTimePage {
     }
   }
 
-  dismiss(data) {
-    this.viewCtrl.dismiss(data);
+  save() {
+    this.events.publish('filter:created', "Duty period time filter", { period_time_min: this.period_time_min, period_time_max: this.period_time_max});
+    this.viewCtrl.dismiss();
   }
 }
