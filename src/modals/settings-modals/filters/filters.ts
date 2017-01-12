@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, ViewController, ModalController, AlertController, Events} from 'ionic-angular';
-import { SettingsStorage } from '../../providers/settings-storage';
 import { SetAirportPage } from '../set-airport/set-airport';
 import { SetOperatesPage } from '../set-operates/set-operates';
-import { ExcludePositionsPage } from '../exclude-positions/exclude-positions';
-import { ReportDatePage } from '../report-date/report-date';
-import { NumberOfCalendarDaysPage } from '../number-of-calendar-days/number-of-calendar-days';
-import { DutyPeriodNumberPage } from '../duty-period-number/duty-period-number';
 import { DutyPeriodTimePage } from '../duty-period-time/duty-period-time';
 import { PairingCreditPage } from '../pairing-credit/pairing-credit';
 import { LayoverPage } from '../layover/layover';
@@ -14,7 +9,6 @@ import { FlightPage } from '../flight/flight';
 import { ReportBetweenPage } from '../report-between/report-between';
 import { ReleaseBetweenPage } from '../release-between/release-between';
 import { LegsPerDutyPage } from '../legs-per-duty/legs-per-duty';
-import { ExcludeEquipmentPage } from '../exclude-equipment/exclude-equipment';
 /*
   Generated class for the Filters page.
 
@@ -59,8 +53,6 @@ export class FiltersPage {
   }
 
   showExcludePositionsSettings() {
-    //let excludePositions = this.modalCtrl.create(ExcludePositionsPage);
-    //excludePositions.present();
     let alert = this.alertCtrl.create({
       title: 'Exclude positions',
       inputs: [ { type: 'checkbox', label: 'AFA | Lead Flight Attendant', value: 'afa' },
@@ -85,8 +77,6 @@ export class FiltersPage {
   }
 
   showReportDate() {
-      //let reportDate = this.modalCtrl.create(ReportDatePage)
-      //reportDate.present();
       let alert = this.alertCtrl.create({
         title: 'Report date',
         inputs: [ { type: 'checkbox', label: 'Monday', value: 'monday' },
@@ -107,8 +97,6 @@ export class FiltersPage {
   }
 
   showNumberOfCalendarDays() {
-    //let numberOfCalendarDays = this.modalCtrl.create(NumberOfCalendarDaysPage)
-    //numberOfCalendarDays.present();
     let alert = this.alertCtrl.create({
       title: 'Number of calendar days',
       inputs: [ { type: 'checkbox', label: '1', value: '1' },
@@ -129,8 +117,6 @@ export class FiltersPage {
   }
 
   showDutyPeriodNumber() {
-    //let dutyPeriodNumber = this.modalCtrl.create(DutyPeriodNumberPage)
-    //dutyPeriodNumber.present();
     let alert = this.alertCtrl.create({
       title: 'Duty period number',
       inputs: [ { type: 'checkbox', label: '1', value: '1' },
@@ -219,8 +205,6 @@ export class FiltersPage {
   }
 
   showExcludeEquipment() {
-    //let excludeEquipment = this.modalCtrl.create(ExcludeEquipmentPage)
-    //excludeEquipment.present();
     let alert = this.alertCtrl.create({
       title: 'Exclude equipment',
       inputs: [ { type: 'checkbox', label: 'B757-EW', value: '>b757-ew' },
