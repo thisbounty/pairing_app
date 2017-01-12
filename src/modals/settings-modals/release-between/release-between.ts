@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewController } from 'ionic-angular';
+import { ViewController, Events } from 'ionic-angular';
 
 /*
   Generated class for the ReleaseBetween page.
@@ -14,8 +14,10 @@ import { ViewController } from 'ionic-angular';
 export class ReleaseBetweenPage {
 
   public range:string;
+  release_between_min:string;
+  release_between_max:string;
 
-  constructor(private viewCtrl: ViewController) {
+  constructor(private viewCtrl: ViewController, public events: Events) {
     this.releaseBetweenRange();
   }
 
@@ -26,7 +28,8 @@ export class ReleaseBetweenPage {
     }
   }
 
-  dismiss(data) {
-    this.viewCtrl.dismiss(data);
+  save() {
+    this.events.publish('filter:created', "Release between filter", { release_between_min: this.release_between_min, release_between_max: this.release_between_max});
+    this.viewCtrl.dismiss();
   }
 }
