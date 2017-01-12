@@ -24,4 +24,8 @@ export class LegsPerDutyPage {
     this.events.publish('filter:created', "Legs per duty filter", { legs_per_duty_min: this.legs_per_duty_min, legs_per_duty_max: this.legs_per_duty_max, duty_period: this.duty_period });
     this.viewCtrl.dismiss();
   }
+  
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
 }

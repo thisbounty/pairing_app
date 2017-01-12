@@ -32,4 +32,8 @@ export class ReportBetweenPage {
     this.events.publish('filter:created', "Report between filter", { report_between_min: this.report_between_min, report_between_max: this.report_between_max});
     this.viewCtrl.dismiss();
   }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
 }

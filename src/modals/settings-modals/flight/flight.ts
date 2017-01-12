@@ -42,7 +42,7 @@ export class FlightPage {
     alert.present();
   }
 
-  dismiss(data) {
-    this.viewCtrl.dismiss(data);
+  dismiss() {
+    this.viewCtrl.dismiss();
   }
 }

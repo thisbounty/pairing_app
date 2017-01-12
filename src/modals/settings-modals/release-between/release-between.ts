@@ -32,4 +32,8 @@ export class ReleaseBetweenPage {
     this.events.publish('filter:created', "Release between filter", { release_between_min: this.release_between_min, release_between_max: this.release_between_max});
     this.viewCtrl.dismiss();
   }
+  
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
 }

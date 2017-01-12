@@ -32,4 +32,8 @@ export class PairingCreditPage {
     this.events.publish('filter:created', "Pairing credit filter", { pairing_credit_min: this.pairing_credit_min, pairing_credit_max: this.pairing_credit_max});
     this.viewCtrl.dismiss();
   }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
 }

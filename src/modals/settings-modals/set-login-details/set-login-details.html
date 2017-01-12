@@ -1,9 +1,12 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Set login details</ion-title>
-	  <ion-buttons end>
-      <button (click)="dismiss($event)" ion-button icon-only>
+    <ion-buttons end>
+      <button (click)="dismiss()" ion-button icon-only>
         <ion-icon name="close"></ion-icon>
+      </button>
+      <button (click)="save()" ion-button icon-only>
+        <ion-icon name="checkmark"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>

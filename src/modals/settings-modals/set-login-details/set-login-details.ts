@@ -64,8 +64,8 @@ export class SetLoginDetailsPage {
     });
   }
 
-  dismiss(data) {
-    this.viewCtrl.dismiss(data);
+  dismiss() {
+    this.viewCtrl.dismiss();
   }
 
   ionViewDidLoad() {
