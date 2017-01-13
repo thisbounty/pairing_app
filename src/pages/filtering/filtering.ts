@@ -37,7 +37,7 @@ export class FilteringPage {
   filterAddedNotifiaction(name) {
     let notification = this.toastCtrl.create({
       message: name + ' has been added successfully',
-      duration: 3000
+      duration: 2000
     });
     notification.present();
   }
@@ -45,7 +45,7 @@ export class FilteringPage {
   filterRemovedNotifiaction(name) {
     let notification = this.toastCtrl.create({
       message: name + ' has been removed successfully',
-      duration: 3000
+      duration: 2000
     });
     notification.present();
   }
