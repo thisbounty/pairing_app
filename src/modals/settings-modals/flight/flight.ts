@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewController, AlertController, ModalController } from 'ionic-angular';
+import { ViewController, AlertController, ModalController, Events } from 'ionic-angular';
 import { SetDatesPage } from '../../../modals/settings-modals/set-dates/set-dates';
 
 /*
@@ -14,12 +14,26 @@ import { SetDatesPage } from '../../../modals/settings-modals/set-dates/set-date
 })
 export class FlightPage {
 
-  constructor(private viewCtrl: ViewController, private alertCtrl: AlertController, private modalCtrl: ModalController) {
+  public include_flight_parameters:boolean = false;
+  public flight_number:string;
+  public days_of_the_week:string[];
+  public dates:Array<{ text: string, value: string }> = [];
+
+  constructor(private viewCtrl: ViewController, private alertCtrl: AlertController, private modalCtrl: ModalController, public events: Events) {
 
   }
 
+  save() {
+    this.events.publish('filter:created', "Flight filter", { include_flight_parameters: this.include_flight_parameters, flight_number: this.flight_number, days_of_the_week: this.days_of_the_week, dates: this.dates });
+    this.viewCtrl.dismiss();
+  }
+
   showSetDates() {
-    let setDates = this.modalCtrl.create(SetDatesPage);
+    let setDates = this.modalCtrl.create(SetDatesPage, { dates: this.dates });
+    setDates.onDidDismiss(dates => {
+      this.dates = dates;
+      console.log(this.dates);
+    });
     setDates.present();
   }
 
