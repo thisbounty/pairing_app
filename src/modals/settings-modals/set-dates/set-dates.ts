@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewController, ActionSheetController  } from 'ionic-angular';
+import { ViewController, ActionSheetController, NavParams  } from 'ionic-angular';
 import { DateUtils } from '../../../providers/date-utils';
 
 /*
@@ -17,7 +17,9 @@ export class SetDatesPage {
   public dates:Array<{ text: string, value: string }> = [];
   public date:any;
 
-  constructor(public viewCtrl: ViewController, private actionSheetCtrl: ActionSheetController) {
+  constructor(params: NavParams, public viewCtrl: ViewController, private actionSheetCtrl: ActionSheetController) {
+    if(params.get('dates'))
+      this.dates = params.get('dates');
   }
 
   buttonClicked(index) {
