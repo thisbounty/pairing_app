@@ -26,7 +26,7 @@
   <ion-list>
     <ion-item>
       <ion-label>Condition</ion-label>
-      <ion-select okText="Okay" cancelText="Dismiss" placeholder="Not chosen">
+      <ion-select okText="Okay" cancelText="Dismiss" placeholder="Not chosen" [(ngModel)]="layover_condition">
         <ion-option value="at_least_one_must_be">(At Least One) Must Be</ion-option>
         <ion-option value="at_least_one_must_not_be">(At Least One) Must NOT Be</ion-option>
         <ion-option value="all_must_be">(ALL) Must Be</ion-option>
@@ -47,7 +47,7 @@
     -->
     <ion-item no-lines>
       <ion-label>Day(s) of the week</ion-label>
-      <ion-select okText="Okay" cancelText="Dismiss" multiple="true" placeholder="Not chosen">
+      <ion-select okText="Okay" cancelText="Dismiss" multiple="true" placeholder="Not chosen" [(ngModel)]="days_of_the_week">
         <ion-option value="monday">Monday</ion-option>
         <ion-option value="tuesday">Tuesday</ion-option>
         <ion-option value="wednesday">Wednesday</ion-option>
@@ -66,11 +66,11 @@
     </ion-item>
     <ion-item *ngIf="enable_layover">
         <ion-label>Min</ion-label>
-        <ion-datetime displayFormat="HH:mm" hourValues="{{ range }}"></ion-datetime>
+        <ion-datetime displayFormat="HH:mm" hourValues="{{ range }}" [(ngModel)]="enforce_layover_min"></ion-datetime>
     </ion-item>
     <ion-item *ngIf="enable_layover">
         <ion-label>Max</ion-label>
-        <ion-datetime displayFormat="HH:mm" hourValues="{{ range }}"></ion-datetime>
+        <ion-datetime displayFormat="HH:mm" hourValues="{{ range }}" [(ngModel)]="enforce_layover_max"></ion-datetime>
     </ion-item>
   </ion-list>
 

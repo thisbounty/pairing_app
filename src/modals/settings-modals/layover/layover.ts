@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewController, AlertController, ModalController } from 'ionic-angular';
+import { ViewController, AlertController, ModalController, Events } from 'ionic-angular';
 import { SetDatesPage } from '../../../modals/settings-modals/set-dates/set-dates';
 
 /*
@@ -14,20 +14,28 @@ import { SetDatesPage } from '../../../modals/settings-modals/set-dates/set-date
 })
 export class LayoverPage {
 
-  public enable_layover:boolean;
+  public layover_condition:string;
+  public dates:Array<{ text: string, value: string }> = [];
+  public days_of_the_week:string[];
+  public enable_layover:boolean = false;
+  public enforce_layover_min:string;
+  public enforce_layover_max:string;
   public range:string;
-  public relationship:any;
 
-  constructor(private viewCtrl: ViewController, private alertCtrl: AlertController, private modalCtrl: ModalController) {
+  constructor(private viewCtrl: ViewController, private alertCtrl: AlertController, private modalCtrl: ModalController, public events: Events) {
     this.layoverRange();
   }
 
-  test() {
-    console.log(this.relationship);
+  save() {
+    this.events.publish('filter:created', "Layover filter", { layover_condition: this.layover_condition, dates: this.dates, days_of_the_week: this.days_of_the_week, enable_layover: this.enable_layover, enforce_layover_min: this.enforce_layover_min, enforce_layover_max: this.enforce_layover_max });
+    this.viewCtrl.dismiss();
   }
 
   showSetDates() {
-    let setDates = this.modalCtrl.create(SetDatesPage);
+    let setDates = this.modalCtrl.create(SetDatesPage, { dates: this.dates });
+    setDates.onDidDismiss(dates => {
+      this.dates = dates;
+    });
     setDates.present();
   }
 
