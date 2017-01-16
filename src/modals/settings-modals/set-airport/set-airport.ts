@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewController, Platform, Events } from 'ionic-angular';
+import { ViewController, Platform, Events, NavParams } from 'ionic-angular';
 import { SettingsStorage } from '../../../providers/settings-storage';
 
 /*
@@ -13,20 +13,19 @@ import { SettingsStorage } from '../../../providers/settings-storage';
 })
 export class SetAirportPage {
 
-  private settingsStorage:SettingsStorage;
   public airportName:string = '';
   public iata:string = '';
   airlines: any;
 
-  constructor(private viewCtrl: ViewController, platform:Platform, settingsStorage: SettingsStorage, public events: Events) {
-    platform.ready().then(() => {
-      this.settingsStorage = settingsStorage;
-    });
+  constructor(params: NavParams, private viewCtrl: ViewController, platform:Platform, settingsStorage: SettingsStorage, public events: Events) {
+    if(params.get('airportName'))
+      this.airportName = params.get('airportName');
+    if(params.get('iata'))
+      this.iata = params.get('iata');
   }
 
   save(){
-    this.events.publish('filter:created', "Airport filter", { airportName: this.airportName, iata: this.iata });
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss({ airportName: this.airportName, iata: this.iata });
   }
 
   selectAirport(airline) {
@@ -36,10 +35,6 @@ export class SetAirportPage {
 
   initializeItems() {
     this.airlines = SettingsStorage.airlines;
-  }
-
-  dismiss() {
-    this.viewCtrl.dismiss();
   }
 
   getAirports() {

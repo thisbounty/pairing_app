@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewController, Events } from 'ionic-angular';
+import { ViewController, Events, NavParams } from 'ionic-angular';
 
 /*
   Generated class for the PairingCredit page.
@@ -14,11 +14,15 @@ import { ViewController, Events } from 'ionic-angular';
 export class PairingCreditPage {
 
   public range:string;
-  pairing_credit_min:string;
-  pairing_credit_max:string;
+  public tcr_min:string;
+  public tcr_max:string;
 
-  constructor(private viewCtrl: ViewController, public events: Events) {
+  constructor(params: NavParams, private viewCtrl: ViewController, public events: Events) {
     this.pairingCreditRange();
+    if(params.get('tcr_min'))
+      this.tcr_min = params.get('tcr_min');
+    if(params.get('tcr_max'))
+      this.tcr_max = params.get('tcr_max');
   }
 
   pairingCreditRange() {
@@ -29,11 +33,6 @@ export class PairingCreditPage {
   }
 
   save() {
-    this.events.publish('filter:created', "Pairing credit filter", { pairing_credit_min: this.pairing_credit_min, pairing_credit_max: this.pairing_credit_max});
-    this.viewCtrl.dismiss();
-  }
-
-  dismiss() {
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss({ tcr_min: this.tcr_min, tcr_max: this.tcr_max});
   }
 }

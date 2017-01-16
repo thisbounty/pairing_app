@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewController, Events } from 'ionic-angular';
+import { ViewController, Events, NavParams } from 'ionic-angular';
 
 /*
   Generated class for the LegsPerDuty page.
@@ -13,19 +13,20 @@ import { ViewController, Events } from 'ionic-angular';
 })
 export class LegsPerDutyPage {
 
-  legs_per_duty_min:string;
-  legs_per_duty_max:string;
-  duty_period:string;
+  public dprow_min:string;
+  public dprow_max:string;
+  public dprow_type:string;
 
-  constructor(private viewCtrl: ViewController, public events: Events) {
+  constructor(params: NavParams, private viewCtrl: ViewController, public events: Events) {
+    if(params.get('dprow_min'))
+      this.dprow_min = params.get('dprow_min');
+    if(params.get('dprow_max'))
+      this.dprow_max = params.get('dprow_max');
+    if(params.get('dprow_type'))
+      this.dprow_type = params.get('dprow_type');
   }
 
   save() {
-    this.events.publish('filter:created', "Legs per duty filter", { legs_per_duty_min: this.legs_per_duty_min, legs_per_duty_max: this.legs_per_duty_max, duty_period: this.duty_period });
-    this.viewCtrl.dismiss();
-  }
-  
-  dismiss() {
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss({ dprow_min: this.dprow_min, dprow_max: this.dprow_max, dprow_type: this.dprow_type });
   }
 }

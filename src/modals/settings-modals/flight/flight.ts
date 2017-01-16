@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewController, AlertController, ModalController, Events } from 'ionic-angular';
+import { ViewController, AlertController, ModalController, Events, NavParams } from 'ionic-angular';
 import { SetDatesPage } from '../../../modals/settings-modals/set-dates/set-dates';
 
 /*
@@ -14,25 +14,30 @@ import { SetDatesPage } from '../../../modals/settings-modals/set-dates/set-date
 })
 export class FlightPage {
 
-  public include_flight_parameters:boolean = false;
-  public flight_number:string;
-  public days_of_the_week:string[];
-  public dates:Array<{ text: string, value: string }> = [];
+  public flight_con:boolean = false;
+  public flight_num:string;
+  public flight_dow:string[];
+  public flight_dates:Array<{ text: string, value: string }> = [];
 
-  constructor(private viewCtrl: ViewController, private alertCtrl: AlertController, private modalCtrl: ModalController, public events: Events) {
-
+  constructor(params: NavParams, private viewCtrl: ViewController, private alertCtrl: AlertController, private modalCtrl: ModalController, public events: Events) {
+    if(params.get('flight_con'))
+      this.flight_con = params.get('flight_con');
+    if(params.get('flight_num'))
+      this.flight_num = params.get('flight_num');
+    if(params.get('flight_dow'))
+      this.flight_dow = params.get('flight_dow');
+    if(params.get('flight_dates'))
+      this.flight_dates = params.get('flight_dates');
   }
 
   save() {
-    this.events.publish('filter:created', "Flight filter", { include_flight_parameters: this.include_flight_parameters, flight_number: this.flight_number, days_of_the_week: this.days_of_the_week, dates: this.dates });
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss({ flight_con: this.flight_con, flight_num: this.flight_num, flight_dow: this.flight_dow, flight_dates: this.flight_dates });
   }
 
   showSetDates() {
-    let setDates = this.modalCtrl.create(SetDatesPage, { dates: this.dates });
+    let setDates = this.modalCtrl.create(SetDatesPage, { dates: this.flight_dates });
     setDates.onDidDismiss(dates => {
-      this.dates = dates;
-      console.log(this.dates);
+      this.flight_dates = dates;
     });
     setDates.present();
   }
@@ -50,13 +55,9 @@ export class FlightPage {
       buttons: [ { text: 'Cancel', role: 'cancel' },
                  { text: 'Okay',
                    handler: data => {
-                     console.log('Checkbox data:', data); //array
+                     this.flight_dow = data;
                  }} ]
     })
     alert.present();
-  }
-
-  dismiss() {
-    this.viewCtrl.dismiss();
   }
 }

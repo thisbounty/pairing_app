@@ -9,9 +9,6 @@
   <ion-navbar>
     <ion-title>Layover</ion-title>
     <ion-buttons end>
-      <button (click)="dismiss()" ion-button icon-only>
-        <ion-icon name="close"></ion-icon>
-      </button>
       <button (click)="save()" ion-button icon-only>
         <ion-icon name="checkmark"></ion-icon>
       </button>
@@ -26,7 +23,7 @@
   <ion-list>
     <ion-item>
       <ion-label>Condition</ion-label>
-      <ion-select okText="Okay" cancelText="Dismiss" placeholder="Not chosen" [(ngModel)]="layover_condition">
+      <ion-select okText="Okay" cancelText="Dismiss" placeholder="Not chosen" [(ngModel)]="layover_con">
         <ion-option value="at_least_one_must_be">(At Least One) Must Be</ion-option>
         <ion-option value="at_least_one_must_not_be">(At Least One) Must NOT Be</ion-option>
         <ion-option value="all_must_be">(ALL) Must Be</ion-option>
@@ -47,7 +44,7 @@
     -->
     <ion-item no-lines>
       <ion-label>Day(s) of the week</ion-label>
-      <ion-select okText="Okay" cancelText="Dismiss" multiple="true" placeholder="Not chosen" [(ngModel)]="days_of_the_week">
+      <ion-select okText="Okay" cancelText="Dismiss" multiple="true" placeholder="Not chosen" [(ngModel)]="layover_dow">
         <ion-option value="monday">Monday</ion-option>
         <ion-option value="tuesday">Tuesday</ion-option>
         <ion-option value="wednesday">Wednesday</ion-option>
@@ -62,15 +59,15 @@
     </ion-item-divider>
     <ion-item>
       <ion-label>Enforce Layover Min/Max</ion-label>
-      <ion-toggle [(ngModel)]="enable_layover"></ion-toggle>
+      <ion-toggle [(ngModel)]="layover_range_checkbox"></ion-toggle>
     </ion-item>
-    <ion-item *ngIf="enable_layover">
+    <ion-item *ngIf="layover_range_checkbox">
         <ion-label>Min</ion-label>
-        <ion-datetime displayFormat="HH:mm" hourValues="{{ range }}" [(ngModel)]="enforce_layover_min"></ion-datetime>
+        <ion-datetime displayFormat="HH:mm" hourValues="{{ range }}" [(ngModel)]="layover_min"></ion-datetime>
     </ion-item>
-    <ion-item *ngIf="enable_layover">
+    <ion-item *ngIf="layover_range_checkbox">
         <ion-label>Max</ion-label>
-        <ion-datetime displayFormat="HH:mm" hourValues="{{ range }}" [(ngModel)]="enforce_layover_max"></ion-datetime>
+        <ion-datetime displayFormat="HH:mm" hourValues="{{ range }}" [(ngModel)]="layover_max"></ion-datetime>
     </ion-item>
   </ion-list>
 
