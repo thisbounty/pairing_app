@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewController, Events } from 'ionic-angular';
+import { ViewController, Events, NavParams } from 'ionic-angular';
 
 /*
   Generated class for the SetOperates page.
@@ -13,21 +13,23 @@ import { ViewController, Events } from 'ionic-angular';
 })
 export class SetOperatesPage {
 
-  operates_date:string;
-  operates_time:string;
-  until_date:string;
-  until_time:string;
+  public operates_from:string;
+  public operates_from_hm:string;
+  public operates_to:string;
+  public operates_to_hm:string;
 
-  constructor(private viewCtrl: ViewController, public events: Events) {
+  constructor(params: NavParams, private viewCtrl: ViewController, public events: Events) {
+    if(params.get('operates_from'))
+      this.operates_from = params.get('operates_from');
+    if(params.get('operates_from_hm'))
+      this.operates_from_hm = params.get('operates_from_hm');
+    if(params.get('operates_to'))
+      this.operates_to = params.get('operates_to');
+    if(params.get('operates_to_hm'))
+      this.operates_to_hm = params.get('operates_to_hm');
   }
 
   save() {
-    this.events.publish('filter:created', "Set operates filter", { operates_date: this.operates_date, operates_time: this.operates_time,
-                                                                    until_date: this.until_date, until_time: this.until_time});
-    this.viewCtrl.dismiss();
-  }
-
-  dismiss() {
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss({ operates_from: this.operates_from, operates_from_hm: this.operates_from_hm, operates_to: this.operates_to, operates_to_hm: this.operates_to_hm});
   }
 }

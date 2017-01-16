@@ -8,9 +8,6 @@
   <ion-navbar>
     <ion-title>Set operates</ion-title>
     <ion-buttons end>
-      <button (click)="dismiss()" ion-button icon-only>
-        <ion-icon name="close"></ion-icon>
-      </button>
       <button (click)="save()" ion-button icon-only>
         <ion-icon name="checkmark"></ion-icon>
       </button>
@@ -26,11 +23,11 @@
     </ion-list-header>
     <ion-item>
       <ion-label>Date</ion-label>
-      <ion-datetime displayFormat="MM/DD/YYYY" min="2016" [(ngModel)]="operates_date"></ion-datetime>
+      <ion-datetime displayFormat="MM/DD/YYYY" min="2016" [(ngModel)]="operates_from"></ion-datetime>
     </ion-item>
     <ion-item no-lines>
       <ion-label>Time</ion-label>
-      <ion-datetime displayFormat="HH:mm" [(ngModel)]="operates_time"></ion-datetime>
+      <ion-datetime displayFormat="HH:mm" [(ngModel)]="operates_from_hm"></ion-datetime>
     </ion-item>
 
     <ion-list-header class="set-header" no-lines>
@@ -38,11 +35,11 @@
     </ion-list-header>
     <ion-item>
       <ion-label>Date</ion-label>
-      <ion-datetime displayFormat="MM/DD/YYYY" min="2016" [(ngModel)]="until_date"></ion-datetime>
+      <ion-datetime displayFormat="MM/DD/YYYY" min="2016" [(ngModel)]="operates_to"></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label>Time</ion-label>
-      <ion-datetime displayFormat="HH:mm"[(ngModel)]="until_time"></ion-datetime>
+      <ion-datetime displayFormat="HH:mm"[(ngModel)]="operates_to_hm"></ion-datetime>
     </ion-item>
   </ion-list>
 

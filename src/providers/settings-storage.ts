@@ -70,7 +70,7 @@ export class SettingsStorage {
     );
   }
 
-  saveFilters(filters:Array<{name: string, data: any}>) {
+  saveFilters(filters:Array<{name: string, created: string, data: any}>) {
     this.secureStorage.set(SettingsStorage.filteringItem, JSON.stringify(filters))
     .then(
       data => {
@@ -85,7 +85,6 @@ export class SettingsStorage {
     .then(
       data => {
         let filters = JSON.parse(data);
-        console.log(filters);
         callback(filters);
       },
       error => console.log(error)

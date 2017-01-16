@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, ModalController, AlertController, Events, ToastController, ActionSheetController } from 'ionic-angular';
 import { SettingsStorage } from '../../providers/settings-storage';
 import { FiltersPage } from '../../modals/settings-modals/filters/filters';
+import * as moment from 'moment';
 
 /*
   Generated class for the Settings page.
@@ -15,16 +16,20 @@ import { FiltersPage } from '../../modals/settings-modals/filters/filters';
 })
 export class FilteringPage {
 
-  public filters:Array<{name: string, data: any}> = [];
+  public filters:Array<{name: string, created: string, data: any}> = [];
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController, public toastCtrl: ToastController, public events: Events, private settingsStorage: SettingsStorage, public actionSheetCtrl: ActionSheetController) {
-    this.events.subscribe('filter:created', (name, data) => {
-      console.log({ name: name, data: data});
-      this.filters.unshift({ name: name, data: data});
-      this.filterAddedNotifiaction(name);
+    this.events.subscribe('filter:created', (data) => {
+      let created = moment().format('YYYY-MM-DD hh:mm A');
+      let name = 'Filter ' + (this.filters.length + 1);
+      console.log({ name: name, created: created, data: data});
+      this.filters.push({ name: name, created: created, data: data});
+      this.filterAddedNotifiaction('New filter');
+      console.log(this.filters);
       this.settingsStorage.saveFilters(this.filters);
     });
-    this.settingsStorage.getFilters((filters:Array<{name: string, data: any}>) => {
+    this.settingsStorage.getFilters((filters:Array<{name: string, created: string, data: any}>) => {
+      console.log(filters);
       this.filters = filters;
     })
   }
