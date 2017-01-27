@@ -14,8 +14,8 @@ import { ViewController, Events, NavParams } from 'ionic-angular';
 export class DutyPeriodTimePage {
 
   public range:string;
-  public duty_min:string;
-  public duty_max:string;
+  public duty_min:string = "00:00";
+  public duty_max:string = "15:00";
 
   constructor(params: NavParams, private viewCtrl: ViewController, public events: Events) {
     this.dutyPeriodTimeRange();

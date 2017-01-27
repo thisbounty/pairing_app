@@ -14,9 +14,9 @@ import { SetDatesPage } from '../../../modals/settings-modals/set-dates/set-date
 })
 export class FlightPage {
 
-  public flight_con:boolean = false;
-  public flight_num:string;
-  public flight_dow:string[];
+  public flight_con:boolean = true;
+  public flight_num:string = "";
+  public flight_dow:string[] = [];
   public flight_dates:Array<{ text: string, value: string }> = [];
 
   constructor(params: NavParams, private viewCtrl: ViewController, private alertCtrl: AlertController, private modalCtrl: ModalController, public events: Events) {

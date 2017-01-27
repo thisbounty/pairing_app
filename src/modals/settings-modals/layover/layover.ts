@@ -14,12 +14,12 @@ import { SetDatesPage } from '../../../modals/settings-modals/set-dates/set-date
 })
 export class LayoverPage {
 
-  public layover_con:string;
+  public layover_con:string = "yes1";
   public layover_dates:Array<{ text: string, value: string }> = [];
-  public layover_dow:string[];
+  public layover_dow:string[] = [];
   public layover_range_checkbox:boolean = false;
-  public layover_min:string;
-  public layover_max:string;
+  public layover_min:string = "04:00";
+  public layover_max:string = "60:00";
   public range:string;
 
   constructor(params: NavParams, private viewCtrl: ViewController, private alertCtrl: AlertController, private modalCtrl: ModalController, public events: Events) {

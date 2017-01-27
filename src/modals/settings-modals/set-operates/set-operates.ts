@@ -13,10 +13,10 @@ import { ViewController, Events, NavParams } from 'ionic-angular';
 })
 export class SetOperatesPage {
 
-  public operates_from:string;
-  public operates_from_hm:string;
-  public operates_to:string;
-  public operates_to_hm:string;
+  public operates_from:string = "2017-01-31";
+  public operates_from_hm:string = "00:00";
+  public operates_to:string = "2017-03-01";
+  public operates_to_hm:string = "23:59";
 
   constructor(params: NavParams, private viewCtrl: ViewController, public events: Events) {
     if(params.get('operates_from'))

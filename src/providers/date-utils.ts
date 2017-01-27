@@ -21,4 +21,9 @@ export class DateUtils {
     let outputDate:string = moment(inputDate).format("DDMMYYYY");
     return outputDate;
   }
+
+  public static parseTime(inputTime: string) {
+    let outputTime:string = moment(inputTime).format("HHmm");
+    return outputTime;
+  }
 }

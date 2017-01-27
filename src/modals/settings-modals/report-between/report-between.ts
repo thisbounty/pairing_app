@@ -14,8 +14,8 @@ import { ViewController, Events, NavParams } from 'ionic-angular';
 export class ReportBetweenPage {
 
   public range:string;
-  public flr_min:string;
-  public flr_max:string;
+  public flr_min:string = "00:00";
+  public flr_max:string = "24:00";
 
   constructor(params: NavParams, private viewCtrl: ViewController, public events: Events) {
     this.reportBetweenTimeRange();

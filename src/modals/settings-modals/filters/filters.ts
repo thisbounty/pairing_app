@@ -21,7 +21,22 @@ import { LegsPerDutyPage } from '../legs-per-duty/legs-per-duty';
 })
 export class FiltersPage {
 
-  public items:{} = {};
+  public items:{} = {
+    base: 'CLT',
+    days: [],
+    deadhead: '',
+    duty: [],
+    dutyPeriodTime: { duty_max: '15:00', duty_min: '00:00' },
+    flight: { flight_con: true, flight_dates: [], flight_dow: [], flight_num: '' },
+    layover: { layover_con: 'yes1', layover_loc: '',  layover_dates: [], layover_dow: [], layover_max: '60:00', layover_min: '04:00', layover_range_checkbox: false},
+    legsPerDuty: { dprow_max: 6, dprow_min: 1, dprow_type: 'any' },
+    operates: { operates_from: '2017-01-31', operates_from_hm: '00:00', operates_to: '2017-03-01', operates_to_hm: '23:59' },
+    pairingCredit: { tcr_max: '35:00', tcr_min: '05:00' },
+    position: ['LFA'],
+    releaseBetween: { llr_max: '24:00', llr_min: '00:00' },
+    reportBetween: { flr_max: '24:00', flr_min: '00:00' },
+    report_dow: [],
+    trip_type: 'drop'};
 
   constructor(public navCtrl: NavController, public viewCtrl: ViewController,  public modalCtrl: ModalController, public alertCtrl: AlertController, public events: Events) {
   }
@@ -44,10 +59,10 @@ export class FiltersPage {
   showBaseSettings() {
     let alert = this.alertCtrl.create({
       title: 'Set base',
-      inputs: [ { type: 'radio', label: 'PHX', value: 'phx' },
-                { type: 'radio', label: 'PHL', value: 'phl' },
-                { type: 'radio', label: 'DCA', value: 'dca' },
-                { type: 'radio', label: 'CLT', value: 'clt' } ],
+      inputs: [ { type: 'radio', label: 'PHX', value: 'PHX', checked: true },
+                { type: 'radio', label: 'PHL', value: 'PHL' },
+                { type: 'radio', label: 'DCA', value: 'DCA' },
+                { type: 'radio', label: 'CLT', value: 'CLT' } ],
       buttons: [ { text: 'Cancel', role: 'cancel' },
                  { text: 'Okay',
                    handler: data => {
@@ -68,17 +83,17 @@ export class FiltersPage {
   showExcludePositionsSettings() {
     let alert = this.alertCtrl.create({
       title: 'Exclude positions',
-      inputs: [ { type: 'checkbox', label: 'AFA | Lead Flight Attendant', value: 'afa' },
-                { type: 'checkbox', label: 'BFA', value: 'bfa' },
-                { type: 'checkbox', label: 'CFA', value: 'cfa' },
-                { type: 'checkbox', label: 'DFA', value: 'dfa' },
-                { type: 'checkbox', label: 'EFA', value: 'efa' },
-                { type: 'checkbox', label: 'GFA', value: 'gfa' },
-                { type: 'checkbox', label: 'HFA', value: 'hfa' },
-                { type: 'checkbox', label: 'IFA', value: 'ifa' },
-                { type: 'checkbox', label: 'JFA', value: 'jfa' },
-                { type: 'checkbox', label: 'KFA', value: 'kfa' },
-                { type: 'checkbox', label: 'LFA', value: 'lfa' } ],
+      inputs: [ { type: 'checkbox', label: 'AFA', value: 'AFA' },
+                { type: 'checkbox', label: 'BFA', value: 'BFA' },
+                { type: 'checkbox', label: 'CFA', value: 'CFA' },
+                { type: 'checkbox', label: 'DFA', value: 'DFA' },
+                { type: 'checkbox', label: 'EFA', value: 'EFA' },
+                { type: 'checkbox', label: 'GFA', value: 'GFA' },
+                { type: 'checkbox', label: 'HFA', value: 'HFA' },
+                { type: 'checkbox', label: 'IFA', value: 'IFA' },
+                { type: 'checkbox', label: 'JFA', value: 'JFA' },
+                { type: 'checkbox', label: 'KFA', value: 'KFA' },
+                { type: 'checkbox', label: 'LFA', value: 'LFA' } ],
       buttons: [ { text: 'Cancel', role: 'cancel' },
                  { text: 'Okay',
                    handler: data => {
@@ -164,9 +179,9 @@ export class FiltersPage {
   showTripType() {
     let alert = this.alertCtrl.create({
       title: 'Trip type',
-      inputs: [ { type: 'radio', label: 'Drop', value: 'drop' },
+      inputs: [ { type: 'radio', label: 'Drop', value: 'drop', checked: true },
                 { type: 'radio', label: 'Trade', value: 'trade' },
-                { type: 'radio', label: 'Drop and Trade', value: 'both' } ],
+                { type: 'radio', label: 'Drop and Trade', value: 'drop_trade' } ],
       buttons: [ { text: 'Cancel', role: 'cancel' },
                  { text: 'Okay',
                    handler: data => {
@@ -179,10 +194,10 @@ export class FiltersPage {
   showDeadhead() {
     let alert = this.alertCtrl.create({
       title: 'Set deadhead',
-      inputs: [ { type: 'radio', label: 'Not required', value: 'not_required' },
-                { type: 'radio', label: 'Exists on First Leg', value: 'exists_on_first_leg' },
-                { type: 'radio', label: 'Exists on Last Leg', value: 'exists_on_last_leg' },
-                { type: 'radio', label: 'Exists on Any Leg', value: 'exists_on_any_leg' } ],
+      inputs: [ { type: 'radio', label: 'Not required', value: 'not_required', checked: true },
+                { type: 'radio', label: 'Exists on First Leg', value: 'first' },
+                { type: 'radio', label: 'Exists on Last Leg', value: 'last' },
+                { type: 'radio', label: 'Exists on Any Leg', value: 'any' } ],
       buttons: [ { text: 'Cancel', role: 'cancel' },
                  { text: 'Okay',
                    handler: data => {
@@ -235,16 +250,16 @@ export class FiltersPage {
   showExcludeEquipment() {
     let alert = this.alertCtrl.create({
       title: 'Exclude equipment',
-      inputs: [ { type: 'checkbox', label: 'B757-EW', value: 'b757-ew' },
-                { type: 'checkbox', label: 'B757-HW', value: 'b757-hw' },
-                { type: 'checkbox', label: 'A330-300', value: 'a330-300' },
-                { type: 'checkbox', label: 'A321-L', value: 'a321-l' },
-                { type: 'checkbox', label: 'A319-L', value: 'a319-l' },
-                { type: 'checkbox', label: 'A319-W', value: 'a319-w' },
-                { type: 'checkbox', label: 'E190-L', value: 'e190-l' },
-                { type: 'checkbox', label: 'A330-200', value: 'a330-200' },
-                { type: 'checkbox', label: 'A320-W', value: 'a320-w' },
-                { type: 'checkbox', label: 'A320-O', value: 'a320-o' } ],
+      inputs: [ { type: 'checkbox', label: 'B757-EW', value: '5E' },
+                { type: 'checkbox', label: 'B757-HW', value: '5H' },
+                { type: 'checkbox', label: 'A330-300', value: '33' },
+                { type: 'checkbox', label: 'A321-L', value: '21' },
+                { type: 'checkbox', label: 'A319-L', value: '19' },
+                { type: 'checkbox', label: 'A319-W', value: '9W' },
+                { type: 'checkbox', label: 'E190-L', value: '90' },
+                { type: 'checkbox', label: 'A330-200', value: '32' },
+                { type: 'checkbox', label: 'A320-W', value: '20' },
+                { type: 'checkbox', label: 'A320-O', value: '05' } ],
       buttons: [ { text: 'Cancel', role: 'cancel' },
                  { text: 'Okay',
                    handler: data => {
