@@ -14,8 +14,8 @@ import { ViewController, Events, NavParams } from 'ionic-angular';
 export class ReleaseBetweenPage {
 
   public range:string;
-  public llr_min:string;
-  public llr_max:string;
+  public llr_min:string = "00:00";
+  public llr_max:string = "24:00";
 
   constructor(params: NavParams, private viewCtrl: ViewController, public events: Events) {
     this.releaseBetweenRange();

@@ -13,9 +13,9 @@ import { ViewController, Events, NavParams } from 'ionic-angular';
 })
 export class LegsPerDutyPage {
 
-  public dprow_min:string;
-  public dprow_max:string;
-  public dprow_type:string;
+  public dprow_min:string = "1";
+  public dprow_max:string = "6";
+  public dprow_type:string = "any";
 
   constructor(params: NavParams, private viewCtrl: ViewController, public events: Events) {
     if(params.get('dprow_min'))

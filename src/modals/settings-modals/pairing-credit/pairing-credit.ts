@@ -14,8 +14,8 @@ import { ViewController, Events, NavParams } from 'ionic-angular';
 export class PairingCreditPage {
 
   public range:string;
-  public tcr_min:string;
-  public tcr_max:string;
+  public tcr_min:string = "05:00";
+  public tcr_max:string = "35:00";
 
   constructor(params: NavParams, private viewCtrl: ViewController, public events: Events) {
     this.pairingCreditRange();

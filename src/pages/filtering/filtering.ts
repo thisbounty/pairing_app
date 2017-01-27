@@ -39,6 +39,10 @@ export class FilteringPage {
     filtersPage.present();
   }
 
+  request() {
+    
+  }
+
   filterAddedNotifiaction(name) {
     let notification = this.toastCtrl.create({
       message: name + ' has been added successfully',
