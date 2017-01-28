@@ -40,5 +40,5 @@
 	"cordova-plugin-background-mode"
   ],
   "cordovaPlatforms": [],
-  "description": "pairing_app: An Ionic project"
+  "description": "Pairing Api: An Ionic project"
 }
