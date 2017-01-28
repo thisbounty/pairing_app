@@ -21,6 +21,7 @@ export class Api {
     console.log('Hello Api Provider');
   }
 
+  //old method check if credentials are correct.It could not work anymore.
   fetch(username:string, password:string, callback:Function, baseId: string = 'CLT', lastsync:number = 0) {
     this.http.get(Api.fetchUrl + "?userid=" + username +"&password=" + password + "&baseid=" + baseId + "&lastsync=" + lastsync + "")
     .subscribe(data => {
@@ -42,7 +43,6 @@ export class Api {
     let pairingCount:number = 0;
 
     for (let filter of filters) {
-      console.log(filter);
       let params = this.parseFilteringParameters(filter['data']);
       let headers = new Headers()
       headers.append('Content-Type', 'application/x-www-form-urlencoded');
@@ -60,12 +60,12 @@ export class Api {
           }
         }
         responseCount++;
-        if(responseCount == filters.length)
+        if(responseCount == filters.length && pairingCount > 0)
           this.showPairingNotification(pairingCount);
         console.log("succeess");
       }, error => {
         responseCount++;
-        if(responseCount == filters.length)
+        if(responseCount == filters.length && pairingCount > 0)
           this.showPairingNotification(pairingCount);
         console.log("request failed");
       });
@@ -76,7 +76,7 @@ export class Api {
     console.log(pairingCount);
     LocalNotifications.schedule({
       title: 'Pairing App',
-      text: 'New Pairings Match: ' + pairingCount + ' Total'
+      text: 'New Pairings Found'
     });
   }
 

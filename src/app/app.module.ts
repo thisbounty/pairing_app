@@ -22,6 +22,7 @@ import { SetOperatesPage } from '../modals/settings-modals/set-operates/set-oper
 //Providers
 import { SettingsStorage } from '../providers/settings-storage';
 import { Api } from '../providers/api';
+import { BackgroundTask } from '../providers/background-task';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,6 @@ import { Api } from '../providers/api';
   SetDatesPage,
   SetOperatesPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, SettingsStorage, Api]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, SettingsStorage, Api, BackgroundTask]
 })
 export class AppModule {}
