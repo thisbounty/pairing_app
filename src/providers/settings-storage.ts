@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { SecureStorage } from 'ionic-native';
 import 'rxjs/add/operator/map';
-import { Platform } from 'ionic-angular';
+import { Platform, AlertController } from 'ionic-angular';
 
 /*
   Generated class for the SettingsStorage provider.
@@ -21,7 +21,7 @@ export class SettingsStorage {
   public static airportItem:string = 'airport';
   private ready:boolean;
 
-  constructor(platform:Platform, http: Http) {
+  constructor(platform:Platform, http: Http, alertCtrl: AlertController) {
     platform.ready().then(() => {
       http.get("assets/json/airpoirts_min.json")
         .subscribe(data => {
@@ -35,7 +35,15 @@ export class SettingsStorage {
         () => {
           console.log('Storage is ready');
         },
-        error => console.log(error)
+        error => {
+          let alert = alertCtrl.create({
+            title: 'Storage error',
+            subTitle: (error == "Error: Device is not secure" ? ("Device is not secured. Make sure you have set screen lock. Otherwise application will not work properly.") : (error)),
+            buttons: ['Dismiss']
+          });
+          alert.present();
+          console.log(error);
+        }
       );
       this.ready = true;
     });
