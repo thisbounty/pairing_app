@@ -126,7 +126,7 @@ export class Api {
           break;
         case 'layover':
           params.append('layover_con', parameters[item]['layover_con']);
-          if(!typeof(parameters['airport']) === undefined)
+          if(typeof(parameters['airport']) !== undefined)
             params.append('layover_loc', parameters['airport'].iata);
 
           let layover_dates:string = "";
