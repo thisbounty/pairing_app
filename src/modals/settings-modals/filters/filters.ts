@@ -9,6 +9,9 @@ import { FlightPage } from '../flight/flight';
 import { ReportBetweenPage } from '../report-between/report-between';
 import { ReleaseBetweenPage } from '../release-between/release-between';
 import { LegsPerDutyPage } from '../legs-per-duty/legs-per-duty';
+import { Api } from '../../../providers/api';
+import { SettingsStorage } from '../../../providers/settings-storage';
+
 /*
   Generated class for the Filters page.
 
@@ -20,6 +23,11 @@ import { LegsPerDutyPage } from '../legs-per-duty/legs-per-duty';
   templateUrl: 'filters.html'
 })
 export class FiltersPage {
+
+  private settingsStorage:SettingsStorage;
+  private api:Api;
+  public username:string;
+  public password:string;
 
   public items:{} = {
     base: 'CLT',
@@ -267,6 +275,17 @@ export class FiltersPage {
                  }} ]
     })
     alert.present();
+  }
+
+  submit() {
+      this.settingsStorage.getUser((username:string, password:string) => {
+        this.username = username;
+        this.password = password;
+      });
+    this.api.fetch(this.username, this.password, (data:string) => {
+        alert(data);
+    });
+    this.save();
   }
 
   save() {

@@ -51,9 +51,9 @@ export class SetLoginDetailsPage {
       content: 'Please wait...'
     });
     loading.present();
-    this.api.fetch(this.username, this.password, (success:boolean) => {
+    this.api.fetch(this.username, this.password, (data:string) => {
       loading.dismiss();
-      if(success) {
+      if(data) {
         this.settingsStorage.setUser(this.username, this.password, () => {
           this.showAlert('Save successful!', 'Login details have been successfully saved')
         });
