@@ -24,10 +24,20 @@
     "moment": "^2.17.1",
     "rxjs": "5.0.0-beta.12",
     "zone.js": "0.6.26",
-	"sw-toolbox": "3.4.0"
+    "sw-toolbox": "3.4.0"
   },
   "devDependencies": {
     "@ionic/app-scripts": "1.0.0",
+    "@types/jasmine": "^2.5.43",
+    "@types/node": "^7.0.5",
+    "angular-cli": "^1.0.0-beta.28.3",
+    "jasmine-core": "^2.5.2",
+    "karma": "^1.5.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-cli": "^1.0.1",
+    "karma-jasmine": "^1.1.0",
+    "karma-mocha-reporter": "^2.2.2",
+    "karma-remap-istanbul": "^0.6.0",
     "typescript": "2.0.9"
   },
   "cordovaPlugins": [
@@ -37,7 +47,7 @@
     "cordova-plugin-device",
     "cordova-plugin-splashscreen",
     "ionic-plugin-keyboard",
-	"cordova-plugin-background-mode"
+    "cordova-plugin-background-mode"
   ],
   "cordovaPlatforms": [],
   "description": "Pairing Api: An Ionic project"
