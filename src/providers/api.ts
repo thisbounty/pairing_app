@@ -13,7 +13,7 @@ import { DateUtils } from '../providers/date-utils';
 @Injectable()
 export class Api {
 
-  public static fetchUrl:string = 'https://AWE:cactus@cactus.americanplus.us/fetch';
+  public static fetchUrl:string = 'https://cactus.americanplus.us/fetch';
   public static pairingFetchUrl:string = 'https://americanplus.us/process.php';
   public static pairingItems:Array<{ pairing_id: string, data: any }> = [];
 
@@ -23,9 +23,11 @@ export class Api {
 
   //old method check if credentials are correct.It could not work anymore.
   fetch(username:string, password:string, callback:Function, baseId: string = 'CLT', lastsync:number = 0) {
-    this.http.get("http://google.com")
+    var headers = new Headers();
+    headers.append('Authorization', 'Basic '+btoa('AWE:cactus'));
+    this.http.get(Api.fetchUrl + "?userid=" + username +"&password=" + password + "&baseid=" + baseId + "&lastsync=" + lastsync + "", {headers:headers})
     .subscribe(data => {
-      callback(data);
+      callback(data.json());
       LocalNotifications.schedule({
         title: 'Pairing App',
         text: data.json().trades_to_add[0].title
