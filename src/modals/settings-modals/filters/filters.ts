@@ -46,7 +46,6 @@ export class FiltersPage {
     });
   }
 
-
   public items:{} = {
     base: 'CLT',
     days: [],
@@ -63,7 +62,6 @@ export class FiltersPage {
     reportBetween: { flr_max: '24:00', flr_min: '00:00' },
     report_dow: [],
     trip_type: 'drop'};
-
 
   getItem(item: string, object: string) : any {
     if(this.items.hasOwnProperty(item))
