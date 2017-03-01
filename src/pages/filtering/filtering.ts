@@ -19,13 +19,13 @@ export class FilteringPage {
   public filters:Array<{name: string, created: string, data: any}> = [];
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController, public toastCtrl: ToastController, public events: Events, private settingsStorage: SettingsStorage, public actionSheetCtrl: ActionSheetController) {
-    this.events.subscribe('filter:created', (data) => {
+    this.events.subscribe('filter:created', (data, filterName) => {
       let created = moment().format('YYYY-MM-DD hh:mm A');
-      let name = 'Filter ' + (this.filters.length + 1);
-      console.log({ name: name, created: created, data: data});
-      this.filters.push({ name: name, created: created, data: data});
+      //let name = 'Filter ' + (this.filters.length + 1);
+      //console.log({ name: name, created: created, data: data});
+      this.filters.push({ name: filterName, created: created, data: data});
       this.filterAddedNotifiaction('New filter');
-      console.log(this.filters);
+      //console.log(this.filters);
       this.settingsStorage.saveFilters(this.filters);
     });
     this.settingsStorage.getFilters((filters:Array<{name: string, created: string, data: any}>) => {
@@ -40,7 +40,7 @@ export class FilteringPage {
   }
 
   request() {
-    
+
   }
 
   filterAddedNotifiaction(name) {

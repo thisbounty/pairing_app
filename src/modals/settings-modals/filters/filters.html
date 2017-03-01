@@ -23,6 +23,10 @@
 
 <ion-content>
   <ion-list>
+      <ion-item>
+        <ion-label color="dark" stacked>Filter name</ion-label>
+        <ion-input type="text" placeholder="Filter..." [(ngModel)]="filterName"></ion-input>
+      </ion-item>
 
       <button ion-item (click)="showSetAirports()">
         Set Airports

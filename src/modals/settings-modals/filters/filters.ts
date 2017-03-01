@@ -26,6 +26,7 @@ export class FiltersPage {
 
   private settingsStorage:SettingsStorage;
   private api:Api;
+  public filterName:string;
   public username:string;
   public password:string;
 
@@ -324,7 +325,7 @@ export class FiltersPage {
   }
 
   save() {
-    this.events.publish('filter:created', this.items);
+    this.events.publish('filter:created', this.items, this.filterName);
     this.viewCtrl.dismiss(this.items);
   }
 
