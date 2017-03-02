@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, ModalController, AlertController, Events, ToastController, ActionSheetController } from 'ionic-angular';
 import { SettingsStorage } from '../../providers/settings-storage';
-import { FiltersPage } from '../../modals/settings-modals/filters/filters';
+import { AddFilterPage } from '../addFilter/addFilter'
 import * as moment from 'moment';
 
 /*
@@ -18,6 +18,8 @@ export class FilteringPage {
 
   public filters:Array<{name: string, created: string, data: any}> = [];
 
+  public addFilterPage:Component;
+
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController, public toastCtrl: ToastController, public events: Events, private settingsStorage: SettingsStorage, public actionSheetCtrl: ActionSheetController) {
     this.events.subscribe('filter:created', (data, filterName) => {
       let created = moment().format('YYYY-MM-DD hh:mm A');
@@ -28,15 +30,13 @@ export class FilteringPage {
       //console.log(this.filters);
       this.settingsStorage.saveFilters(this.filters);
     });
+
+    this.addFilterPage = AddFilterPage;
+
     this.settingsStorage.getFilters((filters:Array<{name: string, created: string, data: any}>) => {
       console.log(filters);
       this.filters = filters;
     })
-  }
-
-  addFilter() {
-    let filtersPage = this.modalCtrl.create(FiltersPage);
-    filtersPage.present();
   }
 
   request() {
@@ -76,9 +76,5 @@ export class FilteringPage {
       ]
     });
     actionSheet.present();
-  }
-
-  ionViewDidLoad() {
-    console.log('Hello SettingsPage Page');
   }
 }

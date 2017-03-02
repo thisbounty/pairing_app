@@ -9,7 +9,7 @@
   <ion-navbar>
     <ion-title>Filtering</ion-title>
     <ion-buttons end>
-      <button (click)="addFilter()" ion-button icon-only>
+      <button [navPush]="addFilterPage" ion-button icon-only>
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-buttons>

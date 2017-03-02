@@ -1,28 +1,28 @@
 import { Component } from '@angular/core';
 import { NavController, Platform, ViewController, ModalController, AlertController, Events, LoadingController} from 'ionic-angular';
-import { SetAirportPage } from '../set-airport/set-airport';
-import { SetOperatesPage } from '../set-operates/set-operates';
-import { DutyPeriodTimePage } from '../duty-period-time/duty-period-time';
-import { PairingCreditPage } from '../pairing-credit/pairing-credit';
-import { LayoverPage } from '../layover/layover';
-import { FlightPage } from '../flight/flight';
-import { ReportBetweenPage } from '../report-between/report-between';
-import { ReleaseBetweenPage } from '../release-between/release-between';
-import { LegsPerDutyPage } from '../legs-per-duty/legs-per-duty';
-import { Api } from '../../../providers/api';
-import { SettingsStorage } from '../../../providers/settings-storage';
+import { SetAirportPage } from '../../modals/settings-modals/set-airport/set-airport';
+import { SetOperatesPage } from '../../modals/settings-modals/set-operates/set-operates';
+import { DutyPeriodTimePage } from '../../modals/settings-modals/duty-period-time/duty-period-time';
+import { PairingCreditPage } from '../../modals/settings-modals/pairing-credit/pairing-credit';
+import { LayoverPage } from '../../modals/settings-modals/layover/layover';
+import { FlightPage } from '../../modals/settings-modals/flight/flight';
+import { ReportBetweenPage } from '../../modals/settings-modals/report-between/report-between';
+import { ReleaseBetweenPage } from '../../modals/settings-modals/release-between/release-between';
+import { LegsPerDutyPage } from '../../modals/settings-modals/legs-per-duty/legs-per-duty';
+import { Api } from '../../providers/api';
+import { SettingsStorage } from '../../providers/settings-storage';
 
 /*
-  Generated class for the Filters page.
+  Generated class for the addFilters page.
 
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
 @Component({
-  selector: 'page-filters',
-  templateUrl: 'filters.html'
+  selector: 'page-addFilters',
+  templateUrl: 'addFilter.html'
 })
-export class FiltersPage {
+export class AddFilterPage {
 
   private settingsStorage:SettingsStorage;
   private api:Api;

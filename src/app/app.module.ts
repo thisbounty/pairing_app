@@ -7,7 +7,7 @@ import { MainPage } from '../pages/main/main';
 import { SettingsPage } from '../pages/settings/settings';
 //Filtering page elements
 import { FilteringPage } from '../pages/filtering/filtering';
-import { FiltersPage } from '../modals/settings-modals/filters/filters';
+import { AddFilterPage } from '../pages/addFilter/addFilter';
 import { SetAirportPage } from '../modals/settings-modals/set-airport/set-airport';
 import { SetLoginDetailsPage } from '../modals/settings-modals/set-login-details/set-login-details';
 import { PairingCreditPage } from '../modals/settings-modals/pairing-credit/pairing-credit';
@@ -30,7 +30,7 @@ import { BackgroundTask } from '../providers/background-task';
 	MainPage,
   SettingsPage,
   FilteringPage,
-  FiltersPage,
+  AddFilterPage,
   SetAirportPage,
   SetLoginDetailsPage,
   DutyPeriodTimePage,
@@ -52,7 +52,7 @@ import { BackgroundTask } from '../providers/background-task';
 	MainPage,
   SettingsPage,
   FilteringPage,
-  FiltersPage,
+  AddFilterPage,
   SetAirportPage,
   SetLoginDetailsPage,
   DutyPeriodTimePage,
