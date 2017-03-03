@@ -5,7 +5,6 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
     <ion-title>Add filter</ion-title>
     <ion-buttons end>
@@ -17,101 +16,354 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content>
-  <ion-list>
+  <ion-item>
+    <ion-label color="dark">Filter name</ion-label>
+    <ion-input type="text" placeholder="Filter..." [(ngModel)]="filterName"></ion-input>
+  </ion-item>
+  <ion-card>
+    <ion-list>
       <ion-item>
-        <ion-label color="dark" stacked>Filter name</ion-label>
-        <ion-input type="text" placeholder="Filter..." [(ngModel)]="filterName"></ion-input>
+        <ion-label color="dark">Trip Type</ion-label>
+        <ion-select [(ngModel)]="items.trip_type" multiple="true" cancelText="Cancel" okText="Okay">
+          <ion-option value="drop">Drop</ion-option>
+          <ion-option value="trade">Trade</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Operates between
+    </ion-card-header>
+    <ion-list>
+      <ion-list-header class="set-header" no-lines>
+        <b>Operates</b>
+      </ion-list-header>
+      <ion-item>
+        <ion-label>Date</ion-label>
+        <ion-datetime displayFormat="MM/DD/YYYY" min="2016" [(ngModel)]="items.operates.operates_from"></ion-datetime>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-label>Time</ion-label>
+        <ion-datetime displayFormat="HH:mm" [(ngModel)]="items.operates.operates_from_hm"></ion-datetime>
       </ion-item>
 
-      <button ion-item (click)="showSetAirports()">
-        Set Airports
-        <p>Lorem ipsum</p>
-      </button>
-
-      <button ion-item (click)="showBaseSettings()">
-        Set base
-        <p>Lorem ipsum</p>
-      </button>
-
-      <button ion-item (click)="showExcludePositionsSettings()">
-        Exclude Position(s)
-        <p>Lorem ipsum</p>
-      </button>
-
-      <button ion-item (click)="showOperatesSettings()">
-        Operates
-        <p>Lorem ipsum</p>
-      </button>
-
-      <button ion-item (click)="showReportDate()">
-        Report date
-        <p>Lorem ipsum</p>
-      </button>
-
-      <button ion-item (click)="showNumberOfCalendarDays()">
-        Number of calendar days
-        <p>Lorem ipsum</p>
-      </button>
-
-      <button ion-item (click)="showDutyPeriodNumber()">
-        Duty period number
-        <p>Lorem ipsum</p>
-      </button>
-
-      <button ion-item (click)="showDutyPeriodTime()">
-        Duty period time
-        <p>Lorem ipsum</p>
-      </button>
-
-      <button ion-item (click)="showPairingCredit()">
-        Pairing credit
-        <p>Lorem ipsum</p>
-      </button>
-
-      <button ion-item (click)="showLayoverSettings()">
-          Layover
-          <p>Lorem ipsum</p>
-      </button>
-
-      <button ion-item (click)="showFlightSettings()">
-        Flight
-        <p>Lorem ipsum</p>
-      </button>
-
-      <button ion-item (click)="showReportBetween()">
-        Report between
-        <p>Lorem ipsum</p>
-      </button>
-
-      <button ion-item (click)="showReleaseBetween()">
-        Release between
-        <p>Lorem ipsum</p>
-      </button>
-
-      <button ion-item (click)="showLegsPerDuty()">
-        Legs per duty
-        <p>Lorem ipsum</p>
-      </button>
-
-      <button ion-item (click)="showTripType()">
-        Trip type
-        <p>Lorem ipsum</p>
-      </button>
-
-      <button ion-item (click)="showDeadhead()">
-        Deadhead
-        <p>Lorem ipsum</p>
-      </button>
-
-      <button ion-item (click)="showExcludeEquipment()">
-        Exclude Equipment Type(s)
-        <p>Lorem ipsum</p>
-      </button>
-
+      <ion-list-header class="set-header" no-lines>
+        <b>Until</b>
+      </ion-list-header>
+      <ion-item>
+        <ion-label>Date</ion-label>
+        <ion-datetime displayFormat="MM/DD/YYYY" min="2016" [(ngModel)]="items.operates.operates_to"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>Time</ion-label>
+        <ion-datetime displayFormat="HH:mm"[(ngModel)]="items.operates.operates_to_hm"></ion-datetime>
+      </ion-item>
     </ion-list>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Report and release
+    </ion-card-header>
+    <ion-list>
+      <ion-item>
+        <ion-label>Report day (or logic):</ion-label>
+        <ion-select [(ngModel)]="items.report_dow" multiple="true" cancelText="Cancel" okText="Okay" placeholder="Not chosen">
+          <ion-option value="monday">Monday</ion-option>
+          <ion-option value="tuesday">Tuesday</ion-option>
+          <ion-option value="wednesday">Wednesday</ion-option>
+          <ion-option value="thursday">Thursday</ion-option>
+          <ion-option value="friday">Friday</ion-option>
+          <ion-option value="saturday">Saturday</ion-option>
+          <ion-option value="sunday">Sunday</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-list-header class="set-header" no-lines>
+        <b>Reports between:</b>
+      </ion-list-header>
+      <ion-item>
+        <ion-label>Min</ion-label>
+        <ion-datetime displayFormat="HH:mm" hourValues="{{ report_release_time_range }}" [(ngModel)]="items.reportBetween.flr_min"></ion-datetime>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-label>Max</ion-label>
+        <ion-datetime displayFormat="HH:mm" hourValues="{{ report_release_time_range }}" [(ngModel)]="items.reportBetween.flr_max"></ion-datetime>
+      </ion-item>
+      <ion-list-header class="set-header" no-lines>
+        <b>Releases between:</b>
+      </ion-list-header>
+      <ion-item>
+        <ion-label>Min</ion-label>
+        <ion-datetime displayFormat="HH:mm" hourValues="{{ report_release_time_range }}" [(ngModel)]="items.releaseBetween.llr_min"></ion-datetime>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-label>Max</ion-label>
+        <ion-datetime displayFormat="HH:mm" hourValues="{{ report_release_time_range }}" [(ngModel)]="items.releaseBetween.llr_max"></ion-datetime>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <ion-card>
+    <ion-list>
+      <ion-item>
+        <ion-label color="dark">Calendar days</ion-label>
+        <ion-select [(ngModel)]="items.days" multiple="true" cancelText="Cancel" okText="Okay" placeholder="Not chosen">
+          <ion-option value="1">1</ion-option>
+          <ion-option value="2">2</ion-option>
+          <ion-option value="3">3</ion-option>
+          <ion-option value="4">4</ion-option>
+          <ion-option value="5">5</ion-option>
+          <ion-option value="6">6</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <ion-card>
+    <ion-list>
+      <ion-item>
+        <ion-label color="dark">Number of duty periods</ion-label>
+        <ion-select [(ngModel)]="items.duty" multiple="true" cancelText="Cancel" okText="Okay" placeholder="Not chosen">
+          <ion-option value="1">1</ion-option>
+          <ion-option value="2">2</ion-option>
+          <ion-option value="3">3</ion-option>
+          <ion-option value="4">4</ion-option>
+          <ion-option value="5">5</ion-option>
+          <ion-option value="6">6</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <ion-card>
+    <ion-item>
+      <ion-label color="dark">Legs per duty period</ion-label>
+      <ion-select [(ngModel)]="items.legsPerDuty.dprow_type" cancelText="Cancel" okText="Okay">
+        <ion-option value="any">Any duty period</ion-option>
+        <ion-option value="first">First duty period</ion-option>
+        <ion-option value="last">Last duty period</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-list>
+      <ion-item>
+        <ion-label>Legs per duty</ion-label>
+        <ion-select okText="Okay" cancelText="Dismiss" placeholder="Min" [(ngModel)]="items.legsPerDuty.dprow_min">
+          <ion-option value="1">1</ion-option>
+          <ion-option value="2">2</ion-option>
+          <ion-option value="3">3</ion-option>
+          <ion-option value="4">4</ion-option>
+          <ion-option value="5">5</ion-option>
+          <ion-option value="6">6</ion-option>
+        </ion-select>
+        <ion-select okText="Okay" cancelText="Dismiss" placeholder="Max" [(ngModel)]="items.legsPerDuty.dprow_max">
+          <ion-option value="1">1</ion-option>
+          <ion-option value="2">2</ion-option>
+          <ion-option value="3">3</ion-option>
+          <ion-option value="4">4</ion-option>
+          <ion-option value="5">5</ion-option>
+          <ion-option value="6">6</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Duty time limits
+    </ion-card-header>
+    <ion-list>
+      <ion-item>
+        <ion-label>Min</ion-label>
+        <ion-datetime displayFormat="HH:mm" hourValues="{{ duty_period_time_range }}" [(ngModel)]="items.dutyPeriodTime.duty_min"></ion-datetime>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-label>Max</ion-label>
+        <ion-datetime displayFormat="HH:mm" hourValues="{{ duty_period_time_range }}" [(ngModel)]="items.dutyPeriodTime.duty_max"></ion-datetime>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+
+  <ion-card>
+    <ion-card-header>
+      Pairing credit limits
+    </ion-card-header>
+    <ion-list>
+      <ion-item>
+        <ion-label>Min</ion-label>
+        <ion-datetime displayFormat="HH:mm" hourValues="{{ pairing_credit_range }}" [(ngModel)]="items.pairingCredit.tcr_min"></ion-datetime>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-label>Max</ion-label>
+        <ion-datetime displayFormat="HH:mm" hourValues="{{ pairing_credit_range }}" [(ngModel)]="items.pairingCredit.tcr_max"></ion-datetime>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+
+  <ion-card>
+    <ion-card-header>
+      Layover
+    </ion-card-header>
+    <ion-list>
+      <ion-item>
+        <ion-label>Condition</ion-label>
+        <ion-select okText="Okay" cancelText="Dismiss" placeholder="Not chosen" [(ngModel)]="items.layover.layover_con">
+          <ion-option value="yes1">(At Least One) Must Be</ion-option>
+          <ion-option value="no1">(At Least One) Must NOT Be</ion-option>
+          <ion-option value="yes">(ALL) Must Be</ion-option>
+          <ion-option value="no">(ALL) Must Not Be</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Dates</ion-label>
+        <button (click)="showSetDates(items.layover.layover_dates)" ion-button outline item-right>
+          Set dates
+          <!-- let's open new modal after lick
+          -->
+        </button>
+      </ion-item>
+      <ion-item>
+        <ion-label>Airport code:</ion-label>
+        <ion-input type="text" [(ngModel)]="items.layover.layover_loc"></ion-input>
+      </ion-item>
+      <!-- todo:
+      // Date(s) (DDMMYYYY separated by commas).
+      // maybe https://github.com/rajeshwarpatlolla/ionic2-datepicker
+      -->
+      <ion-item no-lines>
+        <ion-label>Day(s) of the week</ion-label>
+        <ion-select okText="Okay" cancelText="Dismiss" multiple="true" placeholder="Not chosen" [(ngModel)]="items.layover.layover_dow">
+          <ion-option value="monday">Monday</ion-option>
+          <ion-option value="tuesday">Tuesday</ion-option>
+          <ion-option value="wednesday">Wednesday</ion-option>
+          <ion-option value="thursday">Thursday</ion-option>
+          <ion-option value="friday">Friday</ion-option>
+          <ion-option value="saturday">Saturday</ion-option>
+          <ion-option value="sunday">Sunday</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Enforce Layover Min/Max</ion-label>
+        <ion-toggle [(ngModel)]="items.layover.layover_range_checkbox"></ion-toggle>
+      </ion-item>
+      <ion-item *ngIf="items.layover.layover_range_checkbox">
+          <ion-label>Min</ion-label>
+          <ion-datetime displayFormat="HH:mm" hourValues="{{ layover_range }}" [(ngModel)]="items.layover.layover_min"></ion-datetime>
+      </ion-item>
+      <ion-item *ngIf="items.layover.layover_range_checkbox">
+          <ion-label>Max</ion-label>
+          <ion-datetime displayFormat="HH:mm" hourValues="{{ layover_range }}" [(ngModel)]="items.layover.layover_max"></ion-datetime>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Flight
+    </ion-card-header>
+    <ion-list>
+      <ion-item>
+        <ion-label>Pairing must include this flight parameters</ion-label>
+        <ion-toggle [(ngModel)]="items.flight.flight_con"></ion-toggle>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Flight Number</ion-label>
+        <ion-input type="text" [(ngModel)]="items.flight.flight_num"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Dates</ion-label>
+        <button (click)="showSetDates(items.flight.flight_dates)" ion-button outline item-right>
+          Set dates
+        </button>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Day(s) of the week</ion-label>
+        <ion-select okText="Okay" cancelText="Dismiss" multiple="true" placeholder="Not chosen" [(ngModel)]="items.flight.flight_dow">
+          <ion-option value="monday">Monday</ion-option>
+          <ion-option value="tuesday">Tuesday</ion-option>
+          <ion-option value="wednesday">Wednesday</ion-option>
+          <ion-option value="thursday">Thursday</ion-option>
+          <ion-option value="friday">Friday</ion-option>
+          <ion-option value="saturday">Saturday</ion-option>
+          <ion-option value="sunday">Sunday</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Last leg from
+    </ion-card-header>
+    <ion-list>
+      <ion-item>
+        <ion-label color="primary">Airport code</ion-label>
+        <ion-input placeholder="Enter airport code" [(ngModel)]="items.last_departure_airport"></ion-input>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <ion-card>
+    <ion-list>
+      <ion-item>
+        <ion-label color="dark">Deadhead</ion-label>
+        <ion-select [(ngModel)]="items.deadhead" cancelText="Cancel" okText="Okay">
+          <ion-option value="not_required">Not required</ion-option>
+          <ion-option value="first">Exists on First Leg</ion-option>
+          <ion-option value="last">Exists on Last Leg</ion-option>
+          <ion-option value="any">Exists on Any Leg</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <ion-card>
+    <ion-list>
+      <ion-item>
+        <ion-label color="dark">Exclude positions</ion-label>
+        <ion-select [(ngModel)]="items.position" multiple="true" cancelText="Cancel" okText="Okay" placeholder="Not chosen">
+          <ion-option value="AFA">AFA</ion-option>
+          <ion-option value="BFA">BFA</ion-option>
+          <ion-option value="CFA">CFA</ion-option>
+          <ion-option value="DFA">DFA</ion-option>
+          <ion-option value="EFA">EFA</ion-option>
+          <ion-option value="GFA">GFA</ion-option>
+          <ion-option value="HFA">HFA</ion-option>
+          <ion-option value="IFA">IFA</ion-option>
+          <ion-option value="JFA">JFA</ion-option>
+          <ion-option value="KFA">KFA</ion-option>
+          <ion-option value="LFA">LFA</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <ion-card>
+    <ion-list>
+      <ion-item>
+        <ion-label color="dark">Exclude equipment</ion-label>
+        <ion-select [(ngModel)]="items.equipment" multiple="true" cancelText="Cancel" okText="Okay" placeholder="Not chosen">
+          <ion-option value="5E">B757-EW</ion-option>
+          <ion-option value="5H">B757-HW</ion-option>
+          <ion-option value="33">A330-300</ion-option>
+          <ion-option value="21">A321-L</ion-option>
+          <ion-option value="19">A319-L</ion-option>
+          <ion-option value="9W">A319-W</ion-option>
+          <ion-option value="90">E190-L</ion-option>
+          <ion-option value="32">A330-200</ion-option>
+          <ion-option value="20">A320-W</ion-option>
+          <ion-option value="05">A320-O</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+  </ion-card>
 </ion-content>
