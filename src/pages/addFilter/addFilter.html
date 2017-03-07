@@ -8,8 +8,8 @@
   <ion-navbar>
     <ion-title>Add filter</ion-title>
     <ion-buttons end>
-      <button (click)="close()" ion-button icon-only>
-        <ion-icon name="close"></ion-icon>
+      <button (click)="refresh()" ion-button icon-only>
+        <ion-icon name="refresh"></ion-icon>
       </button>
       <button (click)="submit()" ion-button icon-only>
         <ion-icon name="checkmark"></ion-icon>
@@ -367,3 +367,42 @@
     </ion-list>
   </ion-card>
 </ion-content>
+
+<ion-footer class="footer">
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="footerSegment">
+      <ion-segment-button value="potencial">
+        Potencial
+      </ion-segment-button>
+      <ion-segment-button value="actual">
+        Actual
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+  <div [ngSwitch]="footerSegment" >
+    <ion-list *ngSwitchCase="'potencial'">
+      <ion-item>
+        <b>Pairing</b> <b>Report</b> <b>Release</b> <b>TCR</b> <b>RON</b>
+      </ion-item>
+      <ion-scroll scrollY="true">
+        <ion-list>
+          <button ion-item *ngFor="let potencial of potencialItems">
+            <ion-label>{{potencial.pairing}}  {{potencial.report}} RELEASE TCR {{potencial.ron}} </ion-label>
+          </button>
+        </ion-list>
+      </ion-scroll>
+    </ion-list>
+    <ion-list *ngSwitchCase="'actual'">
+      <ion-item>
+        <b>Pairing</b> <b>Report</b> <b>Release</b> <b>TCR</b> <b>RON</b> <b>Comments</b>
+      </ion-item>
+      <ion-scroll scrollY="true">
+        <ion-list>
+          <button ion-item *ngFor="let actual of actualItems">
+            <ion-label>{{actual.pairing_id}}  {{actual.report_date}} RELEASE TCR RON Comments </ion-label>
+          </button>
+        </ion-list>
+      </ion-scroll>
+    </ion-list>
+  </div>
+</ion-footer>

@@ -28,12 +28,18 @@ export class AddFilterPage {
   public pairing_credit_range:string;
   public layover_range:string;
 
+  public footerSegment:string;
+
+  public actualItems:string[];
+  public potencialItems:string[];
+
   constructor(public navCtrl: NavController, public viewCtrl: ViewController,  public modalCtrl: ModalController, public alertCtrl: AlertController, public events: Events, settingsStorage: SettingsStorage, api: Api, platform:Platform, public loadingCtrl:LoadingController) {
     platform.ready().then(() => {
       this.reportReleaseTimeRange();
       this.dutyPeriodTimeRange();
       this.pairingCreditRange();
       this.layoverRange();
+      this.footerSegment = "potencial";
       this.api = api;
       this.settingsStorage = settingsStorage;
       this.settingsStorage.isReady(() => {
@@ -148,7 +154,20 @@ export class AddFilterPage {
     this.viewCtrl.dismiss(this.items);
   }
 
-  close() {
-    this.viewCtrl.dismiss();
+  refresh() {
+    this.api.fetchSinglePairing(this.items, (actualData) => {
+      this.actualItems = actualData['pairings'];
+      this.api.fetch(this.username, this.password, (potencialData) => {
+        this.potencialItems = [];
+        for(var pairing in actualData['pairings']) {
+          for(var trade in potencialData['trades_to_add']) {
+            if(potencialData['trades_to_add'][trade]['pairing'] == actualData['pairings'][pairing]['pairing_id'])
+            {
+              this.potencialItems.push(potencialData['trades_to_add'][trade]);
+            }
+          }
+        }
+      });
+    });
   }
 }

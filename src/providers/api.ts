@@ -74,6 +74,23 @@ export class Api {
     }
   }
 
+  fetchSinglePairing(items: any, callback:Function) {
+      let params = this.parseFilteringParameters(items);
+      let headers = new Headers()
+      headers.append('Content-Type', 'application/x-www-form-urlencoded');
+      headers.append('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8');
+      headers.append('Access-Control-Allow-Origin', '*');
+      let options:RequestOptionsArgs = {
+        headers: headers
+      }
+
+      this.http.post(Api.pairingFetchUrl, params, options)
+      .subscribe(data => {
+        callback(data.json());
+      }, error => {
+      });
+  }
+
   showPairingNotification(pairingCount:number) {
     console.log(pairingCount);
     LocalNotifications.schedule({
@@ -129,7 +146,7 @@ export class Api {
         case 'layover':
           params.append('layover_con', parameters[item]['layover_con']);
           if(typeof(parameters['airport']) !== undefined)
-            params.append('layover_loc', parameters['airport'].iata);
+            params.append('layover_loc', parameters[item]['layover_loc']);
 
           let layover_dates:string = "";
           for(let date in parameters[item]['layover_dates']) {

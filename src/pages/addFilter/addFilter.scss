@@ -2,4 +2,13 @@ page-addFilters {
   .set-header {
     margin: 0;
   }
+  .footer {
+    max-height: 40%;
+    height: 250px;
+  }
+  ion-scroll {
+    white-space: nowrap;
+    height: 250px;
+    background-color: white;
+  }
 }
