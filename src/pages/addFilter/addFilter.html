@@ -8,10 +8,7 @@
   <ion-navbar>
     <ion-title>Add filter</ion-title>
     <ion-buttons end>
-      <button (click)="refresh()" ion-button icon-only>
-        <ion-icon name="refresh"></ion-icon>
-      </button>
-      <button (click)="submit()" ion-button icon-only>
+      <button (click)="save()" ion-button icon-only>
         <ion-icon name="checkmark"></ion-icon>
       </button>
     </ion-buttons>
@@ -27,7 +24,7 @@
     <ion-list>
       <ion-item>
         <ion-label color="dark">Trip Type</ion-label>
-        <ion-select [(ngModel)]="items.trip_type" multiple="true" cancelText="Cancel" okText="Okay">
+        <ion-select [(ngModel)]="items.trip_type" (ionChange)="filterChange()" multiple="true" cancelText="Cancel" okText="Okay">
           <ion-option value="drop">Drop</ion-option>
           <ion-option value="trade">Trade</ion-option>
         </ion-select>
@@ -45,11 +42,11 @@
       </ion-list-header>
       <ion-item>
         <ion-label>Date</ion-label>
-        <ion-datetime displayFormat="MM/DD/YYYY" min="2016" [(ngModel)]="items.operates.operates_from"></ion-datetime>
+        <ion-datetime displayFormat="MM/DD/YYYY" min="2016" [(ngModel)]="items.operates.operates_from" (ionChange)="filterChange()"></ion-datetime>
       </ion-item>
       <ion-item no-lines>
         <ion-label>Time</ion-label>
-        <ion-datetime displayFormat="HH:mm" [(ngModel)]="items.operates.operates_from_hm"></ion-datetime>
+        <ion-datetime displayFormat="HH:mm" [(ngModel)]="items.operates.operates_from_hm" (ionChange)="filterChange()"></ion-datetime>
       </ion-item>
 
       <ion-list-header class="set-header" no-lines>
@@ -57,11 +54,11 @@
       </ion-list-header>
       <ion-item>
         <ion-label>Date</ion-label>
-        <ion-datetime displayFormat="MM/DD/YYYY" min="2016" [(ngModel)]="items.operates.operates_to"></ion-datetime>
+        <ion-datetime displayFormat="MM/DD/YYYY" min="2016" [(ngModel)]="items.operates.operates_to" (ionChange)="filterChange()"></ion-datetime>
       </ion-item>
       <ion-item>
         <ion-label>Time</ion-label>
-        <ion-datetime displayFormat="HH:mm"[(ngModel)]="items.operates.operates_to_hm"></ion-datetime>
+        <ion-datetime displayFormat="HH:mm"[(ngModel)]="items.operates.operates_to_hm" (ionChange)="filterChange()"></ion-datetime>
       </ion-item>
     </ion-list>
   </ion-card>
@@ -73,7 +70,7 @@
     <ion-list>
       <ion-item>
         <ion-label>Report day (or logic):</ion-label>
-        <ion-select [(ngModel)]="items.report_dow" multiple="true" cancelText="Cancel" okText="Okay" placeholder="Not chosen">
+        <ion-select [(ngModel)]="items.report_dow" (ionChange)="filterChange()" multiple="true" cancelText="Cancel" okText="Okay" placeholder="Not chosen">
           <ion-option value="monday">Monday</ion-option>
           <ion-option value="tuesday">Tuesday</ion-option>
           <ion-option value="wednesday">Wednesday</ion-option>
@@ -88,22 +85,22 @@
       </ion-list-header>
       <ion-item>
         <ion-label>Min</ion-label>
-        <ion-datetime displayFormat="HH:mm" hourValues="{{ report_release_time_range }}" [(ngModel)]="items.reportBetween.flr_min"></ion-datetime>
+        <ion-datetime displayFormat="HH:mm" hourValues="{{ report_release_time_range }}" [(ngModel)]="items.reportBetween.flr_min" (ionChange)="filterChange()"></ion-datetime>
       </ion-item>
       <ion-item no-lines>
         <ion-label>Max</ion-label>
-        <ion-datetime displayFormat="HH:mm" hourValues="{{ report_release_time_range }}" [(ngModel)]="items.reportBetween.flr_max"></ion-datetime>
+        <ion-datetime displayFormat="HH:mm" hourValues="{{ report_release_time_range }}" [(ngModel)]="items.reportBetween.flr_max" (ionChange)="filterChange()"></ion-datetime>
       </ion-item>
       <ion-list-header class="set-header" no-lines>
         <b>Releases between:</b>
       </ion-list-header>
       <ion-item>
         <ion-label>Min</ion-label>
-        <ion-datetime displayFormat="HH:mm" hourValues="{{ report_release_time_range }}" [(ngModel)]="items.releaseBetween.llr_min"></ion-datetime>
+        <ion-datetime displayFormat="HH:mm" hourValues="{{ report_release_time_range }}" [(ngModel)]="items.releaseBetween.llr_min" (ionChange)="filterChange()"></ion-datetime>
       </ion-item>
       <ion-item no-lines>
         <ion-label>Max</ion-label>
-        <ion-datetime displayFormat="HH:mm" hourValues="{{ report_release_time_range }}" [(ngModel)]="items.releaseBetween.llr_max"></ion-datetime>
+        <ion-datetime displayFormat="HH:mm" hourValues="{{ report_release_time_range }}" [(ngModel)]="items.releaseBetween.llr_max" (ionChange)="filterChange()"></ion-datetime>
       </ion-item>
     </ion-list>
   </ion-card>
@@ -112,7 +109,7 @@
     <ion-list>
       <ion-item>
         <ion-label color="dark">Calendar days</ion-label>
-        <ion-select [(ngModel)]="items.days" multiple="true" cancelText="Cancel" okText="Okay" placeholder="Not chosen">
+        <ion-select [(ngModel)]="items.days" (ionChange)="filterChange()" multiple="true" cancelText="Cancel" okText="Okay" placeholder="Not chosen">
           <ion-option value="1">1</ion-option>
           <ion-option value="2">2</ion-option>
           <ion-option value="3">3</ion-option>
@@ -128,7 +125,7 @@
     <ion-list>
       <ion-item>
         <ion-label color="dark">Number of duty periods</ion-label>
-        <ion-select [(ngModel)]="items.duty" multiple="true" cancelText="Cancel" okText="Okay" placeholder="Not chosen">
+        <ion-select [(ngModel)]="items.duty" (ionChange)="filterChange()" multiple="true" cancelText="Cancel" okText="Okay" placeholder="Not chosen">
           <ion-option value="1">1</ion-option>
           <ion-option value="2">2</ion-option>
           <ion-option value="3">3</ion-option>
@@ -143,7 +140,7 @@
   <ion-card>
     <ion-item>
       <ion-label color="dark">Legs per duty period</ion-label>
-      <ion-select [(ngModel)]="items.legsPerDuty.dprow_type" cancelText="Cancel" okText="Okay">
+      <ion-select [(ngModel)]="items.legsPerDuty.dprow_type" (ionChange)="filterChange()" cancelText="Cancel" okText="Okay">
         <ion-option value="any">Any duty period</ion-option>
         <ion-option value="first">First duty period</ion-option>
         <ion-option value="last">Last duty period</ion-option>
@@ -152,7 +149,7 @@
     <ion-list>
       <ion-item>
         <ion-label>Legs per duty</ion-label>
-        <ion-select okText="Okay" cancelText="Dismiss" placeholder="Min" [(ngModel)]="items.legsPerDuty.dprow_min">
+        <ion-select okText="Okay" cancelText="Dismiss" placeholder="Min" [(ngModel)]="items.legsPerDuty.dprow_min" (ionChange)="filterChange()">
           <ion-option value="1">1</ion-option>
           <ion-option value="2">2</ion-option>
           <ion-option value="3">3</ion-option>
@@ -160,7 +157,7 @@
           <ion-option value="5">5</ion-option>
           <ion-option value="6">6</ion-option>
         </ion-select>
-        <ion-select okText="Okay" cancelText="Dismiss" placeholder="Max" [(ngModel)]="items.legsPerDuty.dprow_max">
+        <ion-select okText="Okay" cancelText="Dismiss" placeholder="Max" [(ngModel)]="items.legsPerDuty.dprow_max" (ionChange)="filterChange()">
           <ion-option value="1">1</ion-option>
           <ion-option value="2">2</ion-option>
           <ion-option value="3">3</ion-option>
@@ -179,11 +176,11 @@
     <ion-list>
       <ion-item>
         <ion-label>Min</ion-label>
-        <ion-datetime displayFormat="HH:mm" hourValues="{{ duty_period_time_range }}" [(ngModel)]="items.dutyPeriodTime.duty_min"></ion-datetime>
+        <ion-datetime displayFormat="HH:mm" hourValues="{{ duty_period_time_range }}" [(ngModel)]="items.dutyPeriodTime.duty_min" (ionChange)="filterChange()"></ion-datetime>
       </ion-item>
       <ion-item no-lines>
         <ion-label>Max</ion-label>
-        <ion-datetime displayFormat="HH:mm" hourValues="{{ duty_period_time_range }}" [(ngModel)]="items.dutyPeriodTime.duty_max"></ion-datetime>
+        <ion-datetime displayFormat="HH:mm" hourValues="{{ duty_period_time_range }}" [(ngModel)]="items.dutyPeriodTime.duty_max" (ionChange)="filterChange()"></ion-datetime>
       </ion-item>
     </ion-list>
   </ion-card>
@@ -196,11 +193,11 @@
     <ion-list>
       <ion-item>
         <ion-label>Min</ion-label>
-        <ion-datetime displayFormat="HH:mm" hourValues="{{ pairing_credit_range }}" [(ngModel)]="items.pairingCredit.tcr_min"></ion-datetime>
+        <ion-datetime displayFormat="HH:mm" hourValues="{{ pairing_credit_range }}" [(ngModel)]="items.pairingCredit.tcr_min" (ionChange)="filterChange()"></ion-datetime>
       </ion-item>
       <ion-item no-lines>
         <ion-label>Max</ion-label>
-        <ion-datetime displayFormat="HH:mm" hourValues="{{ pairing_credit_range }}" [(ngModel)]="items.pairingCredit.tcr_max"></ion-datetime>
+        <ion-datetime displayFormat="HH:mm" hourValues="{{ pairing_credit_range }}" [(ngModel)]="items.pairingCredit.tcr_max" (ionChange)="filterChange()"></ion-datetime>
       </ion-item>
     </ion-list>
   </ion-card>
@@ -213,7 +210,7 @@
     <ion-list>
       <ion-item>
         <ion-label>Condition</ion-label>
-        <ion-select okText="Okay" cancelText="Dismiss" placeholder="Not chosen" [(ngModel)]="items.layover.layover_con">
+        <ion-select okText="Okay" cancelText="Dismiss" placeholder="Not chosen" [(ngModel)]="items.layover.layover_con" (ionChange)="filterChange()">
           <ion-option value="yes1">(At Least One) Must Be</ion-option>
           <ion-option value="no1">(At Least One) Must NOT Be</ion-option>
           <ion-option value="yes">(ALL) Must Be</ion-option>
@@ -230,7 +227,7 @@
       </ion-item>
       <ion-item>
         <ion-label>Airport code:</ion-label>
-        <ion-input type="text" [(ngModel)]="items.layover.layover_loc"></ion-input>
+        <ion-input type="text" [(ngModel)]="items.layover.layover_loc" (ionChange)="filterChange()"></ion-input>
       </ion-item>
       <!-- todo:
       // Date(s) (DDMMYYYY separated by commas).
@@ -238,7 +235,7 @@
       -->
       <ion-item no-lines>
         <ion-label>Day(s) of the week</ion-label>
-        <ion-select okText="Okay" cancelText="Dismiss" multiple="true" placeholder="Not chosen" [(ngModel)]="items.layover.layover_dow">
+        <ion-select okText="Okay" cancelText="Dismiss" multiple="true" placeholder="Not chosen" [(ngModel)]="items.layover.layover_dow" (ionChange)="filterChange()">
           <ion-option value="monday">Monday</ion-option>
           <ion-option value="tuesday">Tuesday</ion-option>
           <ion-option value="wednesday">Wednesday</ion-option>
@@ -250,15 +247,15 @@
       </ion-item>
       <ion-item>
         <ion-label>Enforce Layover Min/Max</ion-label>
-        <ion-toggle [(ngModel)]="items.layover.layover_range_checkbox"></ion-toggle>
+        <ion-toggle [(ngModel)]="items.layover.layover_range_checkbox" (ionChange)="filterChange()"></ion-toggle>
       </ion-item>
       <ion-item *ngIf="items.layover.layover_range_checkbox">
           <ion-label>Min</ion-label>
-          <ion-datetime displayFormat="HH:mm" hourValues="{{ layover_range }}" [(ngModel)]="items.layover.layover_min"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" hourValues="{{ layover_range }}" [(ngModel)]="items.layover.layover_min" (ionChange)="filterChange()"></ion-datetime>
       </ion-item>
       <ion-item *ngIf="items.layover.layover_range_checkbox">
           <ion-label>Max</ion-label>
-          <ion-datetime displayFormat="HH:mm" hourValues="{{ layover_range }}" [(ngModel)]="items.layover.layover_max"></ion-datetime>
+          <ion-datetime displayFormat="HH:mm" hourValues="{{ layover_range }}" [(ngModel)]="items.layover.layover_max" (ionChange)="filterChange()"></ion-datetime>
       </ion-item>
     </ion-list>
   </ion-card>
@@ -270,12 +267,12 @@
     <ion-list>
       <ion-item>
         <ion-label>Pairing must include this flight parameters</ion-label>
-        <ion-toggle [(ngModel)]="items.flight.flight_con"></ion-toggle>
+        <ion-toggle [(ngModel)]="items.flight.flight_con" (ionChange)="filterChange()"></ion-toggle>
       </ion-item>
 
       <ion-item>
         <ion-label>Flight Number</ion-label>
-        <ion-input type="text" [(ngModel)]="items.flight.flight_num"></ion-input>
+        <ion-input type="text" [(ngModel)]="items.flight.flight_num" (ionChange)="filterChange()"></ion-input>
       </ion-item>
 
       <ion-item>
@@ -287,7 +284,7 @@
 
       <ion-item>
         <ion-label>Day(s) of the week</ion-label>
-        <ion-select okText="Okay" cancelText="Dismiss" multiple="true" placeholder="Not chosen" [(ngModel)]="items.flight.flight_dow">
+        <ion-select okText="Okay" cancelText="Dismiss" multiple="true" placeholder="Not chosen" [(ngModel)]="items.flight.flight_dow" (ionChange)="filterChange()">
           <ion-option value="monday">Monday</ion-option>
           <ion-option value="tuesday">Tuesday</ion-option>
           <ion-option value="wednesday">Wednesday</ion-option>
@@ -307,7 +304,7 @@
     <ion-list>
       <ion-item>
         <ion-label color="primary">Airport code</ion-label>
-        <ion-input placeholder="Enter airport code" [(ngModel)]="items.last_departure_airport"></ion-input>
+        <ion-input placeholder="Enter airport code" [(ngModel)]="items.last_departure_airport" (ionChange)="filterChange()"></ion-input>
       </ion-item>
     </ion-list>
   </ion-card>
@@ -316,7 +313,7 @@
     <ion-list>
       <ion-item>
         <ion-label color="dark">Deadhead</ion-label>
-        <ion-select [(ngModel)]="items.deadhead" cancelText="Cancel" okText="Okay">
+        <ion-select [(ngModel)]="items.deadhead" (ionChange)="filterChange()" cancelText="Cancel" okText="Okay">
           <ion-option value="not_required">Not required</ion-option>
           <ion-option value="first">Exists on First Leg</ion-option>
           <ion-option value="last">Exists on Last Leg</ion-option>
@@ -330,7 +327,7 @@
     <ion-list>
       <ion-item>
         <ion-label color="dark">Exclude positions</ion-label>
-        <ion-select [(ngModel)]="items.position" multiple="true" cancelText="Cancel" okText="Okay" placeholder="Not chosen">
+        <ion-select [(ngModel)]="items.position" (ionChange)="filterChange()" multiple="true" cancelText="Cancel" okText="Okay" placeholder="Not chosen">
           <ion-option value="AFA">AFA</ion-option>
           <ion-option value="BFA">BFA</ion-option>
           <ion-option value="CFA">CFA</ion-option>
@@ -351,7 +348,7 @@
     <ion-list>
       <ion-item>
         <ion-label color="dark">Exclude equipment</ion-label>
-        <ion-select [(ngModel)]="items.equipment" multiple="true" cancelText="Cancel" okText="Okay" placeholder="Not chosen">
+        <ion-select [(ngModel)]="items.equipment" (ionChange)="filterChange()" multiple="true" cancelText="Cancel" okText="Okay" placeholder="Not chosen">
           <ion-option value="5E">B757-EW</ion-option>
           <ion-option value="5H">B757-HW</ion-option>
           <ion-option value="33">A330-300</ion-option>
@@ -386,6 +383,12 @@
       </ion-item>
       <ion-scroll scrollY="true">
         <ion-list>
+          <ion-list-header *ngIf="potencialItems.length <= 0 && !previewScheduled">
+            No pairings found
+          </ion-list-header>
+          <ion-list-header class="api-requesting-spinner" *ngIf="potencialItems.length <= 0 && previewScheduled">
+            <ion-spinner></ion-spinner>
+          </ion-list-header>
           <button ion-item *ngFor="let potencial of potencialItems">
             <ion-label>{{potencial.pairing}}  {{potencial.report}} RELEASE TCR {{potencial.ron}} </ion-label>
           </button>
@@ -398,6 +401,12 @@
       </ion-item>
       <ion-scroll scrollY="true">
         <ion-list>
+          <ion-list-header *ngIf="actualItems.length <= 0 && !previewScheduled">
+            No pairings found
+          </ion-list-header>
+          <ion-list-header class="api-requesting-spinner" *ngIf="actualItems.length <= 0 && previewScheduled">
+            <ion-spinner></ion-spinner>
+          </ion-list-header>
           <button ion-item *ngFor="let actual of actualItems">
             <ion-label>{{actual.pairing_id}}  {{actual.report_date}} RELEASE TCR RON Comments </ion-label>
           </button>

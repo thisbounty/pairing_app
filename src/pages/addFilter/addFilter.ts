@@ -19,6 +19,8 @@ export class AddFilterPage {
 
   private settingsStorage:SettingsStorage;
   private api:Api;
+  private previewScheduled:boolean=false;
+
   public filterName:string;
   public username:string;
   public password:string;
@@ -30,8 +32,8 @@ export class AddFilterPage {
 
   public footerSegment:string;
 
-  public actualItems:string[];
-  public potencialItems:string[];
+  public actualItems:string[] = [];
+  public potencialItems:string[] = [];
 
   constructor(public navCtrl: NavController, public viewCtrl: ViewController,  public modalCtrl: ModalController, public alertCtrl: AlertController, public events: Events, settingsStorage: SettingsStorage, api: Api, platform:Platform, public loadingCtrl:LoadingController) {
     platform.ready().then(() => {
@@ -112,53 +114,67 @@ export class AddFilterPage {
     let setDates = this.modalCtrl.create(SetDatesPage, { dates: date_object });
     setDates.onDidDismiss(dates => {
       date_object = dates;
+      this.filterChange();
     });
     setDates.present();
     console.log(this.items);
   }
 
-  submit() {
-    let loading = this.loadingCtrl.create({
-        content:'Retrieving results for this filter, please wait'
-    });
-    loading.present();
-    this.api.fetch(this.username, this.password, (data) => {
-        loading.dismiss();
-        var message='';
-        for(var trade in data['trades_to_add']) {
-             message=message+'<br>'+data['trades_to_add'][trade]['title'];
-        }
-        let confirm = this.alertCtrl.create({
-            title: 'Filter Results',
-            message: message,
-            buttons: [
-            {
-                text: 'Back',
-                handler: () => {
-                    return;
-                }
-            },
-            {
-                text: 'Save and Exit',
-                handler: () => {
-                    this.save();
-                }
-            }]
-        });
-        confirm.present();
-    });
-  }
+  // submit() {
+  //   let loading = this.loadingCtrl.create({
+  //       content:'Retrieving results for this filter, please wait'
+  //   });
+  //   loading.present();
+  //   this.api.fetch(this.username, this.password, (data) => {
+  //       loading.dismiss();
+  //       var message='';
+  //       for(var trade in data['trades_to_add']) {
+  //            message=message+'<br>'+data['trades_to_add'][trade]['title'];
+  //       }
+  //       let confirm = this.alertCtrl.create({
+  //           title: 'Filter Results',
+  //           message: message,
+  //           buttons: [
+  //           {
+  //               text: 'Back',
+  //               handler: () => {
+  //                   return;
+  //               }
+  //           },
+  //           {
+  //               text: 'Save and Exit',
+  //               handler: () => {
+  //                   this.save();
+  //               }
+  //           }]
+  //       });
+  //       confirm.present();
+  //   });
+  // }
 
   save() {
     this.events.publish('filter:created', this.items, this.filterName);
     this.viewCtrl.dismiss(this.items);
   }
 
+  filterChange() {
+    if(this.previewScheduled)
+    {
+      setTimeout(() => {
+        this.filterChange();
+      }, 1000);
+      return;
+    }
+    this.previewScheduled = true;
+    this.refresh();
+  }
+
   refresh() {
     this.api.fetchSinglePairing(this.items, (actualData) => {
+      this.potencialItems = [];
       this.actualItems = actualData['pairings'];
       this.api.fetch(this.username, this.password, (potencialData) => {
-        this.potencialItems = [];
+        this.previewScheduled = false;
         for(var pairing in actualData['pairings']) {
           for(var trade in potencialData['trades_to_add']) {
             if(potencialData['trades_to_add'][trade]['pairing'] == actualData['pairings'][pairing]['pairing_id'])
