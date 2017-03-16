@@ -19,9 +19,14 @@
 
 
 <ion-content>
-  <ion-list>
-    <button ion-item *ngFor="let filter of filters; let i = index" (click)="buttonClicked(i)">
-      {{ filter.name }}
-    </button>
-  </ion-list>
+    <div class="row" *ngFor="let filter of filters; let i = index">
+      <div class="filterName">
+        <button ion-button clear (click)="buttonClicked(i)">{{ filter.name }}</button>
+      </div>
+      <div class="filterResults">
+        <button ng-bind-html="filter.pairings" (click)="showNotification(i)" ion-button round color="secondary" *ngIf="filter.pairings">{{ filter.pairings.length }}</button>
+      </div>
+    </div>
 </ion-content>
+
+

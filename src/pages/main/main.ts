@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
-import { FilteringPage } from '../filtering/filtering';
 //Providers
 import { Api } from '../../providers/api';
 import { SettingsStorage } from '../../providers/settings-storage';
 import { BackgroundTask } from '../../providers/background-task';
 
 import { BackgroundMode } from 'ionic-native';
+
+import { Events } from 'ionic-angular';
 /*
   Generated class for the Main page.
 
@@ -19,12 +20,11 @@ import { BackgroundMode } from 'ionic-native';
 })
 export class MainPage {
 
-  filteringPage = FilteringPage;
   private api:Api;
   private settingsStorage:SettingsStorage;
   private backgroundTask:BackgroundTask;
 
-  constructor(platform:Platform, public navCtrl: NavController, api: Api, private settingsStrg: SettingsStorage, private backgroundTsk: BackgroundTask) {
+  constructor(platform:Platform, public navCtrl: NavController, api: Api, private settingsStrg: SettingsStorage, private backgroundTsk: BackgroundTask, public events: Events) {
     this.settingsStorage = settingsStrg;
     this.api = api;
     this.backgroundTask = backgroundTsk;
@@ -38,10 +38,14 @@ export class MainPage {
       BackgroundMode.enable();
       let current = this;
       this.backgroundTask.startBackgroundJob(() => {
+        var pairings={'test':['a','b','c']};
+        events.publish('functionCall:apiPairings', pairings);
         current.settingsStorage.getFilters((filters:Array<{name: string, created: string, data: any}>) => {
-          current.api.fetchPairing(filters);
+            current.api.fetchPairing(filters).then(function(pairings){
+                events.publish('functionCall:apiPairings', pairings);
+            });
         })
-      }, 300000);
+      }, 30000);
     });
   }
 
