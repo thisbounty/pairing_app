@@ -23,11 +23,8 @@ export class FilteringPage {
               public actionSheetCtrl: ActionSheetController) {
     this.events.subscribe('filter:created', (data, filterName) => {
       let created = moment().format('YYYY-MM-DD hh:mm A');
-      //let name = 'Filter ' + (this.filters.length + 1);
-      //console.log({ name: name, created: created, data: data});
       this.filters.push({ name: filterName, created: created, data: data, pairings: false});
       this.filterAddedNotifiaction('New filter');
-      //console.log(this.filters);
       this.settingsStorage.saveFilters(this.filters);
     });
 
@@ -38,7 +35,6 @@ export class FilteringPage {
     this.addFilterPage = AddFilterPage;
 
     this.settingsStorage.getFilters((filters:Array<{name: string, created: string, data: any, pairings: any}>) => {
-      console.log(filters);
       this.filters = filters;
     })
   }
@@ -74,9 +70,14 @@ export class FilteringPage {
 
   showNotification(filterIndex) {
     var filter=this.filters[filterIndex];
+    var modalContent='';
+    for(var index in filter.pairings) {
+        var pairing = filter.pairings[index];
+         modalContent=modalContent+'<br>'+pairing['report']+' <a href="https://crewportal.usairways.com/ETB/IntegratedPostTrip?tradeID='+pairing['trade_id']+'&IsBulletin=True">'+pairing['title']+'</a><br>'
+    }
     let alert = this.alertCtrl.create({
-      title: filter.name,
-      subTitle: '<a href="http://google.com">'+filter.pairings[1]+'Link</a>',
+      title: "Trades for: "+filter.name,
+      subTitle: modalContent,
       buttons: ['OK']
     });
     alert.present();

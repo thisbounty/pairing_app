@@ -38,11 +38,16 @@ export class MainPage {
       BackgroundMode.enable();
       let current = this;
       this.backgroundTask.startBackgroundJob(() => {
-        var pairings={'test':['a','b','c']};
-        events.publish('functionCall:apiPairings', pairings);
-        current.settingsStorage.getFilters((filters:Array<{name: string, created: string, data: any}>) => {
-            current.api.fetchPairing(filters).then(function(pairings){
-                events.publish('functionCall:apiPairings', pairings);
+        filtersStub=[];
+        filtersStub.push({name:'test', created:'03-16-2017', data:{base:'clt'}, pairings:false});
+        current.api.fetch(filtersStub).then(function(res){
+            console.log('Promise Result')
+            console.log(res);
+            events.publish('functionCall:apiPairings', res['trades_to_add']);
+        });
+        current.settingsStorage.getFilters((filters:Array<{name: string, created: string, data: any, pairings: any}>) => {
+            current.api.fetchPairing(filters).then(function(res){
+                events.publish('functionCall:apiPairings', res['trades_to_add']);
             });
         })
       }, 30000);

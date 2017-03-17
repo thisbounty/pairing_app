@@ -39,15 +39,18 @@ export class Api {
   }
 
   fetchPairing(filters: any) {
+    var current=this;
     return new Promise(function(resolve, reject) {
         //just to know when last response appears
         let responseCount:number = 0;
         let pairingCount:number = 0;
+        console.log('filters are ');
+        console.log(filters);
         for (let filter of filters) {
           //to return from background task scheduler in main.ts, so notifications can be dispatched, specifically to filter list
           var trade = {};
           trade[filter.name] = [];
-          let params = this.parseFilteringParameters(filter['data']);
+          let params = current.parseFilteringParameters(filter['data']);
           let headers = new Headers()
           headers.append('Content-Type', 'application/x-www-form-urlencoded');
           headers.append('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8');
@@ -55,8 +58,9 @@ export class Api {
             headers: headers
           }
 
-          this.http.post(Api.pairingFetchUrl, params, options)
+          current.http.post(Api.pairingFetchUrl, params, options)
           .subscribe(data => {
+            console.log(data);
             for (let pairing of data.json()['pairings']) {
               if(!Api.pairingItems.some(item => item.pairing_id === pairing['pairing_id'])) {
                 Api.pairingItems.push({ pairing_id: pairing['pairing_id'], data: pairing['report_date']})
@@ -65,15 +69,16 @@ export class Api {
               }
             }
             responseCount++;
+            console.log(pairingCount+" "+filters.length);
             if(responseCount == filters.length && pairingCount > 0) {
-              this.showPairingNotification(pairingCount);
+              current.showPairingNotification(pairingCount);
               resolve(trade);
             }
             console.log("succeess");
           }, error => {
             responseCount++;
             if(responseCount == filters.length && pairingCount > 0) {
-              this.showPairingNotification(pairingCount);
+              current.showPairingNotification(pairingCount);
               resolve(trade);
             }
             console.log("request failed");
