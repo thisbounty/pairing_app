@@ -38,6 +38,22 @@ export class Api {
     });
   }
 
+  trades(filters) {
+    var current=this;
+    return new Promise(function(resolve, reject) {
+      var updatedFilters=[];
+      filters.forEach(function (filter, index) {
+        current.fetch('','',function(resp) {
+          filter['trades']=resp;
+          updatedFilters.push(filter);
+          if(index == filters.length-1) {
+             resolve(updatedFilters);
+          }
+        });
+      });
+    });
+  }
+
   fetchPairing(filters: any) {
     var current=this;
     return new Promise(function(resolve, reject) {

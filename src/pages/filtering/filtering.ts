@@ -14,7 +14,7 @@ import * as moment from 'moment';
   templateUrl: 'filtering.html'
 })
 export class FilteringPage {
-  public filters:Array<{name: string, created: string, data: any, pairings: any}> = [];
+  public filters:Array<{name: string, created: string, data: any, pairings: any, id: any, trades: any}> = [];
 
   public addFilterPage:Component;
 
@@ -23,7 +23,7 @@ export class FilteringPage {
               public actionSheetCtrl: ActionSheetController) {
     this.events.subscribe('filter:created', (data, filterName) => {
       let created = moment().format('YYYY-MM-DD hh:mm A');
-      this.filters.push({ name: filterName, created: created, data: data, pairings: false});
+      this.filters.push({ name: filterName, created: created, data: data, pairings: false, id:(this.filters.length+1), trades:false});
       this.filterAddedNotifiaction('New filter');
       this.settingsStorage.saveFilters(this.filters);
     });
@@ -34,7 +34,7 @@ export class FilteringPage {
 
     this.addFilterPage = AddFilterPage;
 
-    this.settingsStorage.getFilters((filters:Array<{name: string, created: string, data: any, pairings: any}>) => {
+    this.settingsStorage.getFilters((filters:Array<{name: string, created: string, data: any, pairings: any, id: any, trades: any}>) => {
       this.filters = filters;
     })
   }
@@ -42,13 +42,14 @@ export class FilteringPage {
 
   }
 
+  //@TOOD: Remove 'Result' from this function name, change to notification
   updateResultCounts(pairings) {
       for(var index in this.filters) {
-        if(typeof(pairings[this.filters[index]['name']]) === 'undefined') {
+        if(typeof(pairings[this.filters[index]['id']]) === 'undefined') {
             this.filters[index]['pairings'] = false;
             continue;
         }
-        this.filters[index]['pairings'] = pairings[this.filters[index]['name']];
+        this.filters[index]['pairings'] = pairings[this.filters[index]['id']];
       }
   }
 

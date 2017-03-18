@@ -78,7 +78,7 @@ export class SettingsStorage {
     );
   }
 
-  saveFilters(filters:Array<{name: string, created: string, data: any}>) {
+  saveFilters(filters:Array<{name: string, created: string, data: any, pairings: any, id: any, trades: any}>) {
     this.secureStorage.set(SettingsStorage.filteringItem, JSON.stringify(filters))
     .then(
       data => {
