@@ -28,8 +28,8 @@ export class FilteringPage {
       this.settingsStorage.saveFilters(this.filters);
     });
 
-    this.events.subscribe('functionCall:apiPairings', (pairings) => {
-        this.updateResultCounts(pairings);
+    this.events.subscribe('functionCall:apiPairings', (updatedFilters) => {
+        this.filters=updatedFilters;
     });
 
     this.addFilterPage = AddFilterPage;
@@ -43,13 +43,13 @@ export class FilteringPage {
   }
 
   //@TOOD: Remove 'Result' from this function name, change to notification
-  updateResultCounts(pairings) {
-      for(var index in this.filters) {
-        if(typeof(pairings[this.filters[index]['id']]) === 'undefined') {
-            this.filters[index]['pairings'] = false;
+  updateResultCounts(trades) {
+      for(var filterIndex in this.filters) {
+        if(typeof(trades[this.filters[filterIndex]['id']]) === 'undefined') {
+            this.filters[filterIndex]['pairings'] = false;
             continue;
         }
-        this.filters[index]['pairings'] = pairings[this.filters[index]['id']];
+        this.filters[filterIndex]['pairings'] = trades[this.filters[filterIndex]['id']];
       }
   }
 
@@ -72,9 +72,9 @@ export class FilteringPage {
   showNotification(filterIndex) {
     var filter=this.filters[filterIndex];
     var modalContent='';
-    for(var index in filter.pairings) {
-        var pairing = filter.pairings[index];
-         modalContent=modalContent+'<br>'+pairing['report']+' <a href="https://crewportal.usairways.com/ETB/IntegratedPostTrip?tradeID='+pairing['trade_id']+'&IsBulletin=True">'+pairing['title']+'</a><br>'
+    for(var index in filter.trades) {
+        var trade = filter.trades[index];
+         modalContent=modalContent+'<br>'+trade['report']+' <a href="https://crewportal.usairways.com/ETB/IntegratedPostTrip?tradeID='+trade['trade_id']+'&IsBulletin=True">'+trade['title']+'</a><br>'
     }
     let alert = this.alertCtrl.create({
       title: "Trades for: "+filter.name,
