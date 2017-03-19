@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, RequestOptionsArgs, Headers, URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { LocalNotifications } from 'ionic-native';
+//import { LocalNotifications } from 'ionic-native';
 import { DateUtils } from '../providers/date-utils';
 
 /*
@@ -28,10 +28,10 @@ export class Api {
     this.http.get(Api.fetchUrl + "?userid=" + username +"&password=" + password + "&baseid=" + baseId + "&lastsync=" + lastsync + "", {headers:headers})
     .subscribe(data => {
       callback(data.json());
-      LocalNotifications.schedule({
+/*      LocalNotifications.schedule({
         title: 'Pairing App',
         text: data.json().trades_to_add[0].title
-      });
+      });*/
     }, error => {
       callback(error);
       console.log("request failed");
@@ -122,10 +122,10 @@ export class Api {
 
   showPairingNotification(pairingCount:number) {
     console.log(pairingCount);
-    LocalNotifications.schedule({
+/*    LocalNotifications.schedule({
       title: 'Pairing App',
       text: 'New Pairings Found'
-    });
+    });*/
   }
 
   parseFilteringParameters(parameters: any, jsonOutput = true) : URLSearchParams {

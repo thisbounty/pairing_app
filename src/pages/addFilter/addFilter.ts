@@ -35,6 +35,8 @@ export class AddFilterPage {
   public actualItems:string[] = [];
   public potencialItems:string[] = [];
 
+  private tradesData=false;
+
   constructor(public navCtrl: NavController, public viewCtrl: ViewController,  public modalCtrl: ModalController, public alertCtrl: AlertController, public events: Events, settingsStorage: SettingsStorage, api: Api, platform:Platform, public loadingCtrl:LoadingController) {
     platform.ready().then(() => {
       this.reportReleaseTimeRange();
@@ -153,8 +155,20 @@ export class AddFilterPage {
   // }
 
   save() {
-    this.events.publish('filter:created', this.items, this.filterName);
-    this.viewCtrl.dismiss(this.items);
+    this.api.fetchSinglePairing(this.items, (response) => {
+      var pairings = response['pairings'];
+      //normalize pairings
+      var pairingsId=[];
+      for(var index in pairings) {
+        var id=pairings[index]['pairing_id'];
+        if(pairings.indexOf(id) > -1) {
+            continue;
+        }
+        pairingsId.push(id);
+      }
+      this.events.publish('filter:created', this.items, this.filterName, pairingsId, this.tradesData);
+      this.viewCtrl.dismiss(this.items);
+    });
   }
 
   filterChange() {
@@ -174,6 +188,7 @@ export class AddFilterPage {
       this.potencialItems = [];
       this.actualItems = actualData['pairings'];
       this.api.fetch(this.username, this.password, (potencialData) => {
+        this.tradesData = potencialData['trades_to_add'];
         this.previewScheduled = false;
         for(var pairing in actualData['pairings']) {
           for(var trade in potencialData['trades_to_add']) {

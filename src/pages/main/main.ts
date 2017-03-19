@@ -38,10 +38,25 @@ export class MainPage {
       BackgroundMode.enable();
       let current = this;
       this.backgroundTask.startBackgroundJob(() => {
-        var filtersStub=[];
-        filtersStub.push({name:'test', created:'03-16-2017', data:{base:'clt'}, pairings:[21043,21012, 51565], id:1});
-        filtersStub.push({name:'test', created:'03-17-2017', data:{base:'clt'}, pairings:[13086, 51213,13053], id:2});
-        var filters=filtersStub;
+        current.settingsStorage.getFilters(
+            (filters:Array<{name: string, created: string, data: any, pairings: any, id: any, trades: any}>) => {
+               this.tradeUpdate(current, filters, events);
+        });
+      }, 30000);
+    });
+ }
+
+  ionViewDidLoad() {
+    console.log('Hello MainPage Page');
+  }
+
+  refresh() {
+    this.settingsStorage.getFilters((filters:Array<{name: string, created: string, data: any}>) => {
+      this.api.fetchPairing(filters);
+    })
+  }
+
+  tradeUpdate(current, filters, events) {
         current.api.trades(filters).then(function(updatedFilters){
             for(var index in updatedFilters) {
                 var filter=updatedFilters[index];
@@ -67,24 +82,5 @@ export class MainPage {
             } // end loop for filters
             events.publish('functionCall:apiPairings', updatedFilters);
         });
-
-        current.settingsStorage.getFilters(
-            (filters:Array<{name: string, created: string, data: any, pairings: any, id: any, trades: any}>) => {
-            current.api.fetchPairing(filters).then(function(res){
-                events.publish('functionCall:apiPairings', res['trades_to_add']);
-            });
-        });
-      }, 30000);
-    });
- }
-
-  ionViewDidLoad() {
-    console.log('Hello MainPage Page');
-  }
-
-  refresh() {
-    this.settingsStorage.getFilters((filters:Array<{name: string, created: string, data: any}>) => {
-      this.api.fetchPairing(filters);
-    })
   }
 }

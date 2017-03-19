@@ -21,15 +21,32 @@ export class FilteringPage {
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController,
               public toastCtrl: ToastController, public events: Events, private settingsStorage: SettingsStorage,
               public actionSheetCtrl: ActionSheetController) {
-    this.events.subscribe('filter:created', (data, filterName) => {
+    this.events.subscribe('filter:created', (data, filterName, pairingsData, tradesData) => {
+      pairingsData=false;
       let created = moment().format('YYYY-MM-DD hh:mm A');
-      this.filters.push({ name: filterName, created: created, data: data, pairings: false, id:(this.filters.length+1), trades:false});
+      this.filters.push({ name: filterName, created: created, data: data, pairings: pairingsData, id:(this.filters.length+1), trades:tradesData});
       this.filterAddedNotifiaction('New filter');
       this.settingsStorage.saveFilters(this.filters);
     });
 
     this.events.subscribe('functionCall:apiPairings', (updatedFilters) => {
         this.filters=updatedFilters;
+        updatedFilters[0]['data']='';
+        var alert = this.alertCtrl.create({
+          title: "Trades Data",
+          subTitle: JSON.stringify(updatedFilters),
+          buttons: ['OK']
+        });
+        alert.present();
+
+        var alert = this.alertCtrl.create({
+          title: "Pairings Data",
+          subTitle: JSON.stringify(updatedFilters[0]),
+          buttons: ['OK']
+        });
+        alert.present();
+
+
     });
 
     this.addFilterPage = AddFilterPage;
@@ -40,17 +57,6 @@ export class FilteringPage {
   }
   request() {
 
-  }
-
-  //@TOOD: Remove 'Result' from this function name, change to notification
-  updateResultCounts(trades) {
-      for(var filterIndex in this.filters) {
-        if(typeof(trades[this.filters[filterIndex]['id']]) === 'undefined') {
-            this.filters[filterIndex]['pairings'] = false;
-            continue;
-        }
-        this.filters[filterIndex]['pairings'] = trades[this.filters[filterIndex]['id']];
-      }
   }
 
   filterAddedNotifiaction(name) {

@@ -79,14 +79,47 @@ export class SettingsStorage {
   }
 
   saveFilters(filters:Array<{name: string, created: string, data: any, pairings: any, id: any, trades: any}>) {
-    this.secureStorage.set(SettingsStorage.filteringItem, JSON.stringify(filters))
-    .then(
-      data => {
-        console.log('filters saved');
-      },
-      error => console.log(error)
-    );
+    var ids = [];
+    for(filterIndex in filters) {
+        var filter=filters[filterIndex];
+        var id=filter['id'];
+        //size limitation hit when filter, trade and pairings all lumped together, need multiple keys, and return in getFilters function
+        var pairings = filter['pairings'];
+        var trades = filter['trade'];
+        filter['pairings']=false;
+        filter['trade']=false;
+        splitFilterSave(filter,pairings,trades);
+    }
+    this.secureStorage.set(SettingsStorage['filterIds'], JSON.stringify(filter)).then(data => {
+       resolveIfCount(resolve, count, 3);
+    });
   }
+
+    resolveIfCount(resolve, count, limit) {
+        if(count>=limit) {
+            resolve();
+        }
+    }
+
+  splitFilterSave(filter, pairings, trades) {
+    return new Promise(resolve, reject) {
+      var count=0;
+      //save filter
+      this.secureStorage.set(SettingsStorage['filter-'+id], JSON.stringify(filter)).then(data => {
+        resolveIfCount(resolve, count, 3);
+      });
+      //save pairing
+      this.secureStorage.set(SettingsStorage['pairings-'+id], JSON.stringify(pairings)).then(data => {
+        resolveIfCount(resolve, count, 3);
+      });
+      //save trade
+      this.secureStorage.set(SettingsStorage['trades-'+id], JSON.stringify(trades)).then(data => {
+        resolveIfCount(resolve, count, 3);
+      });
+    };
+  }
+
+  splitFilterGet()
 
   getFilters(callback:Function) {
     this.secureStorage.get(SettingsStorage.filteringItem)
