@@ -25,6 +25,8 @@ export class MainPage {
   private api:Api;
   private settingsStorage:SettingsStorage;
   private backgroundTask:BackgroundTask;
+  private username:String;
+  private password:String;
 
   constructor(platform:Platform, public navCtrl: NavController, api: Api, private settingsStrg: SettingsStorage, private backgroundTsk: BackgroundTask, public events: Events) {
     this.settingsStorage = settingsStrg;
@@ -39,6 +41,10 @@ export class MainPage {
       })
       BackgroundMode.enable();
       let current = this;
+      this.settingsStorage.getUser((username:string, password:string) => {
+        this.username=username;
+        this.password=password;
+      });
       this.backgroundTask.startBackgroundJob(() => {
         current.settingsStorage.getFilters(
             (filters:Array<{name: string, created: string, data: any, pairings: any, id: any, trades: any}>) => {
@@ -67,7 +73,11 @@ export class MainPage {
   }
 
   tradeUpdate(current, filters, events) {
-        current.api.trades(filters).then(function(updatedFilters){
+    var tradeApiCall = current.api.trades(current.username, current.password, filters)
+    if(current.username == '' || current.password == '' || typeof(tradeApiCall) == 'undefined') {
+       return;
+    }
+    tradeApiCall.then(function(updatedFilters){
             for(var index in updatedFilters) {
                 var filter=updatedFilters[index];
                 var filterTrades=[];

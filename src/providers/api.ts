@@ -33,7 +33,7 @@ export class Api {
     });
   }
 
-  trades(filters) {
+  trades(filters, user, pass) {
     if(typeof(filters) == 'undefined') {
       return;
     }
@@ -42,7 +42,7 @@ export class Api {
     return new Promise(function(resolve, reject) {
       var updatedFilters=[];
       filters.forEach(function (filter, index) {
-        current.fetch('','',function(resp) {
+        current.fetch(user, pass, function(resp) {
           filter['trades']=resp;
           updatedFilters.push(filter);
           if(index == filters.length-1) {
