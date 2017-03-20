@@ -22,7 +22,6 @@ export class FilteringPage {
               public toastCtrl: ToastController, public events: Events, private settingsStorage: SettingsStorage,
               public actionSheetCtrl: ActionSheetController) {
     this.events.subscribe('filter:created', (data, filterName, pairingsData, tradesData) => {
-      pairingsData=false;
       let created = moment().format('YYYY-MM-DD hh:mm A');
       this.filters.push({ name: filterName, created: created, data: data, pairings: pairingsData, id:(this.filters.length+1), trades:tradesData});
       this.filterAddedNotifiaction('New filter');
@@ -32,21 +31,6 @@ export class FilteringPage {
     this.events.subscribe('functionCall:apiPairings', (updatedFilters) => {
         this.filters=updatedFilters;
         updatedFilters[0]['data']='';
-        var alert = this.alertCtrl.create({
-          title: "Trades Data",
-          subTitle: JSON.stringify(updatedFilters),
-          buttons: ['OK']
-        });
-        alert.present();
-
-        var alert = this.alertCtrl.create({
-          title: "Pairings Data",
-          subTitle: JSON.stringify(updatedFilters[0]),
-          buttons: ['OK']
-        });
-        alert.present();
-
-
     });
 
     this.addFilterPage = AddFilterPage;

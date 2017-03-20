@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, RequestOptionsArgs, Headers, URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/map';
-//import { LocalNotifications } from 'ionic-native';
 import { DateUtils } from '../providers/date-utils';
 
 /*
@@ -28,10 +27,6 @@ export class Api {
     this.http.get(Api.fetchUrl + "?userid=" + username +"&password=" + password + "&baseid=" + baseId + "&lastsync=" + lastsync + "", {headers:headers})
     .subscribe(data => {
       callback(data.json());
-/*      LocalNotifications.schedule({
-        title: 'Pairing App',
-        text: data.json().trades_to_add[0].title
-      });*/
     }, error => {
       callback(error);
       console.log("request failed");
@@ -39,7 +34,11 @@ export class Api {
   }
 
   trades(filters) {
+    if(typeof(filters) == 'undefined') {
+      return;
+    }
     var current=this;
+    console.debug(filters);
     return new Promise(function(resolve, reject) {
       var updatedFilters=[];
       filters.forEach(function (filter, index) {
@@ -60,8 +59,6 @@ export class Api {
         //just to know when last response appears
         let responseCount:number = 0;
         let pairingCount:number = 0;
-        console.log('filters are ');
-        console.log(filters);
         for (let filter of filters) {
           //to return from background task scheduler in main.ts, so notifications can be dispatched, specifically to filter list
           var trade = {};
@@ -76,7 +73,6 @@ export class Api {
 
           current.http.post(Api.pairingFetchUrl, params, options)
           .subscribe(data => {
-            console.log(data);
             for (let pairing of data.json()['pairings']) {
               if(!Api.pairingItems.some(item => item.pairing_id === pairing['pairing_id'])) {
                 Api.pairingItems.push({ pairing_id: pairing['pairing_id'], data: pairing['report_date']})
@@ -85,7 +81,6 @@ export class Api {
               }
             }
             responseCount++;
-            console.log(pairingCount+" "+filters.length);
             if(responseCount == filters.length && pairingCount > 0) {
               current.showPairingNotification(pairingCount);
               resolve(trade);
@@ -121,11 +116,7 @@ export class Api {
   }
 
   showPairingNotification(pairingCount:number) {
-    console.log(pairingCount);
-/*    LocalNotifications.schedule({
-      title: 'Pairing App',
-      text: 'New Pairings Found'
-    });*/
+    return;
   }
 
   parseFilteringParameters(parameters: any, jsonOutput = true) : URLSearchParams {

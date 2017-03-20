@@ -166,7 +166,7 @@ export class AddFilterPage {
         }
         pairingsId.push(id);
       }
-      this.events.publish('filter:created', this.items, this.filterName, pairingsId, this.tradesData);
+      this.events.publish('filter:created', this.items, this.filterName, pairingsId, false);
       this.viewCtrl.dismiss(this.items);
     });
   }
@@ -188,7 +188,6 @@ export class AddFilterPage {
       this.potencialItems = [];
       this.actualItems = actualData['pairings'];
       this.api.fetch(this.username, this.password, (potencialData) => {
-        this.tradesData = potencialData['trades_to_add'];
         this.previewScheduled = false;
         for(var pairing in actualData['pairings']) {
           for(var trade in potencialData['trades_to_add']) {

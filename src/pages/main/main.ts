@@ -73,7 +73,7 @@ export class MainPage {
                     //loop filter.pairings, add trade if match
                     for(var pairingIndex in filter['pairings']) {
                         var pairing=filter['pairings'][pairingIndex];
-                        if(pairing == trade['pairing']) {
+                        if(pairing == trade['pairing'] && filterTrades.indexOf(trade) == -1) {
                             filterTrades.push(trade);
                         }
                     }

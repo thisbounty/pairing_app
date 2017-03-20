@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import { SecureStorage } from 'ionic-native';
 import 'rxjs/add/operator/map';
 import { Platform, AlertController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 /*
   Generated class for the SettingsStorage provider.
@@ -20,8 +21,9 @@ export class SettingsStorage {
   public static filteringItem:string = 'filters';
   public static airportItem:string = 'airport';
   private ready:boolean;
+  private storage:Storage;
 
-  constructor(platform:Platform, http: Http, alertCtrl: AlertController) {
+  constructor(platform:Platform, http: Http, alertCtrl: AlertController, storage:Storage) {
     platform.ready().then(() => {
       http.get("assets/json/airpoirts_min.json")
         .subscribe(data => {
@@ -45,6 +47,7 @@ export class SettingsStorage {
           console.log(error);
         }
       );
+      this.storage=storage;
       this.ready = true;
     });
   }
@@ -79,56 +82,19 @@ export class SettingsStorage {
   }
 
   saveFilters(filters:Array<{name: string, created: string, data: any, pairings: any, id: any, trades: any}>) {
-    var ids = [];
-    for(filterIndex in filters) {
-        var filter=filters[filterIndex];
-        var id=filter['id'];
-        //size limitation hit when filter, trade and pairings all lumped together, need multiple keys, and return in getFilters function
-        var pairings = filter['pairings'];
-        var trades = filter['trade'];
-        filter['pairings']=false;
-        filter['trade']=false;
-        splitFilterSave(filter,pairings,trades);
-    }
-    this.secureStorage.set(SettingsStorage['filterIds'], JSON.stringify(filter)).then(data => {
-       resolveIfCount(resolve, count, 3);
+    this.storage.ready().then(() => {
+        this.storage.set('filters', filters);
     });
   }
 
-    resolveIfCount(resolve, count, limit) {
-        if(count>=limit) {
-            resolve();
-        }
-    }
-
-  splitFilterSave(filter, pairings, trades) {
-    return new Promise(resolve, reject) {
-      var count=0;
-      //save filter
-      this.secureStorage.set(SettingsStorage['filter-'+id], JSON.stringify(filter)).then(data => {
-        resolveIfCount(resolve, count, 3);
-      });
-      //save pairing
-      this.secureStorage.set(SettingsStorage['pairings-'+id], JSON.stringify(pairings)).then(data => {
-        resolveIfCount(resolve, count, 3);
-      });
-      //save trade
-      this.secureStorage.set(SettingsStorage['trades-'+id], JSON.stringify(trades)).then(data => {
-        resolveIfCount(resolve, count, 3);
-      });
-    };
-  }
-
-  splitFilterGet()
-
   getFilters(callback:Function) {
-    this.secureStorage.get(SettingsStorage.filteringItem)
-    .then(
-      data => {
-        let filters = JSON.parse(data);
-        callback(filters);
-      },
-      error => console.log(error)
-    );
+    this.storage.ready().then(() => {
+        this.storage.get('filters').then((val) => {
+        if(typeof(val) === 'undefined' || val == null) {
+             val=[];
+        }
+        callback(val);
+        });
+    });
   }
 }

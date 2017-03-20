@@ -23,6 +23,8 @@ import { SetOperatesPage } from '../modals/settings-modals/set-operates/set-oper
 import { SettingsStorage } from '../providers/settings-storage';
 import { Api } from '../providers/api';
 import { BackgroundTask } from '../providers/background-task';
+//Normal Storage, non-secure
+import { Storage } from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,7 @@ import { BackgroundTask } from '../providers/background-task';
   SetOperatesPage
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -65,6 +67,6 @@ import { BackgroundTask } from '../providers/background-task';
   SetDatesPage,
   SetOperatesPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, SettingsStorage, Api, BackgroundTask]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, SettingsStorage, Api, BackgroundTask, Storage]
 })
 export class AppModule {}
