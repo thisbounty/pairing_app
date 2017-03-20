@@ -122,38 +122,6 @@ export class AddFilterPage {
     console.log(this.items);
   }
 
-  // submit() {
-  //   let loading = this.loadingCtrl.create({
-  //       content:'Retrieving results for this filter, please wait'
-  //   });
-  //   loading.present();
-  //   this.api.fetch(this.username, this.password, (data) => {
-  //       loading.dismiss();
-  //       var message='';
-  //       for(var trade in data['trades_to_add']) {
-  //            message=message+'<br>'+data['trades_to_add'][trade]['title'];
-  //       }
-  //       let confirm = this.alertCtrl.create({
-  //           title: 'Filter Results',
-  //           message: message,
-  //           buttons: [
-  //           {
-  //               text: 'Back',
-  //               handler: () => {
-  //                   return;
-  //               }
-  //           },
-  //           {
-  //               text: 'Save and Exit',
-  //               handler: () => {
-  //                   this.save();
-  //               }
-  //           }]
-  //       });
-  //       confirm.present();
-  //   });
-  // }
-
   save() {
     this.api.fetchSinglePairing(this.items, (response) => {
       var pairings = response['pairings'];
@@ -166,6 +134,11 @@ export class AddFilterPage {
         }
         pairingsId.push(id);
       }
+
+      if(this.items['filterName'] == '') {
+          this.items['filterName'] = 'New Filter';
+      }
+
       this.events.publish('filter:created', this.items, this.filterName, pairingsId, false);
       this.viewCtrl.dismiss(this.items);
     });

@@ -4,10 +4,12 @@ import { NavController, Platform } from 'ionic-angular';
 import { Api } from '../../providers/api';
 import { SettingsStorage } from '../../providers/settings-storage';
 import { BackgroundTask } from '../../providers/background-task';
-
 import { BackgroundMode } from 'ionic-native';
-
 import { Events } from 'ionic-angular';
+
+import { FilteringPage } from "../filtering/filtering";
+import { AddFilterPage } from "../addFilter/addFilter";
+
 /*
   Generated class for the Main page.
 
@@ -43,6 +45,14 @@ export class MainPage {
                this.tradeUpdate(current, filters, events);
         });
       }, 30000);
+      current.settingsStorage.getFilters((filters) => {
+        if(filters.length > 0) {
+          this.navCtrl.push(FilteringPage);
+        } else {
+          this.navCtrl.push(FilteringPage);
+          this.navCtrl.push(AddFilterPage);
+        }
+      });
     });
  }
 
