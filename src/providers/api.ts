@@ -34,22 +34,19 @@ export class Api {
   }
 
   trades(filters, user, pass) {
-    if(typeof(filters) == 'undefined') {
-      return;
-    }
     var current=this;
-    console.debug(filters);
     return new Promise(function(resolve, reject) {
       var updatedFilters=[];
-      filters.forEach(function (filter, index) {
+      for(var filterIndex in filters) {
+        var filter=filters[filterIndex];
         current.fetch(user, pass, function(resp) {
           filter['trades']=resp;
           updatedFilters.push(filter);
-          if(index == filters.length-1) {
+          if(parseInt(filterIndex) == filters.length-1) {
              resolve(updatedFilters);
           }
         });
-      });
+      }
     });
   }
 
@@ -85,7 +82,6 @@ export class Api {
               current.showPairingNotification(pairingCount);
               resolve(trade);
             }
-            console.log("succeess");
           }, error => {
             responseCount++;
             if(responseCount == filters.length && pairingCount > 0) {

@@ -119,7 +119,6 @@ export class AddFilterPage {
       this.filterChange();
     });
     setDates.present();
-    console.log(this.items);
   }
 
   save() {

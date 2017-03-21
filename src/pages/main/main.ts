@@ -41,10 +41,6 @@ export class MainPage {
       })
       BackgroundMode.enable();
       let current = this;
-      this.settingsStorage.getUser((username:string, password:string) => {
-        this.username=username;
-        this.password=password;
-      });
       this.backgroundTask.startBackgroundJob(() => {
         current.settingsStorage.getFilters(
             (filters:Array<{name: string, created: string, data: any, pairings: any, id: any, trades: any}>) => {
@@ -73,34 +69,36 @@ export class MainPage {
   }
 
   tradeUpdate(current, filters, events) {
-    var tradeApiCall = current.api.trades(current.username, current.password, filters)
-    if(current.username == '' || current.password == '' || typeof(tradeApiCall) == 'undefined') {
-       return;
-    }
-    tradeApiCall.then(function(updatedFilters){
-            for(var index in updatedFilters) {
-                var filter=updatedFilters[index];
-                var filterTrades=[];
-                //api response is just added to filter.trade in promise, for easy passback from providers/api
-                //trades are in api.response.trades_to_add
-                var trades = filter['trades']['trades_to_add'];
-                updatedFilters[index]['trades']=false;
-                for(var tradeIndex in trades) {
-                    var trade=trades[tradeIndex];
-                    if(typeof(trade['pairing']) === 'undefined') {
-                        continue;
-                    }
-                    //loop filter.pairings, add trade if match
-                    for(var pairingIndex in filter['pairings']) {
-                        var pairing=filter['pairings'][pairingIndex];
-                        if(pairing == trade['pairing'] && filterTrades.indexOf(trade) == -1) {
-                            filterTrades.push(trade);
-                        }
-                    }
-                    updatedFilters[index]['trades']=filterTrades;
-                } //end loop for api.trades
-            } // end loop for filters
-            events.publish('functionCall:apiPairings', updatedFilters);
-        });
+    this.settingsStorage.getUser((username:string, password:string) => {
+      if(current.username == '' || current.password == '' || filters.length < 1 ) {
+        return;
+      }
+      current.api.trades(filters,'', '', ).then(function(updatedFilters){
+              for(var index in updatedFilters) {
+                  var filter=updatedFilters[index];
+                  var filterTrades=[];
+                  //api response is just added to filter.trade in promise, for easy passback from providers/api
+                  //trades are in api.response.trades_to_add
+                  var trades = filter['trades']['trades_to_add'];
+                  updatedFilters[index]['trades']=false;
+                  for(var tradeIndex in trades) {
+                      var trade=trades[tradeIndex];
+                      if(typeof(trade['pairing']) === 'undefined') {
+                          continue;
+                      }
+                      //loop filter.pairings, add trade if match
+                      for(var pairingIndex in filter['pairings']) {
+                          var pairing=filter['pairings'][pairingIndex];
+                          if(pairing == trade['pairing'] && filterTrades.indexOf(trade) == -1) {
+                              filterTrades.push(trade);
+                          }
+                      }
+                      updatedFilters[index]['trades']=filterTrades;
+                  } //end loop for api.trades
+              } // end loop for filters
+              events.publish('functionCall:apiPairings', updatedFilters);
+          });
+
+    });
   }
 }

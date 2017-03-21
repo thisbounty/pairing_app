@@ -55,7 +55,7 @@ export class SetLoginDetailsPage {
       loading.dismiss();
       if(data) {
         this.settingsStorage.setUser(this.username, this.password, () => {
-          this.showAlert('Save successful!', 'Login details have been successfully saved')
+            this.dismiss();
         });
       }
       else {
