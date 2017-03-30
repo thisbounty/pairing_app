@@ -9,6 +9,7 @@ import { Events } from 'ionic-angular';
 
 import { FilteringPage } from "../filtering/filtering";
 import { AddFilterPage } from "../addFilter/addFilter";
+import { SettingsPage } from "../settings/settings";
 
 /*
   Generated class for the Main page.
@@ -27,8 +28,10 @@ export class MainPage {
   private backgroundTask:BackgroundTask;
   private username:String;
   private password:String;
+  private pollErrorCounter;
 
   constructor(platform:Platform, public navCtrl: NavController, api: Api, private settingsStrg: SettingsStorage, private backgroundTsk: BackgroundTask, public events: Events) {
+    this.pollErrorCounter=0;
     this.settingsStorage = settingsStrg;
     this.api = api;
     this.backgroundTask = backgroundTsk;
@@ -70,7 +73,18 @@ export class MainPage {
 
   tradeUpdate(current, filters, events) {
     this.settingsStorage.getUser((username:string, password:string) => {
-      if(current.username == '' || current.password == '' || filters.length < 1 ) {
+      if(current.username == '' || current.password == '') {
+        this.pollErrorCounter=this.pollErrorCounter+1;
+        console.log(this.pollErrorCounter);
+        if(this.pollErrorCounter>4) {
+          this.navCtrl.push(SettingsPage);
+        }
+        return;
+      }
+
+      this.pollErrorCounter=0;
+
+      if(filters.length < 1) {
         return;
       }
       current.api.trades(filters,'', '', ).then(function(updatedFilters){
@@ -101,4 +115,15 @@ export class MainPage {
 
     });
   }
+
+  navFiltering() {
+    console.log('navFilter');
+    this.navCtrl.push(FilteringPage);
+  }
+
+  navPassword() {
+    console.log('navPassword');
+    this.navCtrl.push(SettingsPage);
+  }
+
 }
