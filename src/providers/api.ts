@@ -21,10 +21,10 @@ export class Api {
   }
 
   //old method check if credentials are correct.It could not work anymore.
-  fetch(username:string, password:string, callback:Function, baseId: string = 'CLT', lastsync:number = 0) {
+  fetch(username:string, password:string, callback:Function, lastSync='', baseId: string = 'CLT', lastsync:number = 0) {
     var headers = new Headers();
     headers.append('Authorization', 'Basic '+btoa('AWE:cactus'));
-    this.http.get(Api.fetchUrl + "?userid=" + username +"&password=" + password + "&baseid=" + baseId + "&lastsync=" + lastsync + "", {headers:headers})
+    this.http.get(Api.fetchUrl + "?userid=" + username +"&password=" + password + "&baseid=" + baseId + "&lastsync=" + lastsync + lastSync, {headers:headers})
     .subscribe(data => {
       callback(data.json());
     }, error => {
@@ -33,7 +33,7 @@ export class Api {
     });
   }
 
-  trades(filters, user, pass) {
+  trades(filters, user, pass, lastSync) {
     var current=this;
     return new Promise(function(resolve, reject) {
       var updatedFilters=[];
@@ -45,7 +45,7 @@ export class Api {
           if(parseInt(filterIndex) == filters.length-1) {
              resolve(updatedFilters);
           }
-        });
+        }, lastSync);
       }
     });
   }

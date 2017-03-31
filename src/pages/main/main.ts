@@ -29,6 +29,7 @@ export class MainPage {
   private username:String;
   private password:String;
   private pollErrorCounter;
+  private lastSync;
 
   constructor(platform:Platform, public navCtrl: NavController, api: Api, private settingsStrg: SettingsStorage, private backgroundTsk: BackgroundTask, public events: Events) {
     this.pollErrorCounter=0;
@@ -87,7 +88,8 @@ export class MainPage {
       if(filters.length < 1) {
         return;
       }
-      current.api.trades(filters,'', '', ).then(function(updatedFilters){
+      current.api.trades(filters,'', '', this.lastSync).then(function(updatedFilters){
+              this.lastSync = + new Date();
               for(var index in updatedFilters) {
                   var filter=updatedFilters[index];
                   var filterTrades=[];
