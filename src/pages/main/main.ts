@@ -30,12 +30,25 @@ export class MainPage {
   private password:String;
   private pollErrorCounter;
   private lastSync;
+  private pollingStatus:boolean; //used for turning off polling from the outside, like adding a filter
+  private currentlyPolling:boolean;
+  private stopExistingPoll:boolean;
 
   constructor(platform:Platform, public navCtrl: NavController, api: Api, private settingsStrg: SettingsStorage, private backgroundTsk: BackgroundTask, public events: Events) {
     this.pollErrorCounter=0;
     this.settingsStorage = settingsStrg;
     this.api = api;
     this.backgroundTask = backgroundTsk;
+    this.pollingStatus = true;
+    this.stopExistingPoll = false;
+
+    this.events.subscribe('polling:status', (value) => {
+      console.log('Changing polling status to '+value);
+      this.pollingStatus=value;
+      //need override to stop existing poll. Poll could have started
+      console.log('Stopping any existing polling '+value);
+      this.stopExistingPoll= true;
+    });
 
     platform.ready().then(() => {
       //Enable backgroudn mode and start polling api every 5 minutes
@@ -46,11 +59,22 @@ export class MainPage {
       BackgroundMode.enable();
       let current = this;
       this.backgroundTask.startBackgroundJob(() => {
+        if(!this.pollingStatus) {
+          console.log('skip polling, first');
+          //skip, used to prevent race conditions, like when adding a filter
+          return;
+        }
+        if(this.currentlyPolling) {
+          console.log('skip polling, current poll running');
+          return;
+        }
+        // stop polling until this one is done, to prevent race conditions
+        this.currentlyPolling = true;
         current.settingsStorage.getFilters(
             (filters:Array<{name: string, created: string, data: any, pairings: any, id: any, trades: any}>) => {
                this.tradeUpdate(current, filters, events);
         });
-      }, 30000);
+      }, 60000);
       current.settingsStorage.getFilters((filters) => {
         if(filters.length > 0) {
           this.navCtrl.push(FilteringPage);
@@ -73,7 +97,7 @@ export class MainPage {
   }
 
   tradeUpdate(current, filters, events) {
-    this.settingsStorage.getUser((username:string, password:string) => {
+    /*this.settingsStorage.getUser((username:string, password:string) => {
       if(current.username == '' || current.password == '') {
         this.pollErrorCounter=this.pollErrorCounter+1;
         console.log(this.pollErrorCounter);
@@ -87,9 +111,10 @@ export class MainPage {
 
       if(filters.length < 1) {
         return;
-      }
-      current.api.trades(filters,'', '', this.lastSync).then(function(updatedFilters){
-              this.lastSync = + new Date();
+      }*/
+    console.log("Loaded filters, waiting response");
+      current.api.trades(filters,'', '', current.lastSync).then(function(updatedFilters){
+              current.lastSync = + new Date();
               for(var index in updatedFilters) {
                   var filter=updatedFilters[index];
                   var filterTrades=[];
@@ -112,10 +137,24 @@ export class MainPage {
                       updatedFilters[index]['trades']=filterTrades;
                   } //end loop for api.trades
               } // end loop for filters
+              //avoids race conditions, only one polling at a time
+              current.currentlyPolling = false;
+              console.log('Polling status is ');
+              console.log(current.pollingStatus);
+              if(!current.pollingStatus) {
+                console.log('skip polling second');
+                //check race condition here too. May be long wait for api in between poll start and request, long enough to create a new filter
+                return;
+              }
+              console.log('Stop existing polling is '+current.stopExistingPoll);
+              if(current.stopExistingPoll) {
+                 console.log('skip polling, stopExistingPoll');
+                 current.stopExistingPoll = false;
+                 return;
+              }
               events.publish('functionCall:apiPairings', updatedFilters);
           });
-
-    });
+  //  });
   }
 
   navFiltering() {

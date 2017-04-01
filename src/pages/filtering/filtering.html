@@ -21,10 +21,8 @@
 <ion-content>
     <div class="row" *ngFor="let filter of filters; let i = index">
       <div class="filterName">
-        <button ion-button clear (click)="buttonClicked(i)">{{ filter.name }}</button>
-      </div>
-      <div class="filterResults">
-        <button ng-bind-html="filter.pairings" (click)="showNotification(i)" ion-button round color="secondary" *ngIf="filter.trades">{{ filter.trades.length }}</button>
+        <button class="filter" ion-button clear (click)="buttonClicked(i)">{{ filter.name }}</button>
+        <button class="filterNotificationNew" ng-bind-html="filter.pairings" (click)="showNotification(i)" ion-button round color="secondary" *ngIf="filter.trades != false && filter.trades.length > 0">{{ filter.trades.length }}</button>
       </div>
     </div>
 </ion-content>

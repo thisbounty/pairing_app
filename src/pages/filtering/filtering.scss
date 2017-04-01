@@ -1,14 +1,18 @@
-.filterName button {
-  width:100%;
+.filterName {
+  text-align:center;
+}
+.filterName button.filter {
   background:none;
   border:none;
-  text-align:left;
+  text-align:center;
 }
-.filterResults button {
-  position: relative;
-  top: -44px;
-  right: 0px;
-  left: 75%;
+.filterName button.filterNotificationNew {
+    width: 20px;
+    position: absolute;
+    right: 20px;
+    clear: none;
+    display: inline;
+    float: right;
 }
 body .alert-md .alert-wrapper {
   max-width:100%;

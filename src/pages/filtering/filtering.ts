@@ -22,15 +22,18 @@ export class FilteringPage {
               public toastCtrl: ToastController, public events: Events, private settingsStorage: SettingsStorage,
               public actionSheetCtrl: ActionSheetController) {
     this.events.subscribe('filter:created', (data, filterName, pairingsData, tradesData) => {
+      console.log('created filter');
       let created = moment().format('YYYY-MM-DD hh:mm A');
-      this.filters.push({ name: filterName, created: created, data: data, pairings: pairingsData, id:(this.filters.length+1), trades:tradesData});
+      let newId = this.filters.length+1;
+      this.filters.push({ name: filterName, created: created, data: data, pairings: pairingsData, id:newId, trades:tradesData});
       this.filterAddedNotifiaction('New filter');
       this.settingsStorage.saveFilters(this.filters);
+      this.events.publish('polling:status', true);
     });
 
     this.events.subscribe('functionCall:apiPairings', (updatedFilters) => {
         this.filters=updatedFilters;
-        updatedFilters[0]['data']='';
+        this.settingsStorage.saveFilters(this.filters);
     });
 
     this.addFilterPage = AddFilterPage;

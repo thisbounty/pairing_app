@@ -122,6 +122,9 @@ export class AddFilterPage {
   }
 
   save() {
+    console.log('sending polling status as false');
+    this.events.publish('polling:status', false);
+
     this.api.fetchSinglePairing(this.items, (response) => {
       var pairings = response['pairings'];
       //normalize pairings
@@ -134,10 +137,10 @@ export class AddFilterPage {
         pairingsId.push(id);
       }
 
-      if(this.items['filterName'] == '') {
-          this.items['filterName'] = 'New Filter';
+      if(this.filterName == '' || this.filterName == null ) {
+          this.filterName = 'New Filter';
       }
-
+      console.log('save filter event publish');
       this.events.publish('filter:created', this.items, this.filterName, pairingsId, false);
       this.viewCtrl.dismiss(this.items);
     });
