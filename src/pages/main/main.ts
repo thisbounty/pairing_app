@@ -74,7 +74,7 @@ export class MainPage {
             (filters:Array<{name: string, created: string, data: any, pairings: any, id: any, trades: any}>) => {
                this.tradeUpdate(current, filters, events);
         });
-      }, 60000);
+      }, 300000);
       current.settingsStorage.getFilters((filters) => {
         if(filters.length > 0) {
           this.navCtrl.push(FilteringPage);
@@ -124,10 +124,44 @@ export class MainPage {
                   updatedFilters[index]['trades']=false;
                   for(var tradeIndex in trades) {
                       var trade=trades[tradeIndex];
-                      if(typeof(trade['pairing']) === 'undefined') {
+                      if(typeof(filter['data']['trip_type']) === 'undefined'){
+                        filter['data']['trip_type'] = '';
+                      }
+                      if(typeof(filter['data']['position']) === 'undefined'){
+                        filter['data']['position'] = '';
+                      }
+                      if(typeof(filter['data']['operates']['operates_from']) === 'undefined'){
+                        filter['data']['operates']['operates_from'] = '';
+                      }
+                      if(typeof(filter['data']['operates']['operates_to']) === 'undefined'){
+                        filter['data']['operates']['operates_to'] = '';
+                      }
+                      if(typeof(trade['trade']) === 'undefined' || trade['trade'] == null){
+                        trade['trade'] = '';
+                      }
+                      if(typeof(trade['pairing']) === 'undefined' || trade['pairing'] == null){
+                        trade['pairing'] = '';
+                      }
+                      if(typeof(trade['pos']) === 'undefined' || trade['pos'] == null){
+                        //magic number here. 'position' in filter is an array of LATAs to exclude
+                        trade['pos'] = 'Not Available';
+                      }
+                      if(typeof(trade['report']) === 'undefined' || trade['report'] == null){
+                        trade['report'] = '';
+                      }
+                      console.log(trade);
+                      if(typeof(trade['pairing']) === 'undefined' || trade['trade'].toString().toUpperCase() != filter['data']['trip_type'].toString().toUpperCase() ||  filter['data']['position'].indexOf(trade['pos'].toString().toUpperCase()) > -1 || Date.parse(trade['report']) < Date.parse(filter['data']['operates']['operates_from']) || Date.parse(trade['report']) > Date.parse(filter['data']['operates']['operates_to'] )) {
+                          console.log('Skipped trade:');
+                          console.log('pos: '+(trade['pos'].toString().toUpperCase() != filter['data']['position'].toString().toUpperCase()).toString());
+                          console.log('to: '+(Date.parse(trade['report']) > Date.parse(filter['data']['operates']['operates_to'])).toString());
+                          console.log('from: '+ (Date.parse(trade['report']) < Date.parse(filter['data']['operates']['operates_from'])).toString());
+                          console.log('trade: '+(trade['trade'].toString().toUpperCase() != filter['data']['trip_type'].toString().toUpperCase()).toString());
                           continue;
                       }
+                      console.log('-- Valid Trade --');
                       //loop filter.pairings, add trade if match
+                      // "trade", "pos", "report', and "pairing"
+                      //{"ron": null, "title": "Trade 7-10 days for later i year", "pairing": null, "days": null, "trade": "Trade", "credit": null, "trade_id": 601298, "base": "CLT", "pos": null, "report": "04/04/17"
                       for(var pairingIndex in filter['pairings']) {
                           var pairing=filter['pairings'][pairingIndex];
                           if(pairing == trade['pairing'] && filterTrades.indexOf(trade) == -1) {

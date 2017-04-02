@@ -68,7 +68,7 @@ export class AddFilterPage {
     flight: { flight_con: true, flight_dates: [], flight_dow: [], flight_num: '' },
     layover: { layover_con: 'yes1', layover_loc: '',  layover_dates: [], layover_dow: [], layover_max: '60:00', layover_min: '04:00', layover_range_checkbox: false},
     legsPerDuty: { dprow_max: 6, dprow_min: 1, dprow_type: 'any' },
-    operates: { operates_from: '2017-01-31', operates_from_hm: '00:00', operates_to: '2017-03-01', operates_to_hm: '23:59' },
+    operates: { operates_from: new Date().toISOString(), operates_from_hm: '00:00', operates_to: new Date().toISOString(), operates_to_hm: '23:59' },
     pairingCredit: { tcr_max: '35:00', tcr_min: '05:00' },
     position: ['LFA'],
     releaseBetween: { llr_max: '24:00', llr_min: '00:00' },

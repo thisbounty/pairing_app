@@ -86,9 +86,11 @@ export class FilteringPage {
           role: 'delete',
           icon: 'trash',
           handler: () => {
+            this.events.publish('polling:status', false);
             this.filterRemovedNotifiaction(this.filters[index].name);
             this.filters.splice(index, 1);
             this.settingsStorage.saveFilters(this.filters);
+            this.events.publish('polling:status', true);
           }
         }
       ]
