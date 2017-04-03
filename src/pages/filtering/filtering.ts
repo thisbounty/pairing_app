@@ -14,7 +14,7 @@ import * as moment from 'moment';
   templateUrl: 'filtering.html'
 })
 export class FilteringPage {
-  public filters:Array<{name: string, created: string, data: any, pairings: any, id: any, trades: any}> = [];
+  public filters:Array<{name: string, created: string, data: any, pairings: any, id: any, trades: any, lastSync:string}> = [];
 
   public addFilterPage:Component;
 
@@ -25,7 +25,7 @@ export class FilteringPage {
       console.log('created filter');
       let created = moment().format('YYYY-MM-DD hh:mm A');
       let newId = this.filters.length+1;
-      this.filters.push({ name: filterName, created: created, data: data, pairings: pairingsData, id:newId, trades:tradesData});
+      this.filters.push({ name: filterName, created: created, data: data, pairings: pairingsData, id:newId, trades:tradesData, lastSync:'0'});
       this.filterAddedNotifiaction('New filter');
       this.settingsStorage.saveFilters(this.filters);
       this.events.publish('polling:status', true);
@@ -33,12 +33,13 @@ export class FilteringPage {
 
     this.events.subscribe('functionCall:apiPairings', (updatedFilters) => {
         this.filters=updatedFilters;
+        console.log(this.filters);
         this.settingsStorage.saveFilters(this.filters);
     });
 
     this.addFilterPage = AddFilterPage;
 
-    this.settingsStorage.getFilters((filters:Array<{name: string, created: string, data: any, pairings: any, id: any, trades: any}>) => {
+    this.settingsStorage.getFilters((filters:Array<{name: string, created: string, data: any, pairings: any, id: any, trades: any, lastSync:string}>) => {
       this.filters = filters;
     })
   }

@@ -29,7 +29,6 @@ export class MainPage {
   private username:String;
   private password:String;
   private pollErrorCounter;
-  private lastSync;
   private pollingStatus:boolean; //used for turning off polling from the outside, like adding a filter
   private currentlyPolling:boolean;
   private stopExistingPoll:boolean;
@@ -71,7 +70,7 @@ export class MainPage {
         // stop polling until this one is done, to prevent race conditions
         this.currentlyPolling = true;
         current.settingsStorage.getFilters(
-            (filters:Array<{name: string, created: string, data: any, pairings: any, id: any, trades: any}>) => {
+            (filters:Array<{name: string, created: string, data: any, pairings: any, id: any, trades: any, lastSync:string}>) => {
                this.tradeUpdate(current, filters, events);
         });
       }, 30000);
@@ -91,13 +90,13 @@ export class MainPage {
   }
 
   refresh() {
-    this.settingsStorage.getFilters((filters:Array<{name: string, created: string, data: any}>) => {
+    this.settingsStorage.getFilters((filters:Array<{name: string, created: string, data: any, pairings: any, id: any, trades: any, lastSync:string}>) => {
       this.api.fetchPairing(filters);
     })
   }
 
   tradeUpdate(current, filters, events) {
-    /*this.settingsStorage.getUser((username:string, password:string) => {
+    this.settingsStorage.getUser((username:string, password:string) => {
       if(current.username == '' || current.password == '') {
         this.pollErrorCounter=this.pollErrorCounter+1;
         console.log(this.pollErrorCounter);
@@ -111,18 +110,18 @@ export class MainPage {
 
       if(filters.length < 1) {
         return;
-      }*/
+      }
     console.log("Loaded filters, waiting response");
     let validTrades=[];
     let skippedTrades=[];
-    current.api.trades(filters,'', '', current.lastSync).then(function(updatedFilters){
-              current.lastSync = + new Date();
+    current.api.trades(filters,'', '').then(function(updatedFilters){
               for(var index in updatedFilters) {
                   var filter=updatedFilters[index];
                   var filterTrades=[];
+                  updatedFilters[index]['trades']=filterTrades;
                   //api response is just added to filter.trade in promise, for easy passback from providers/api
                   //trades are in api.response.trades_to_add
-                  var trades = filter['trades']['trades_to_add'];
+                  var trades =updatedFilters[index]['trades_resp']['trades_to_add'];
                   updatedFilters[index]['trades']=false;
                   for(var tradeIndex in trades) {
                       var trade=trades[tradeIndex];
@@ -172,8 +171,8 @@ export class MainPage {
                               validTrades.push(trade);
                           }
                       }
-                      updatedFilters[index]['trades']=filterTrades;
                   } //end loop for api.trades
+                  updatedFilters[index]['trades']=filterTrades;
               } // end loop for filters
               //avoids race conditions, only one polling at a time
               current.currentlyPolling = false;
@@ -190,10 +189,6 @@ export class MainPage {
                  current.stopExistingPoll = false;
                  return;
               }
-              console.log('skipped trades');
-              console.log(skippedTrades);
-              console.log('valid trades');
-              console.log(validTrades);
               events.publish('functionCall:apiPairings', updatedFilters);
           });
   //  });

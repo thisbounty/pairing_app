@@ -32,17 +32,34 @@ export class Api {
       console.log("request failed");
     });
   }
-
-  trades(filters, user, pass, lastSync) {
+  fetchPromise(username:string, password:string, filterIndex, lastSync='0', baseId: string = 'CLT', ) {
     var current=this;
     return new Promise(function(resolve, reject) {
+      var headers = new Headers();
+      headers.append('Authorization', 'Basic '+btoa('AWE:cactus'));
+      current.http.get(Api.fetchUrl + "?userid=" + username +"&password=" + password + "&baseid=" + baseId + "&lastsync=" + lastSync, {headers:headers})
+      .subscribe(data => {
+        resolve({'resp':data.json(),'index': filterIndex});
+      }, error => {
+        reject(error);
+        console.log("request failed");
+      });
+    });
+  }
+
+  trades(filters, user, pass) {
+    var current=this;
+    var counter = 0;
+    return new Promise(function(resolve, reject) {
       for(var filterIndex in filters) {
-        current.fetch(user, pass, function(resp) {
-          filters[filterIndex]['trades']=resp;
-          if(parseInt(filterIndex) == filters.length - 1) {
-             resolve(filters);
+        current.fetchPromise(user, pass, filterIndex, filters[filterIndex]['lastSync'] ).then(function(vars) {
+          filters[vars['index']]['lastSync'] = + new Date();
+          filters[vars['index']]['trades_resp']=vars['resp'];
+          if(counter == filters.length -1) {
+            resolve(filters);
           }
-        }, lastSync);
+          counter += 1;
+        });
       }
     });
   }

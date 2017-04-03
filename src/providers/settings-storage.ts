@@ -81,7 +81,7 @@ export class SettingsStorage {
     );
   }
 
-  saveFilters(filters:Array<{name: string, created: string, data: any, pairings: any, id: any, trades: any}>) {
+  saveFilters(filters:Array<{name: string, created: string, data: any, pairings: any, id: any, trades: any, lastSync:string}>) {
     this.storage.ready().then(() => {
         this.storage.set('filters', filters);
     });
