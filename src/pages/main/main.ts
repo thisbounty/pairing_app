@@ -74,7 +74,7 @@ export class MainPage {
             (filters:Array<{name: string, created: string, data: any, pairings: any, id: any, trades: any}>) => {
                this.tradeUpdate(current, filters, events);
         });
-      }, 300000);
+      }, 30000);
       current.settingsStorage.getFilters((filters) => {
         if(filters.length > 0) {
           this.navCtrl.push(FilteringPage);
@@ -113,7 +113,9 @@ export class MainPage {
         return;
       }*/
     console.log("Loaded filters, waiting response");
-      current.api.trades(filters,'', '', current.lastSync).then(function(updatedFilters){
+    let validTrades=[];
+    let skippedTrades=[];
+    current.api.trades(filters,'', '', current.lastSync).then(function(updatedFilters){
               current.lastSync = + new Date();
               for(var index in updatedFilters) {
                   var filter=updatedFilters[index];
@@ -149,23 +151,25 @@ export class MainPage {
                       if(typeof(trade['report']) === 'undefined' || trade['report'] == null){
                         trade['report'] = '';
                       }
-                      console.log(trade);
+                      //console.log(trade);
                       if(typeof(trade['pairing']) === 'undefined' || trade['trade'].toString().toUpperCase() != filter['data']['trip_type'].toString().toUpperCase() ||  filter['data']['position'].indexOf(trade['pos'].toString().toUpperCase()) > -1 || Date.parse(trade['report']) < Date.parse(filter['data']['operates']['operates_from']) || Date.parse(trade['report']) > Date.parse(filter['data']['operates']['operates_to'] )) {
-                          console.log('Skipped trade:');
-                          console.log('pos: '+(trade['pos'].toString().toUpperCase() != filter['data']['position'].toString().toUpperCase()).toString());
-                          console.log('to: '+(Date.parse(trade['report']) > Date.parse(filter['data']['operates']['operates_to'])).toString());
-                          console.log('from: '+ (Date.parse(trade['report']) < Date.parse(filter['data']['operates']['operates_from'])).toString());
-                          console.log('trade: '+(trade['trade'].toString().toUpperCase() != filter['data']['trip_type'].toString().toUpperCase()).toString());
+                          //console.log('Skipped trade:');
+                          //console.log('pos: '+(trade['pos'].toString().toUpperCase() != filter['data']['position'].toString().toUpperCase()).toString());
+                          //console.log('to: '+(Date.parse(trade['report']) > Date.parse(filter['data']['operates']['operates_to'])).toString());
+                          //console.log('from: '+ (Date.parse(trade['report']) < Date.parse(filter['data']['operates']['operates_from'])).toString());
+                          //console.log('trade: '+(trade['trade'].toString().toUpperCase() != filter['data']['trip_type'].toString().toUpperCase()).toString());
+                          skippedTrades.push(trade);
                           continue;
                       }
-                      console.log('-- Valid Trade --');
                       //loop filter.pairings, add trade if match
                       // "trade", "pos", "report', and "pairing"
                       //{"ron": null, "title": "Trade 7-10 days for later i year", "pairing": null, "days": null, "trade": "Trade", "credit": null, "trade_id": 601298, "base": "CLT", "pos": null, "report": "04/04/17"
                       for(var pairingIndex in filter['pairings']) {
                           var pairing=filter['pairings'][pairingIndex];
                           if(pairing == trade['pairing'] && filterTrades.indexOf(trade) == -1) {
+                              console.log('-- Valid Trade --');
                               filterTrades.push(trade);
+                              validTrades.push(trade);
                           }
                       }
                       updatedFilters[index]['trades']=filterTrades;
@@ -173,19 +177,23 @@ export class MainPage {
               } // end loop for filters
               //avoids race conditions, only one polling at a time
               current.currentlyPolling = false;
-              console.log('Polling status is ');
-              console.log(current.pollingStatus);
+              //console.log('Polling status is ');
+              //console.log(current.pollingStatus);
               if(!current.pollingStatus) {
-                console.log('skip polling second');
+                //console.log('skip polling second');
                 //check race condition here too. May be long wait for api in between poll start and request, long enough to create a new filter
                 return;
               }
-              console.log('Stop existing polling is '+current.stopExistingPoll);
+              //console.log('Stop existing polling is '+current.stopExistingPoll);
               if(current.stopExistingPoll) {
-                 console.log('skip polling, stopExistingPoll');
+                 // console.log('skip polling, stopExistingPoll');
                  current.stopExistingPoll = false;
                  return;
               }
+              console.log('skipped trades');
+              console.log(skippedTrades);
+              console.log('valid trades');
+              console.log(validTrades);
               events.publish('functionCall:apiPairings', updatedFilters);
           });
   //  });
