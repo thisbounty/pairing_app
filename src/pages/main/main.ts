@@ -59,21 +59,15 @@ export class MainPage {
       let current = this;
       this.backgroundTask.startBackgroundJob(() => {
         if(!this.pollingStatus) {
-          console.log('skip polling, first');
+          console.log('skip polling, overrided, possibly by new filter creation');
           //skip, used to prevent race conditions, like when adding a filter
           return;
         }
-        if(this.currentlyPolling) {
-          console.log('skip polling, current poll running');
-          return;
-        }
-        // stop polling until this one is done, to prevent race conditions
-        this.currentlyPolling = true;
         current.settingsStorage.getFilters(
             (filters:Array<{name: string, created: string, data: any, pairings: any, id: any, trades: any, lastSync:string}>) => {
                this.tradeUpdate(current, filters, events);
         });
-      }, 30000);
+      }, 300000);
       current.settingsStorage.getFilters((filters) => {
         if(filters.length > 0) {
           this.navCtrl.push(FilteringPage);
@@ -99,7 +93,8 @@ export class MainPage {
     this.settingsStorage.getUser((username:string, password:string) => {
       if(current.username == '' || current.password == '') {
         this.pollErrorCounter=this.pollErrorCounter+1;
-        console.log(this.pollErrorCounter);
+        current.currentlyPolling = false;
+        console.log('polling error count '+this.pollErrorCounter);
         if(this.pollErrorCounter>4) {
           this.navCtrl.push(SettingsPage);
         }
@@ -109,8 +104,17 @@ export class MainPage {
       this.pollErrorCounter=0;
 
       if(filters.length < 1) {
+        current.currentlyPolling = false;
         return;
       }
+
+      if(this.currentlyPolling) {
+        console.log('skip polling, current poll running');
+        return;
+      }
+      // stop polling until this one is done, to prevent race conditions
+      this.currentlyPolling = true;
+
     console.log("Loaded filters, waiting response");
     let validTrades=[];
     let skippedTrades=[];
@@ -191,7 +195,7 @@ export class MainPage {
               }
               events.publish('functionCall:apiPairings', updatedFilters);
           });
-  //  });
+    });
   }
 
   navFiltering() {
